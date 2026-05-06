@@ -89,13 +89,13 @@ export function LandingNavbar() {
       <div 
         className={`mx-auto flex h-16 w-full max-w-7xl items-center justify-between rounded-full px-8 transition-all duration-500 ${
           scrolled 
-          ? "bg-[#1F2C30]/80 backdrop-blur-xl shadow-2xl border border-white/10" 
-          : "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+          ? "bg-[#1F2C30]/90 backdrop-blur-xl shadow-2xl border border-white/10" 
+          : "bg-black/20 backdrop-blur-md border border-white/20 shadow-lg"
         }`}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
-          <span className="text-xl font-bold tracking-[0.2em] text-white uppercase">TeleRoot</span>
+          {/* Logo text removed */}
         </Link>
 
         {/* Desktop Nav */}
@@ -109,7 +109,7 @@ export function LandingNavbar() {
             >
               {link.hasDropdown ? (
                 <button
-                  className="flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 transition-all hover:text-[#D4F84A] outline-none"
+                  className="flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white transition-all hover:text-[#D4F84A] outline-none"
                 >
                   {link.label}
                   <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
@@ -117,7 +117,7 @@ export function LandingNavbar() {
               ) : (
                 <Link
                   href={link.href}
-                  className="flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white/70 transition-all hover:text-[#D4F84A]"
+                  className="flex items-center gap-1 text-[13px] font-semibold uppercase tracking-widest text-white transition-all hover:text-[#D4F84A]"
                 >
                   {link.label}
                 </Link>
@@ -281,7 +281,7 @@ export function LandingNavbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link 
             href="/login" 
-            className="text-[13px] font-bold uppercase tracking-widest text-white/70 transition-all hover:text-white"
+            className="px-6 py-2 rounded-xl border-2 border-[#D4F84A] text-white hover:bg-[#D4F84A] hover:text-black transition-all text-[13px] font-bold uppercase tracking-widest flex items-center justify-center"
           >
             Login
           </Link>

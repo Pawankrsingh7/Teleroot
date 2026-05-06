@@ -31,7 +31,7 @@ export function PricingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="pricing-faq" className="bg-white py-24 border-t border-slate-100">
+    <section id="faq" className="bg-white py-24 border-t border-slate-100">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="grid gap-16 lg:grid-cols-12">
           
