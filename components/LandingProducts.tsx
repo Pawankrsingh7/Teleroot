@@ -15,7 +15,7 @@ const products = [
     title: "Intelligence Hub",
     description: "Full-spectrum network visibility with real-time topology mapping and performance telemetry.",
     icon: Globe,
-    color: "#D4F84A",
+    color: "#41bf63",
   },
   {
     title: "Automation Engine",

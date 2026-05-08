@@ -4,46 +4,57 @@ interface Kpi {
   title: string;
   value: string;
   icon: KpiIconName;
+  trend?: string;
+  trendType?: 'up' | 'down' | 'neutral';
   color?: string;
-  data: Array<{ value: number }>;
 }
 
 export const kpis: Kpi[] = [
   {
-    title: "Request Web Sites",
-    value: "23",
-    icon: "activity",
-    data: [{ value: 18 }, { value: 22 }, { value: 19 }, { value: 28 }, { value: 23 }]
-  },
-  {
-    title: "Request Media",
-    value: "17",
-    icon: "shieldAlert",
-    data: [{ value: 3 }, { value: 2 }, { value: 2 }, { value: 1 }, { value: 17 }]
-  },
-  {
-    title: "Devices",
-    value: "45",
-    icon: "network",
-    data: [{ value: 87 }, { value: 90 }, { value: 88 }, { value: 93 }, { value: 45 }]
-  },
-  {
-    title: "Device Alerts",
-    value: "27",
+    title: "Active Alerts",
+    value: "25",
     icon: "alertTriangle",
-    data: [{ value: 2.2 }, { value: 1.9 }, { value: 1.7 }, { value: 1.8 }, { value: 27 }]
+    trend: "12% vs last 24h",
+    trendType: "up",
+    color: "#41bf63"
+  },
+  {
+    title: "Critical Incidents",
+    value: "1",
+    icon: "shieldAlert",
+    trend: "No change",
+    trendType: "neutral"
+  },
+  {
+    title: "Network Health",
+    value: "92%",
+    icon: "network",
+    trend: "5% vs last 24h",
+    trendType: "up",
+    color: "#41bf63"
+  },
+  {
+    title: "MTTR",
+    value: "1.5 hr",
+    icon: "clock",
+    trend: "15% vs last 24h",
+    trendType: "down",
+    color: "#41bf63"
   },
   {
     title: "Fraud Alerts",
     value: "5",
     icon: "bot",
-    data: [{ value: 2 }, { value: 4 }, { value: 3 }, { value: 5 }, { value: 5 }]
+    trend: "8% vs last 24h",
+    trendType: "up",
+    color: "#41bf63"
   },
   {
     title: "Fiber Risk Nodes",
     value: "3",
     icon: "activity",
-    data: [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 2 }, { value: 3 }]
+    trend: "No change",
+    trendType: "neutral"
   }
 ];
 

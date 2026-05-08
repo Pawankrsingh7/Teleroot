@@ -31,14 +31,14 @@ export function PricingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-white py-24 border-t border-slate-100">
+    <section id="faq" className="bg-[#13161F] py-24 border-t border-white/5">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="grid gap-16 lg:grid-cols-12">
           
           {/* Left Column: Header */}
           <div className="lg:col-span-5 flex flex-col justify-start">
-            <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-blue-600">Support</h2>
-            <h3 className="mb-6 text-3xl font-bold text-[#1F2C30] sm:text-5xl tracking-tight leading-[1.1]">
+            <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#41bf63]">Support</h2>
+            <h3 className="mb-6 text-3xl font-bold text-white sm:text-5xl tracking-tight leading-[1.1]">
               Frequently <br /> Asked Questions
             </h3>
             <p className="text-base font-medium leading-relaxed text-slate-500 max-w-md">
@@ -48,19 +48,19 @@ export function PricingFAQ() {
 
           {/* Right Column: Accordion */}
           <div className="lg:col-span-7">
-            <div className="flex flex-col border-t border-slate-200">
+            <div className="flex flex-col border-t border-white/5">
               {pricingFaqs.map((faq, index) => {
                 const isOpen = openIndex === index;
                 return (
-                  <div key={index} className="border-b border-slate-200">
+                  <div key={index} className="border-b border-white/5">
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       className="flex w-full items-center justify-between py-6 text-left focus:outline-none group"
                     >
-                      <span className={`text-lg font-bold pr-8 transition-colors ${isOpen ? "text-blue-600" : "text-[#1F2C30] group-hover:text-slate-600"}`}>
+                      <span className={`text-lg font-bold pr-8 transition-colors ${isOpen ? "text-[#41bf63]" : "text-white group-hover:text-white"}`}>
                         {faq.question}
                       </span>
-                      <div className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${isOpen ? "border-blue-600 bg-blue-50 text-blue-600" : "border-slate-200 bg-white text-slate-400 group-hover:border-slate-300 group-hover:text-slate-600"}`}>
+                      <div className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${isOpen ? "border-[#41bf63]/30 bg-[#41bf63]/10 text-[#41bf63]" : "border-white/5 bg-[#13161F] text-slate-400 group-hover:border-white/10 group-hover:text-white"}`}>
                         {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                       </div>
                     </button>

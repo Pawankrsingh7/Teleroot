@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 
 const tiers = [
   {
@@ -64,6 +66,21 @@ const tiers = [
 
 export function LandingPricing() {
   const [billing, setBilling] = useState("monthly");
+  const router = useRouter();
+
+  const openPayment = (plan: string) => {
+    const token = typeof window !== "undefined" 
+      ? (localStorage.getItem("access_token") || localStorage.getItem("token") || localStorage.getItem("refresh_token"))
+      : null;
+    const targetUrl = `/pricing/payment?plan=${plan}&billing=${billing}`;
+    
+    if (!token) {
+      router.push(`/signup?redirect=${encodeURIComponent(targetUrl)}`);
+      return;
+    }
+    
+    router.push(targetUrl);
+  };
 
   return (
     <section id="pricing" className="bg-[#F8FAFC] py-24">
@@ -81,11 +98,11 @@ export function LandingPricing() {
 
         {/* Toggle */}
         <div className="mb-16 flex justify-center">
-          <div className="inline-flex rounded-full border border-[#D4F84A]/30 bg-white p-1 shadow-sm">
+          <div className="inline-flex rounded-full border border-[#41bf63]/30 bg-white p-1 shadow-sm">
             <button
               onClick={() => setBilling("monthly")}
               className={`rounded-full px-6 py-2.5 text-sm font-bold transition-colors ${
-                billing === "monthly" ? "bg-[#D4F84A] text-[#1F2C30]" : "text-slate-600 hover:text-slate-900"
+                billing === "monthly" ? "bg-[#41bf63] text-[#1F2C30]" : "text-slate-600 hover:text-slate-900"
               }`}
             >
               Monthly
@@ -93,7 +110,7 @@ export function LandingPricing() {
             <button
               onClick={() => setBilling("yearly")}
               className={`rounded-full px-6 py-2.5 text-sm font-bold transition-colors ${
-                billing === "yearly" ? "bg-[#D4F84A] text-[#1F2C30]" : "text-slate-600 hover:text-slate-900"
+                billing === "yearly" ? "bg-[#41bf63] text-[#1F2C30]" : "text-slate-600 hover:text-slate-900"
               }`}
             >
               Yearly
@@ -111,13 +128,13 @@ export function LandingPricing() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className={`flex flex-col overflow-hidden rounded-[32px] bg-white shadow-[0_10px_40px_rgba(0,0,0,0.04)] ${
-                tier.featured ? "scale-105 z-10 border border-[#D4F84A]" : "border border-slate-100 mt-4 md:mt-0"
+                tier.featured ? "scale-105 z-10 border border-[#41bf63]" : "border border-slate-100 mt-4 md:mt-0"
               }`}
             >
               {/* Top Section */}
               <div className={`relative px-8 pt-10 pb-8 ${tier.topBg} ${tier.textColor}`}>
                 {tier.badge && (
-                  <span className="absolute right-6 top-8 rotate-[15deg] rounded bg-[#D4F84A] px-2.5 py-1 text-[10px] font-black text-[#1F2C30] uppercase tracking-widest shadow-sm">
+                  <span className="absolute right-6 top-8 rotate-[15deg] rounded bg-[#41bf63] px-2.5 py-1 text-[10px] font-black text-[#1F2C30] uppercase tracking-widest shadow-sm">
                     {tier.badge}
                   </span>
                 )}
@@ -128,7 +145,10 @@ export function LandingPricing() {
                 <p className={`mb-8 text-[13px] font-medium ${tier.featured ? "text-slate-300" : "text-slate-500"}`}>
                   {tier.description}
                 </p>
-                <button className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-sm font-bold shadow-sm transition-all ${tier.buttonBg}`}>
+                <button 
+                  onClick={() => openPayment(tier.name.split(' ')[0].toLowerCase())}
+                  className={`flex w-full items-center justify-center gap-2 rounded-xl border py-3.5 text-sm font-bold shadow-sm transition-all ${tier.buttonBg}`}
+                >
                   Get Started
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#1F2C30] text-white">
                     <ArrowRight className="h-3 w-3" />

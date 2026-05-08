@@ -15,7 +15,9 @@ import {
   Cpu,
   User
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
 import { Input } from "@/components/ui/input";
 import { GoogleLoginModal } from "@/components/GoogleLoginModal";
 import { authApi } from "@/lib/api";
@@ -32,6 +34,9 @@ export default function SignupPage() {
   });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect");
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -54,7 +59,7 @@ export default function SignupPage() {
       });
       
       // Auto login after signup or redirect to login
-      window.location.href = "/login?registered=true";
+      window.location.href = `/login?registered=true${redirectPath ? `&redirect=${encodeURIComponent(redirectPath)}` : ""}`;
     } catch (err: any) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
@@ -68,6 +73,11 @@ export default function SignupPage() {
       return;
     }
     setLoadingProvider(provider);
+    
+    // Set demo tokens for testing purpose
+    localStorage.setItem("access_token", `demo_${provider}_token_${Math.random().toString(36).substring(7)}`);
+    localStorage.setItem("user_type", "root");
+    
     setTimeout(() => {
       window.location.href = "/dashboard";
     }, 1500);
@@ -76,6 +86,12 @@ export default function SignupPage() {
   const handleGoogleSelect = (email: string) => {
     setIsGoogleModalOpen(false);
     setLoadingProvider('google');
+    
+    // Set demo tokens for testing purpose
+    localStorage.setItem("access_token", `demo_google_token_${Math.random().toString(36).substring(7)}`);
+    localStorage.setItem("user_email", email);
+    localStorage.setItem("user_type", "root");
+
     setTimeout(() => {
       window.location.href = "/dashboard";
     }, 1500);
@@ -89,14 +105,14 @@ export default function SignupPage() {
         <div className="flex flex-col justify-center px-4 lg:px-8 xl:px-12 py-6">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 mb-8">
-            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#D4F84A] text-black">
+            <div className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#41bf63] text-black">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 19V5H14C16.2091 5 18 6.79086 18 9C18 11.2091 16.2091 13 14 13H7M7 13L18 19" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELEROOT</span>
-              <span className="text-[6px] font-bold text-[#D4F84A] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
+              <span className="text-[6px] font-bold text-[#41bf63] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
             </div>
           </Link>
 
@@ -193,7 +209,7 @@ export default function SignupPage() {
                   onChange={handleInputChange}
                   required
                   placeholder="John Doe"
-                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-sm"
+                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-sm"
                 />
               </div>
             </div>
@@ -209,7 +225,7 @@ export default function SignupPage() {
                   required
                   type="email"
                   placeholder="john@company.com"
-                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-sm"
+                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-sm"
                 />
               </div>
             </div>
@@ -224,7 +240,7 @@ export default function SignupPage() {
                   onChange={handleInputChange}
                   required
                   placeholder="TeleRoot Inc."
-                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-sm"
+                  className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-sm"
                 />
               </div>
             </div>
@@ -240,7 +256,7 @@ export default function SignupPage() {
                   required
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
-                  className="pl-11 pr-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-sm"
+                  className="pl-11 pr-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-sm"
                 />
                 <button 
                   type="button"
@@ -255,7 +271,7 @@ export default function SignupPage() {
             <button 
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 rounded-xl bg-[#D4F84A] text-black font-bold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2 transition-all hover:bg-[#bce628] disabled:opacity-50 group"
+              className="w-full h-11 rounded-xl bg-[#41bf63] text-black font-bold text-xs uppercase tracking-[0.15em] flex items-center justify-center gap-2 transition-all hover:bg-[#bce628] disabled:opacity-50 group"
             >
               {isLoading ? (
                 <div className="h-4 w-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -269,7 +285,7 @@ export default function SignupPage() {
           </form>
 
           <p className="mt-6 text-center text-xs text-slate-500">
-            Already have an account? <Link href="/login" className="font-bold text-[#D4F84A] hover:underline uppercase tracking-wider text-[10px]">Sign in</Link>
+            Already have an account? <Link href={`/login${redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : ""}`} className="font-bold text-[#41bf63] hover:underline uppercase tracking-wider text-[10px]">Sign in</Link>
           </p>
 
           <div className="mt-auto pt-6 flex flex-col items-center">
@@ -277,7 +293,7 @@ export default function SignupPage() {
                 <Lock className="h-2.5 w-2.5" />
                 <p className="text-[9px] leading-relaxed text-center">
                   By joining, you agree to Teleroot's<br />
-                  <Link href="#" className="text-[#D4F84A] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#D4F84A] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#D4F84A] hover:underline">Cookie Policy</Link>.
+                  <Link href="#" className="text-[#41bf63] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#41bf63] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#41bf63] hover:underline">Cookie Policy</Link>.
                 </p>
              </div>
           </div>
@@ -299,11 +315,11 @@ export default function SignupPage() {
           <div className="relative z-10">
             <h2 className="text-3xl lg:text-[40px] font-bold leading-tight mb-4">
               Join the <br />
-              <span className="text-[#D4F84A]">Future of Networking</span> <br />
+              <span className="text-[#41bf63]">Future of Networking</span> <br />
               with TeleRoot AI
             </h2>
             
-            <div className="h-0.5 w-10 bg-[#D4F84A] mb-6" />
+            <div className="h-0.5 w-10 bg-[#41bf63] mb-6" />
 
             <p className="text-slate-400 text-sm leading-relaxed mb-10 max-w-md">
               Unlock the power of unified network intelligence. Hardware, software, and AI working together to ensure your infrastructure never sleeps.
@@ -311,19 +327,19 @@ export default function SignupPage() {
 
             <div className="grid grid-cols-3 gap-0 border-t border-white/10 pt-8">
               <div className="flex flex-col items-center text-center px-2">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <Monitor className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">Full Visibility</span>
               </div>
               <div className="flex flex-col items-center text-center px-2 border-l border-white/10">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <Cpu className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">AI Insights</span>
               </div>
               <div className="flex flex-col items-center text-center px-2 border-l border-white/10">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">Zero Downtime</span>

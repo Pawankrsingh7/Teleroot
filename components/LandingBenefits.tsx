@@ -54,11 +54,11 @@ export function LandingBenefits() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex flex-col items-center text-center bg-white rounded-[24px] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-transparent hover:border-[#D4F84A] hover:ring-1 hover:ring-[#D4F84A] hover:-translate-y-2 transition-all duration-300"
+              className="flex flex-col items-center text-center bg-white rounded-[24px] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-transparent hover:border-[#41bf63] hover:ring-1 hover:ring-[#41bf63] hover:-translate-y-2 transition-all duration-300"
             >
               {/* Icon Container with subtle gradient/accent */}
               <div className="mb-8 relative flex items-center justify-center">
-                <div className="absolute inset-0 bg-[#D4F84A]/30 blur-xl rounded-full" />
+                <div className="absolute inset-0 bg-[#41bf63]/30 blur-xl rounded-full" />
                 <div className="relative z-10">
                   {benefit.icon}
                 </div>

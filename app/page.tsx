@@ -34,33 +34,33 @@ export default function LandingPage() {
         <LandingFAQ />
         
         {/* Final CTA Section */}
-        <section className="bg-white py-16">
+        <section className="bg-white py-12">
           <div className="container mx-auto px-6">
-            <div className="relative overflow-hidden rounded-[40px] bg-[#1F2C30] p-12 lg:p-20 shadow-2xl">
+            <div className="relative overflow-hidden rounded-[32px] bg-[#1F2C30] p-10 lg:p-12 shadow-2xl">
               {/* Decorative Glow */}
-              <div className="absolute inset-0 z-0 opacity-20">
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-[#D4F84A]/30 blur-[100px]" />
+              <div className="absolute inset-0 z-0 opacity-10">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-[#41bf63]/30 blur-[100px]" />
               </div>
 
-              <div className="relative z-10 flex flex-col items-center justify-between gap-12 lg:flex-row">
-                <div className="max-w-2xl text-left">
-                  <h2 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl uppercase">
-                    Take control of your <br className="hidden sm:block" /> network infrastructure.
+              <div className="relative z-10 flex flex-col items-center justify-between gap-8 lg:flex-row">
+                <div className="max-w-xl text-left">
+                  <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl uppercase leading-tight">
+                    Scale your network <br className="hidden sm:block" /> with intelligence.
                   </h2>
-                  <p className="text-lg text-slate-300">
-                    Join hundreds of engineers who use TeleRoot to manage global 
-                    telecom deployments with confidence.
+                  <p className="text-base text-slate-400">
+                    Experience a unified platform designed for next-gen 
+                    telecom orchestration and automated troubleshooting.
                   </p>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/dashboard" className="group flex h-16 items-center rounded-full bg-[#D4F84A] pl-8 pr-2 text-base font-bold text-black transition-all hover:bg-[#bce628]">
-                    <span className="mr-6">Get Started Free</span>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1F2C30] text-[#D4F84A] transition-transform group-hover:scale-105">
-                      <ArrowUpRight className="h-5 w-5" />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/dashboard" className="group flex h-14 items-center rounded-full bg-[#41bf63] pl-6 pr-1.5 text-sm font-bold text-black transition-all hover:bg-[#bce628]">
+                    <span className="mr-4">Get Started Free</span>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1F2C30] text-[#41bf63] transition-transform group-hover:scale-105">
+                      <ArrowUpRight className="h-4.5 w-4.5" />
                     </div>
                   </Link>
-                  <button className="h-16 rounded-full border border-white/10 bg-transparent px-10 text-base font-semibold text-white transition-all hover:bg-white/5">
+                  <button className="h-14 rounded-full border border-white/10 bg-transparent px-8 text-sm font-bold text-white transition-all hover:bg-white/5">
                     Book a Demo
                   </button>
                 </div>

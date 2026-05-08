@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 
 const menuItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard", badge: null },
+  { label: "Agent Management", icon: GitBranch, href: "/agent-management", badge: null },
   { label: "Alerts & Incidents", icon: Siren, href: "/alerts", badge: { count: 8, color: "bg-[#00ADEF]" } },
   { label: "Root Cause Analysis", icon: BrainCircuit, href: "/root-cause", badge: null },
   { label: "Network Topology", icon: Network, href: "/network-topology", badge: { count: 5, color: "bg-[#E84E4E]" }, hasDropdown: true },
@@ -33,7 +34,6 @@ const menuItems = [
   { label: "Fraud Detection", icon: ShieldAlert, href: "/fraud-detection", badge: null, hasDropdown: true },
   { label: "Optimization", icon: ChartNoAxesCombined, href: "/optimization", badge: null },
   { label: "AI Copilot", icon: Bot, href: "/ai-copilot", badge: null },
-  { label: "Agent Management", icon: GitBranch, href: "/agent-management", badge: null },
   { label: "Automation Playbooks", icon: Workflow, href: "/automation-playbooks", badge: null },
   { label: "Settings", icon: Settings, href: "/settings", badge: null },
   { label: "Reports", icon: BarChart3, href: "/reports", badge: null },
@@ -51,14 +51,14 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-30 hidden bg-[#1B2629] transition-all duration-300 lg:block border-r border-black/20 flex flex-col h-full",
+        "fixed inset-y-0 left-0 z-30 hidden bg-[#0B0D14] transition-all duration-300 lg:block border-r border-white/5 flex flex-col h-full",
         collapsed ? "w-20" : "w-72"
       )}
     >
       {/* Collapse Toggle */}
       <button
         aria-label={collapsed ? "Open sidebar" : "Close sidebar"}
-        className="absolute -right-3 top-12 z-40 flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-[#1B2629] text-white/50 shadow-md transition-all duration-200 hover:bg-[#3FC3D1] hover:text-white"
+        className="absolute -right-3 top-12 z-40 flex h-7 w-7 items-center justify-center rounded-full border border-white/5 bg-[#13161F] text-white/50 shadow-md transition-all duration-200 hover:text-white"
         onClick={() => setCollapsed((value) => !value)}
         type="button"
       >
@@ -68,11 +68,12 @@ export function Sidebar() {
       {/* Brand/Logo Area */}
       <div className={cn("flex h-20 items-center border-b border-white/5 shrink-0", collapsed ? "justify-center px-3" : "px-6")}>
         <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-          <span className="flex h-10 w-10 items-center justify-center rounded bg-white/10 text-[#3FC3D1]">
+          <span className="flex h-10 w-10 items-center justify-center rounded bg-white/5 text-[#41bf63]">
             <Activity className="h-6 w-6" />
           </span>
           <div className={collapsed ? "hidden" : "block"}>
-            <span className="block text-xl font-bold tracking-tight text-white uppercase">TeleRoot</span>
+            <span className="block text-lg font-bold tracking-tight text-white uppercase">TeleRoot</span>
+            <span className="block text-[8px] font-black text-slate-500 uppercase tracking-widest leading-none mt-0.5">Network Ops</span>
           </div>
         </Link>
       </div>
@@ -81,15 +82,7 @@ export function Sidebar() {
         className="sidebar-scrollbar overscroll-contain overflow-y-scroll"
         style={{ height: 'calc(100vh - 160px)' }}
       >
-        {/* Navigation Header */}
-        <p className={cn(
-          "px-6 py-4 text-[13px] font-medium text-white/30 uppercase tracking-widest border-b border-white/5",
-          collapsed && "sr-only"
-        )}>
-          Navigation
-        </p>
-
-        <div className="flex flex-col">
+        <div className="py-6 px-4 space-y-1">
           {menuItems.map((item) => {
             const isActive = pathname === item.href;
 
@@ -98,44 +91,35 @@ export function Sidebar() {
                 key={item.label}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center h-[56px] transition-all duration-200 border-b border-black/10 shrink-0 group",
+                  "relative flex items-center h-[48px] rounded-lg transition-all duration-200 group",
                   isActive 
-                    ? "bg-[#3FC3D1] text-white" 
-                    : "text-white/70 hover:bg-black/10 hover:text-white",
-                  collapsed ? "justify-center" : "px-6"
+                    ? "bg-[#41bf63]/10 text-[#41bf63] border border-[#41bf63]/20 shadow-[0_0_15px_rgba(65,191,99,0.1)]" 
+                    : "text-slate-500 hover:bg-white/5 hover:text-white",
+                  collapsed ? "justify-center" : "px-4"
                 )}
               >
                 {/* Icon */}
                 <item.icon className={cn(
-                  "h-5 w-5 shrink-0",
-                  isActive ? "text-white" : "text-white/40 group-hover:text-white"
+                  "h-5 w-5 shrink-0 transition-colors",
+                  isActive ? "text-[#41bf63]" : "group-hover:text-white"
                 )} />
 
                 {/* Label & Extras */}
                 {!collapsed && (
                   <div className="flex flex-1 items-center justify-between ml-4">
-                    <span className="text-[12px] font-bold uppercase tracking-wide">{item.label}</span>
+                    <span className="text-xs font-bold uppercase tracking-widest">{item.label}</span>
                     
                     <div className="flex items-center gap-2">
                       {item.badge && (
                         <span className={cn(
-                          "flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1 text-[10px] font-bold text-white",
+                          "flex h-[20px] min-w-[20px] items-center justify-center rounded-full px-1.5 text-[9px] font-bold text-white",
                           item.badge.color
                         )}>
                           {item.badge.count}
                         </span>
                       )}
-                      
-                      {item.hasDropdown && (
-                        <ChevronDown className="h-3 w-3 opacity-40" />
-                      )}
                     </div>
                   </div>
-                )}
-
-                {/* Active Indicator Triangle */}
-                {isActive && !collapsed && (
-                  <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-r-[8px] border-r-white" />
                 )}
               </Link>
             );
@@ -145,10 +129,13 @@ export function Sidebar() {
 
       {/* Footer / Environment info */}
       {!collapsed && (
-        <div className="shrink-0 p-6">
-          <div className="p-4 rounded bg-black/20 border border-white/5">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">Network Node</p>
-            <p className="mt-1 text-xs font-bold text-[#3FC3D1] uppercase">Production v2.4</p>
+        <div className="shrink-0 p-6 mt-auto">
+          <div className="p-4 rounded-xl bg-[#13161F] border border-white/5">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Environment</p>
+            <p className="mt-1 text-xs font-bold text-white uppercase flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#41bf63] animate-pulse" />
+              Production Network
+            </p>
           </div>
         </div>
       )}

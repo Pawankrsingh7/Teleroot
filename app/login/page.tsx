@@ -14,7 +14,9 @@ import {
   Monitor,
   Cpu
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import { Input } from "@/components/ui/input";
 import { GoogleLoginModal } from "@/components/GoogleLoginModal";
 import { authApi } from "@/lib/api";
@@ -30,6 +32,10 @@ export default function LoginPage() {
   });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirectPath = searchParams.get("redirect") || "/dashboard";
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,7 +59,7 @@ export default function LoginPage() {
       localStorage.setItem("access_token", response.access);
       localStorage.setItem("refresh_token", response.refresh);
       
-      window.location.href = "/dashboard";
+      window.location.href = redirectPath;
     } catch (err: any) {
       setError(err.message || "Invalid credentials. Please try again.");
     } finally {
@@ -67,6 +73,11 @@ export default function LoginPage() {
       return;
     }
     setLoadingProvider(provider);
+    
+    // Set demo tokens for testing purpose
+    localStorage.setItem("access_token", `demo_${provider}_token_${Math.random().toString(36).substring(7)}`);
+    localStorage.setItem("user_type", userType || "root");
+    
     setTimeout(() => {
       window.location.href = "/dashboard";
     }, 1500);
@@ -75,6 +86,12 @@ export default function LoginPage() {
   const handleGoogleSelect = (email: string) => {
     setIsGoogleModalOpen(false);
     setLoadingProvider('google');
+    
+    // Set demo tokens for testing purpose
+    localStorage.setItem("access_token", `demo_google_token_${Math.random().toString(36).substring(7)}`);
+    localStorage.setItem("user_email", email);
+    localStorage.setItem("user_type", userType || "root");
+
     setTimeout(() => {
       window.location.href = "/dashboard";
     }, 1500);
@@ -88,14 +105,14 @@ export default function LoginPage() {
         <div className="flex flex-col justify-center px-4 lg:px-6 xl:px-10 py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mb-5">
-            <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#D4F84A] text-black">
+            <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#41bf63] text-black">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 19V5H14C16.2091 5 18 6.79086 18 9C18 11.2091 16.2091 13 14 13H7M7 13L18 19" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELEROOT</span>
-              <span className="text-[6px] font-bold text-[#D4F84A] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
+              <span className="text-[6px] font-bold text-[#41bf63] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
             </div>
           </Link>
 
@@ -108,7 +125,7 @@ export default function LoginPage() {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">User type</span>
-              <span className="text-[10px] text-[#D4F84A] underline cursor-pointer">(not sure?)</span>
+              <span className="text-[10px] text-[#41bf63] underline cursor-pointer">(not sure?)</span>
             </div>
             <div className="space-y-1.5">
               <button
@@ -116,14 +133,14 @@ export default function LoginPage() {
                 onClick={() => setUserType("root")}
                 className={`w-full flex items-start gap-2.5 p-2.5 rounded-xl border text-left transition-all ${
                   userType === "root"
-                    ? "border-[#D4F84A] bg-[#D4F84A]/5"
+                    ? "border-[#41bf63] bg-[#41bf63]/5"
                     : "border-white/10 bg-white/5 hover:bg-white/8"
                 }`}
               >
                 <div className={`mt-0.5 h-3.5 w-3.5 shrink-0 rounded-full border-2 flex items-center justify-center transition-all ${
-                  userType === "root" ? "border-[#D4F84A]" : "border-white/30"
+                  userType === "root" ? "border-[#41bf63]" : "border-white/30"
                 }`}>
-                  {userType === "root" && <div className="h-1.5 w-1.5 rounded-full bg-[#D4F84A]" />}
+                  {userType === "root" && <div className="h-1.5 w-1.5 rounded-full bg-[#41bf63]" />}
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-white">Root user</p>
@@ -136,14 +153,14 @@ export default function LoginPage() {
                 onClick={() => setUserType("iam")}
                 className={`w-full flex items-start gap-2.5 p-2.5 rounded-xl border text-left transition-all ${
                   userType === "iam"
-                    ? "border-[#D4F84A] bg-[#D4F84A]/5"
+                    ? "border-[#41bf63] bg-[#41bf63]/5"
                     : "border-white/10 bg-white/5 hover:bg-white/8"
                 }`}
               >
                 <div className={`mt-0.5 h-3.5 w-3.5 shrink-0 rounded-full border-2 flex items-center justify-center transition-all ${
-                  userType === "iam" ? "border-[#D4F84A]" : "border-white/30"
+                  userType === "iam" ? "border-[#41bf63]" : "border-white/30"
                 }`}>
-                  {userType === "iam" && <div className="h-1.5 w-1.5 rounded-full bg-[#D4F84A]" />}
+                  {userType === "iam" && <div className="h-1.5 w-1.5 rounded-full bg-[#41bf63]" />}
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-white">IAM user</p>
@@ -219,7 +236,7 @@ export default function LoginPage() {
                       onChange={handleInputChange}
                       required
                       placeholder={userType === "root" ? "Enter your root email" : "Enter IAM username"}
-                      className="pl-10 h-9 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-xs" 
+                      className="pl-10 h-9 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-xs" 
                     />
                   </div>
                 </div>
@@ -234,7 +251,7 @@ export default function LoginPage() {
                       required
                       type={showPassword ? "text" : "password"} 
                       placeholder="Enter your password"
-                      className="pl-10 pr-10 h-9 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#D4F84A]/50 focus:ring-0 rounded-xl text-xs" 
+                      className="pl-10 pr-10 h-9 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-xs" 
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
@@ -244,19 +261,19 @@ export default function LoginPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 cursor-pointer group">
-                    <div className="relative flex h-4 w-4 items-center justify-center rounded border border-white/20 bg-white/5 transition-all group-hover:border-[#D4F84A]/50">
+                    <div className="relative flex h-4 w-4 items-center justify-center rounded border border-white/20 bg-white/5 transition-all group-hover:border-[#41bf63]/50">
                       <input type="checkbox" className="peer absolute opacity-0 cursor-pointer" />
-                      <div className="h-2 w-2 scale-0 rounded-[1px] bg-[#D4F84A] transition-transform peer-checked:scale-100" />
+                      <div className="h-2 w-2 scale-0 rounded-[1px] bg-[#41bf63] transition-transform peer-checked:scale-100" />
                     </div>
                     <span className="text-[11px] text-slate-400">Remember me</span>
                   </label>
-                  <Link href="#" className="text-[11px] font-bold text-[#D4F84A] hover:underline">Forgot password?</Link>
+                  <Link href="#" className="text-[11px] font-bold text-[#41bf63] hover:underline">Forgot password?</Link>
                 </div>
 
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-10 rounded-xl bg-[#D4F84A] text-black font-bold text-[10px] uppercase tracking-[0.15em] flex items-center justify-center gap-2 transition-all hover:bg-[#bce628] disabled:opacity-50 group"
+                  className="w-full h-10 rounded-xl bg-[#41bf63] text-black font-bold text-[10px] uppercase tracking-[0.15em] flex items-center justify-center gap-2 transition-all hover:bg-[#bce628] disabled:opacity-50 group"
                 >
                   {isLoading ? (
                     <div className="h-4 w-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -272,7 +289,7 @@ export default function LoginPage() {
           )}
 
           <p className="mt-5 text-center text-xs text-slate-500">
-            Don't have an account? <Link href="/signup" className="font-bold text-[#D4F84A] hover:underline uppercase tracking-wider text-[10px]">Sign up</Link>
+            Don't have an account? <Link href="/signup" className="font-bold text-[#41bf63] hover:underline uppercase tracking-wider text-[10px]">Sign up</Link>
           </p>
 
           <div className="mt-auto pt-4 flex flex-col items-center">
@@ -280,7 +297,7 @@ export default function LoginPage() {
                 <Lock className="h-2.5 w-2.5" />
                 <p className="text-[9px] leading-relaxed text-center">
                   By continuing, you agree to Teleroot's<br />
-                  <Link href="#" className="text-[#D4F84A] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#D4F84A] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#D4F84A] hover:underline">Cookie Policy</Link>.
+                  <Link href="#" className="text-[#41bf63] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#41bf63] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#41bf63] hover:underline">Cookie Policy</Link>.
                 </p>
              </div>
           </div>
@@ -302,11 +319,11 @@ export default function LoginPage() {
           <div className="relative z-10">
             <h2 className="text-3xl lg:text-[40px] font-bold leading-tight mb-4">
               Transforming <br />
-              <span className="text-[#D4F84A]">Telecom Networks</span> <br />
+              <span className="text-[#41bf63]">Telecom Networks</span> <br />
               into Intelligent Systems
             </h2>
             
-            <div className="h-0.5 w-10 bg-[#D4F84A] mb-6" />
+            <div className="h-0.5 w-10 bg-[#41bf63] mb-6" />
 
             <p className="text-slate-400 text-sm leading-relaxed mb-10 max-w-md">
               Teleroot unifies network intelligence — hardware, software, and AI — with real-time observability to speed up engineering and improve resiliency against outages in production infrastructure.
@@ -314,19 +331,19 @@ export default function LoginPage() {
 
             <div className="grid grid-cols-3 gap-0 border-t border-white/10 pt-8">
               <div className="flex flex-col items-center text-center px-2">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <Monitor className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">Real-time<br />Observability</span>
               </div>
               <div className="flex flex-col items-center text-center px-2 border-l border-white/10">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <Cpu className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">AI-Powered<br />Intelligence</span>
               </div>
               <div className="flex flex-col items-center text-center px-2 border-l border-white/10">
-                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4F84A] mb-3">
+                <div className="h-9 w-9 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#41bf63] mb-3">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-300 leading-tight">Resilient<br />Infrastructure</span>

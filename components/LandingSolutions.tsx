@@ -63,9 +63,9 @@ export function LandingSolutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-[32px] border border-white/5 bg-[#1F2C30] p-8 transition-all hover:border-[#D4F84A] hover:ring-1 hover:ring-[#D4F84A] hover:translate-y-[-4px] shadow-xl hover:shadow-[0_0_40px_rgba(212,248,74,0.15)]"
+              className="group relative overflow-hidden rounded-[32px] border border-white/5 bg-[#1F2C30] p-8 transition-all hover:border-[#41bf63] hover:ring-1 hover:ring-[#41bf63] hover:translate-y-[-4px] shadow-xl hover:shadow-[0_0_40px_rgba(65,191,99,0.15)]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-[#D4F84A] ring-1 ring-white/10 group-hover:bg-[#D4F84A] group-hover:text-black transition-all duration-300">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-[#41bf63] ring-1 ring-white/10 group-hover:bg-[#41bf63] group-hover:text-black transition-all duration-300">
                 {solution.icon}
               </div>
               <h4 className="mb-3 text-lg font-bold text-white uppercase tracking-tight italic">{solution.title}</h4>
@@ -74,7 +74,7 @@ export function LandingSolutions() {
               </p>
               
               {/* Subtle decorative element */}
-              <div className="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-[#D4F84A]/5 blur-2xl group-hover:bg-[#D4F84A]/10 transition-colors" />
+              <div className="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-[#41bf63]/5 blur-2xl group-hover:bg-[#41bf63]/10 transition-colors" />
             </motion.div>
           ))}
         </div>

@@ -70,7 +70,7 @@ export function LandingFAQ() {
                       <span className={`text-lg font-bold pr-8 transition-colors ${isOpen ? "text-[#85B100]" : "text-[#1F2C30] group-hover:text-slate-600"}`}>
                         {faq.question}
                       </span>
-                      <div className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${isOpen ? "border-[#85B100] bg-[#D4F84A]/10 text-[#85B100]" : "border-slate-200 bg-white text-slate-400 group-hover:border-slate-300 group-hover:text-slate-600"}`}>
+                      <div className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors ${isOpen ? "border-[#85B100] bg-[#41bf63]/10 text-[#85B100]" : "border-slate-200 bg-white text-slate-400 group-hover:border-slate-300 group-hover:text-slate-600"}`}>
                         {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                       </div>
                     </button>

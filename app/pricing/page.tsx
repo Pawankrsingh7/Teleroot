@@ -10,9 +10,9 @@ export const metadata = {
 
 export default function PricingPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 relative">
+    <div className="flex min-h-screen flex-col bg-[#0B0C10] relative">
       {/* Dark background block at the top so the white navbar text is visible before scrolling */}
-      <div className="absolute top-0 left-0 right-0 h-[100px] bg-[#1F2C30] z-0"></div>
+      <div className="absolute top-0 left-0 right-0 h-[100px] bg-[#0B0C10] z-0"></div>
       
       <LandingNavbar />
       

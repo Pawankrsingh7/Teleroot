@@ -37,10 +37,10 @@ const metrics = [
 ];
 
 const toneClasses = {
-  blue: "border-blue-200 bg-blue-50 text-blue-700",
-  green: "border-green-200 bg-green-50 text-green-700",
-  orange: "border-orange-200 bg-orange-50 text-orange-700",
-  red: "border-red-200 bg-red-50 text-red-700"
+  blue: "border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]",
+  green: "border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]",
+  orange: "border-orange-500/20 bg-orange-500/10 text-orange-400",
+  red: "border-red-500/20 bg-red-500/10 text-red-400"
 };
 
 const nodes = [
@@ -76,9 +76,9 @@ const links = [
 ] as const;
 
 const statusStyle = {
-  down: { bg: "bg-danger", fill: "#DC2626", line: "#DC2626", text: "text-danger" },
-  healthy: { bg: "bg-success", fill: "#16A34A", line: "#16A34A", text: "text-success" },
-  warning: { bg: "bg-warning", fill: "#D97706", line: "#D97706", text: "text-warning" }
+  down: { bg: "bg-red-500", fill: "#DC2626", line: "#DC2626", text: "text-red-400" },
+  healthy: { bg: "bg-[#41bf63]", fill: "#41bf63", line: "#41bf63", text: "text-[#41bf63]" },
+  warning: { bg: "bg-orange-400", fill: "#D97706", line: "#D97706", text: "text-orange-400" }
 };
 
 const devices = [
@@ -92,7 +92,7 @@ const devices = [
 function MiniButton({ children }: { children: React.ReactNode }) {
   return (
     <button
-      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 text-xs font-bold text-black transition hover:border-[#0B2B32] hover:bg-slate-50"
+      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 text-xs font-bold text-slate-200 transition hover:border-[#41bf63]/30 hover:bg-[#41bf63]/10 hover:text-white"
       type="button"
     >
       {children}
@@ -148,56 +148,56 @@ function TopologyWorkspace() {
   };
 
   return (
-    <div className="rounded-lg border border-border bg-white shadow-soft">
-      <div className="flex flex-col gap-3 border-b border-border p-4 lg:flex-row lg:items-center lg:justify-between">
+    <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+      <div className="flex flex-col gap-3 border-b border-white/5 p-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-lg font-bold text-black">Network Topology</h2>
-          <p className="text-sm font-semibold text-slate-700">Interactive map of network devices, links, and service paths.</p>
+          <h2 className="text-lg font-bold text-white">Network Topology</h2>
+          <p className="text-sm font-semibold text-slate-500">Interactive map of network devices, links, and service paths.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <MiniButton><RefreshCw className="h-3.5 w-3.5" /> Sync</MiniButton>
           <MiniButton><Activity className="h-3.5 w-3.5" /> Live</MiniButton>
           <MiniButton><Maximize2 className="h-3.5 w-3.5" /></MiniButton>
-          <button className="inline-flex h-8 items-center gap-1.5 rounded-md bg-[#0B2B32] px-3 text-xs font-bold text-white hover:bg-[#123f49]" type="button">
+          <button className="inline-flex h-8 items-center gap-1.5 rounded-md bg-[#41bf63] px-3 text-xs font-bold text-[#0B0C10] hover:bg-[#6ee7a0]" type="button">
             <Plus className="h-3.5 w-3.5" /> Add Widget
           </button>
         </div>
       </div>
 
-      <div className="border-b border-border p-3">
+      <div className="border-b border-white/5 p-3">
         <div className="flex flex-wrap gap-2">
           <div className="relative min-w-[220px]">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <input
-              className="h-9 w-full rounded-md border border-slate-300 bg-white pl-9 pr-3 text-sm font-semibold outline-none focus:border-[#0B2B32]"
+              className="h-9 w-full rounded-md border border-white/10 bg-white/5 pl-9 pr-3 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-[#41bf63]"
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Search node..."
               value={searchTerm}
             />
           </div>
           <select
-            className="h-9 rounded-md border border-slate-300 bg-white px-3 text-xs font-bold text-black outline-none focus:border-[#0B2B32]"
+            className="h-9 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-bold text-white outline-none focus:border-[#41bf63]"
             onChange={(event) => setDeviceFilter(event.target.value)}
             value={deviceFilter}
           >
             {["All", "Router", "Switch", "Server", "Firewall", "Wireless"].map((item) => <option key={item}>{item}</option>)}
           </select>
           <select
-            className="h-9 rounded-md border border-slate-300 bg-white px-3 text-xs font-bold text-black outline-none focus:border-[#0B2B32]"
+            className="h-9 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-bold text-white outline-none focus:border-[#41bf63]"
             onChange={(event) => setStatusFilter(event.target.value)}
             value={statusFilter}
           >
             {["All", "Healthy", "Warning", "Down"].map((item) => <option key={item}>{item}</option>)}
           </select>
           <select
-            className="h-9 rounded-md border border-slate-300 bg-white px-3 text-xs font-bold text-black outline-none focus:border-[#0B2B32]"
+            className="h-9 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-bold text-white outline-none focus:border-[#41bf63]"
             onChange={(event) => setLayerFilter(event.target.value)}
             value={layerFilter}
           >
             {["All", "WAN", "Edge", "Core", "Distribution", "Access"].map((item) => <option key={item}>{item}</option>)}
           </select>
           <button
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-slate-300 bg-white px-3 text-xs font-bold text-black transition hover:border-[#0B2B32] hover:bg-slate-50"
+            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-bold text-slate-200 transition hover:border-[#41bf63]/30 hover:bg-[#41bf63]/10 hover:text-white"
             onClick={clearFilters}
             type="button"
           >
@@ -207,48 +207,48 @@ function TopologyWorkspace() {
       </div>
 
       <div className="grid gap-4 p-4 xl:grid-cols-[160px_minmax(0,1fr)]">
-        <aside className="rounded-lg border border-border bg-slate-50 p-3">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Map Controls</p>
+        <aside className="rounded-lg border border-white/5 bg-white/5 p-3">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Map Controls</p>
           <div className="mt-3 space-y-1">
             <button
-              className={`flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold ${activeTool === "Select" ? "bg-[#0B2B32] text-white" : "text-slate-700 hover:bg-white"}`}
+              className={`flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold ${activeTool === "Select" ? "bg-[#41bf63] text-[#0B0C10]" : "text-slate-300 hover:bg-white/5 hover:text-white"}`}
               onClick={() => setActiveTool("Select")}
               type="button"
             >
               Select
             </button>
             <button
-              className={`flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold ${activeTool === "Pan" ? "bg-[#0B2B32] text-white" : "text-slate-700 hover:bg-white"}`}
+              className={`flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold ${activeTool === "Pan" ? "bg-[#41bf63] text-[#0B0C10]" : "text-slate-300 hover:bg-white/5 hover:text-white"}`}
               onClick={() => setActiveTool("Pan")}
               type="button"
             >
               Pan
             </button>
             <button
-              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-700 hover:bg-white"
+              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-300 hover:bg-white/5 hover:text-white"
               onClick={() => setZoom((value) => Math.min(1.3, value + 0.1))}
               type="button"
             >
               Zoom In
             </button>
             <button
-              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-700 hover:bg-white"
+              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-300 hover:bg-white/5 hover:text-white"
               onClick={() => setZoom((value) => Math.max(0.82, value - 0.1))}
               type="button"
             >
               Zoom Out
             </button>
             <button
-              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-700 hover:bg-white"
+              className="flex h-8 w-full items-center rounded-md px-2 text-left text-xs font-bold text-slate-300 hover:bg-white/5 hover:text-white"
               onClick={resetMap}
               type="button"
             >
               Fit to View
             </button>
           </div>
-          <div className="mt-4 border-t border-border pt-3">
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Layers</p>
-            <div className="mt-2 space-y-2 text-xs font-bold text-slate-700">
+          <div className="mt-4 border-t border-white/5 pt-3">
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Layers</p>
+            <div className="mt-2 space-y-2 text-xs font-bold text-slate-300">
               {[
                 ["Devices", showDevices, setShowDevices],
                 ["Links", showLinks, setShowLinks],
@@ -257,7 +257,7 @@ function TopologyWorkspace() {
                 <label className="flex items-center gap-2" key={label as string}>
                   <input
                     checked={checked as boolean}
-                    className="h-3.5 w-3.5 accent-[#0B2B32]"
+                    className="h-3.5 w-3.5 accent-[#41bf63]"
                     onChange={(event) => (setChecked as React.Dispatch<React.SetStateAction<boolean>>)(event.target.checked)}
                     type="checkbox"
                   />
@@ -266,27 +266,27 @@ function TopologyWorkspace() {
               ))}
             </div>
           </div>
-          <div className="mt-4 border-t border-border pt-3">
-            <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Legend</p>
-            <div className="mt-2 space-y-2 text-xs font-bold text-slate-700">
-              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-success" /> Up</p>
-              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-warning" /> Warning</p>
-              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-danger" /> Down</p>
+          <div className="mt-4 border-t border-white/5 pt-3">
+            <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Legend</p>
+            <div className="mt-2 space-y-2 text-xs font-bold text-slate-300">
+              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[#41bf63]" /> Up</p>
+              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-orange-400" /> Warning</p>
+              <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-red-500" /> Down</p>
             </div>
           </div>
         </aside>
 
-        <div className={`relative h-[620px] overflow-hidden rounded-lg border border-slate-300 bg-slate-50 ${activeTool === "Pan" ? "cursor-grab" : "cursor-default"}`}>
+        <div className={`relative h-[620px] overflow-hidden rounded-lg border border-white/5 bg-[#0B0C10] ${activeTool === "Pan" ? "cursor-grab" : "cursor-default"}`}>
           <svg className="absolute inset-0 h-full w-full" role="img" viewBox="0 0 100 100">
             <defs>
               <pattern height="4" id="networkGrid" patternUnits="userSpaceOnUse" width="4">
-                <path d="M 4 0 L 0 0 0 4" fill="none" stroke="#CBD5E1" strokeWidth="0.28" />
+                <path d="M 4 0 L 0 0 0 4" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="0.28" />
               </pattern>
               <pattern height="2" id="networkDots" patternUnits="userSpaceOnUse" width="2">
-                <circle cx="0.5" cy="0.5" fill="#94A3B8" opacity="0.35" r="0.12" />
+                <circle cx="0.5" cy="0.5" fill="#41bf63" opacity="0.35" r="0.12" />
               </pattern>
             </defs>
-            <rect fill="#F8FAFC" height="100" width="100" />
+            <rect fill="#0B0C10" height="100" width="100" />
             <rect fill="url(#networkGrid)" height="100" opacity="0.85" width="100" />
             <rect fill="url(#networkDots)" height="100" opacity="0.7" width="100" />
           </svg>
@@ -319,7 +319,7 @@ function TopologyWorkspace() {
                     <animate attributeName="cy" dur="3s" repeatCount="indefinite" values={`${from.y};${to.y}`} />
                   </circle>
                   {showLabels && (
-                    <text fill="#0F172A" fontSize="2.2" fontWeight="700" textAnchor="middle" x={(from.x + to.x) / 2} y={(from.y + to.y) / 2 - 1.4}>
+                    <text fill="#E2E8F0" fontSize="2.2" fontWeight="700" textAnchor="middle" x={(from.x + to.x) / 2} y={(from.y + to.y) / 2 - 1.4}>
                       {label}
                     </text>
                   )}
@@ -341,14 +341,14 @@ function TopologyWorkspace() {
               >
                 <div className="relative">
                   <span className={`topology-pulse absolute inset-0 rounded-full ${tone.bg}`} />
-                  <span className={`relative flex items-center justify-center rounded-full border-2 border-white bg-white shadow-md ${node.selected ? "h-14 w-14 ring-2 ring-[#0B2B32]/25" : "h-11 w-11"}`}>
+                  <span className={`relative flex items-center justify-center rounded-full border-2 border-white/20 bg-[#13161F] shadow-md ${node.selected ? "h-14 w-14 ring-2 ring-[#41bf63]/30" : "h-11 w-11"}`}>
                     <Icon className={`h-5 w-5 ${tone.text}`} />
                   </span>
                 </div>
                 {showLabels && (
-                  <div className="min-w-[74px] rounded-md border border-border bg-white px-2 py-1 text-center text-[10px] font-bold leading-tight text-black shadow-sm">
+                  <div className="min-w-[74px] rounded-md border border-white/10 bg-[#13161F]/95 px-2 py-1 text-center text-[10px] font-bold leading-tight text-white shadow-sm">
                     <p>{node.label}</p>
-                    <p className="text-[10px] font-semibold text-slate-600">{node.ip}</p>
+                    <p className="text-[10px] font-semibold text-slate-500">{node.ip}</p>
                   </div>
                 )}
               </div>
@@ -356,7 +356,7 @@ function TopologyWorkspace() {
           })}
           </div>
 
-          <div className="absolute bottom-3 left-3 rounded-md border border-border bg-white/95 px-3 py-2 text-[11px] font-bold text-slate-700 shadow-sm">
+          <div className="absolute bottom-3 left-3 rounded-md border border-white/10 bg-[#13161F]/95 px-3 py-2 text-[11px] font-bold text-slate-300 shadow-sm">
             {visibleNodes.length} devices / {visibleLinks.length} links | {Math.round(zoom * 100)}%
           </div>
 
@@ -369,21 +369,21 @@ function TopologyWorkspace() {
 export default function NetworkTopologyPage() {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0B0C10] text-white selection:bg-[#41bf63]/30">
       <Sidebar />
       <div className="app-shell lg:pl-72">
         <Navbar />
-        <main className="px-4 py-8 sm:px-6 lg:px-10 text-black bg-white">
+        <main className="px-4 py-8 sm:px-6 lg:px-10 bg-[#0B0C10] text-white">
 
-        <section className="mt-4 rounded-lg border border-border bg-white p-4 shadow-soft">
+        <section className="mt-4 rounded-lg border border-white/5 bg-[#13161F] p-4 shadow-xl">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#0B2B32]/20 bg-[#0B2B32]/10 text-[#0B2B32]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]">
                 <Network className="h-5 w-5" />
               </span>
               <div>
-                <h2 className="text-lg font-bold text-black">Network Operations Map</h2>
-                <p className="text-sm font-semibold text-slate-700">Live topology, device health, link utilization, and recent configuration changes.</p>
+                <h2 className="text-lg font-bold text-white">Network Operations Map</h2>
+                <p className="text-sm font-semibold text-slate-500">Live topology, device health, link utilization, and recent configuration changes.</p>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 sm:min-w-[360px]">
@@ -392,25 +392,25 @@ export default function NetworkTopologyPage() {
                 ["Collectors", "12/12"],
                 ["Last Sync", "10:30 AM"]
               ].map(([label, value]) => (
-                <div className="rounded-md border border-border bg-slate-50 px-3 py-2" key={label}>
+                <div className="rounded-md border border-white/5 bg-white/5 px-3 py-2" key={label}>
                   <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">{label}</p>
-                  <p className="mt-1 text-sm font-bold text-black">{value}</p>
+                  <p className="mt-1 text-sm font-bold text-white">{value}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mt-4 grid overflow-hidden rounded-lg border border-border bg-white shadow-soft sm:grid-cols-2 xl:grid-cols-7">
+        <section className="mt-4 grid overflow-hidden rounded-lg border border-white/5 bg-[#13161F] shadow-xl sm:grid-cols-2 xl:grid-cols-7">
           {metrics.map((metric) => {
             const Icon = metric.icon;
             return (
-              <div className="border-b border-border px-4 py-3 last:border-b-0 sm:border-r sm:last:border-r-0 xl:border-b-0" key={metric.label}>
+              <div className="border-b border-white/5 px-4 py-3 last:border-b-0 sm:border-r sm:last:border-r-0 xl:border-b-0" key={metric.label}>
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0">
                     <p className="truncate text-[10px] font-bold uppercase leading-tight tracking-wide text-slate-500">{metric.label}</p>
-                    <p className="mt-1 text-xl font-bold leading-none text-black">{metric.value}</p>
-                    <p className="mt-1 text-[11px] font-bold leading-tight text-slate-600">{metric.delta}</p>
+                    <p className="mt-1 text-xl font-bold leading-none text-white">{metric.value}</p>
+                    <p className="mt-1 text-[11px] font-bold leading-tight text-slate-500">{metric.delta}</p>
                   </div>
                   <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border ${toneClasses[metric.tone as keyof typeof toneClasses]}`}>
                     <Icon className="h-3.5 w-3.5" />
@@ -425,32 +425,32 @@ export default function NetworkTopologyPage() {
           <TopologyWorkspace />
 
           <aside className="space-y-4">
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">Topology Overview</h2>
-                <MoreHorizontal className="h-5 w-5 text-black" />
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/5 p-4">
+                <h2 className="text-base font-bold text-white">Topology Overview</h2>
+                <MoreHorizontal className="h-5 w-5 text-slate-400" />
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full border-[12px] border-blue-500 border-b-orange-400 border-l-green-500 text-center">
-                    <span className="text-lg font-bold text-black">1,248</span>
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full border-[12px] border-[#41bf63] border-b-orange-400 border-l-red-500 text-center">
+                    <span className="text-lg font-bold text-white">1,248</span>
                   </div>
-                  <div className="space-y-2 text-xs font-bold text-slate-700">
+                  <div className="space-y-2 text-xs font-bold text-slate-300">
                     {["Routers 156", "Switches 482", "Servers 320", "Firewalls 45", "APs 120"].map((item) => <p key={item}>{item}</p>)}
                   </div>
                 </div>
-                <button className="mt-4 text-sm font-bold text-blue-700" type="button">View Inventory</button>
+                <button className="mt-4 text-sm font-bold text-[#41bf63]" type="button">View Inventory</button>
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">Map Shortcuts</h2>
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="border-b border-white/5 p-4">
+                <h2 className="text-base font-bold text-white">Map Shortcuts</h2>
               </div>
               <div className="grid gap-2 p-4">
                 {["Add Device", "Add Link", "Import Topology", "Export Map"].map((action) => (
                   <button
-                    className="flex h-9 items-center justify-between rounded-md border border-slate-300 bg-white px-3 text-xs font-bold text-black hover:border-[#0B2B32] hover:bg-slate-50"
+                    className="flex h-9 items-center justify-between rounded-md border border-white/10 bg-white/5 px-3 text-xs font-bold text-slate-200 hover:border-[#41bf63]/30 hover:bg-[#41bf63]/10 hover:text-white"
                     key={action}
                     type="button"
                   >
@@ -461,22 +461,22 @@ export default function NetworkTopologyPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">System Status</h2>
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="border-b border-white/5 p-4">
+                <h2 className="text-base font-bold text-white">System Status</h2>
               </div>
               <div className="space-y-3 p-4">
                 {[
-                  ["Collectors", "12/12", "text-success"],
-                  ["Agents", "156/160", "text-success"],
-                  ["Last Update", "10:30:45 AM", "text-black"]
+                  ["Collectors", "12/12", "text-[#41bf63]"],
+                  ["Agents", "156/160", "text-[#41bf63]"],
+                  ["Last Update", "10:30:45 AM", "text-white"]
                 ].map(([label, value, color]) => (
                   <div className="flex items-center justify-between text-xs font-bold" key={label}>
-                    <span className="text-slate-600">{label}</span>
+                    <span className="text-slate-500">{label}</span>
                     <span className={color}>{value}</span>
                   </div>
                 ))}
-                <button className="h-9 w-full rounded-md bg-[#0B2B32] text-xs font-bold text-white hover:bg-[#123f49]" type="button">
+                <button className="h-9 w-full rounded-md bg-[#41bf63] text-xs font-bold text-[#0B0C10] hover:bg-[#6ee7a0]" type="button">
                   View All
                 </button>
               </div>
@@ -485,23 +485,23 @@ export default function NetworkTopologyPage() {
         </section>
 
         <section className="mt-4 grid gap-4 xl:grid-cols-2">
-          <div className="rounded-lg border border-border bg-white shadow-soft">
-            <div className="border-b border-border p-4">
-              <h2 className="text-base font-bold text-black">Link Utilization</h2>
+          <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+            <div className="border-b border-white/5 p-4">
+              <h2 className="text-base font-bold text-white">Link Utilization</h2>
             </div>
             <div className="grid gap-4 p-4 md:grid-cols-2">
               {[
                 ["Core-SW1 <-> Core-SW2", "78%", "bg-red-500"],
                 ["Edge-R1 <-> Core-SW1", "62%", "bg-yellow-500"],
-                ["Core-SW2 <-> Dist-SW3", "41%", "bg-green-500"],
-                ["Dist-SW1 <-> Access-SW1", "35%", "bg-green-500"]
+                ["Core-SW2 <-> Dist-SW3", "41%", "bg-[#41bf63]"],
+                ["Dist-SW1 <-> Access-SW1", "35%", "bg-[#41bf63]"]
               ].map(([name, value, color]) => (
-                <div className="rounded-md border border-border bg-slate-50 p-3" key={name}>
+                <div className="rounded-md border border-white/5 bg-white/5 p-3" key={name}>
                   <div className="flex justify-between text-xs font-bold">
-                    <span className="text-black">{name}</span>
-                    <span className="text-slate-700">{value}</span>
+                    <span className="text-white">{name}</span>
+                    <span className="text-slate-400">{value}</span>
                   </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
                     <span className={`block h-full ${color}`} style={{ width: value }} />
                   </div>
                 </div>
@@ -509,19 +509,19 @@ export default function NetworkTopologyPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-border bg-white shadow-soft">
-            <div className="border-b border-border p-4">
-              <h2 className="text-base font-bold text-black">Recent Changes</h2>
+          <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+            <div className="border-b border-white/5 p-4">
+              <h2 className="text-base font-bold text-white">Recent Changes</h2>
             </div>
             <div className="grid gap-3 p-4 md:grid-cols-3">
               {[
-                ["10:15 AM", "Edge-R2", "Interface Gi0/1 Up", "text-success"],
-                ["09:47 AM", "Dist-SW2", "Interface Ten0/2 Down", "text-danger"],
-                ["09:30 AM", "FW-01", "Config Updated", "text-blue-700"]
+                ["10:15 AM", "Edge-R2", "Interface Gi0/1 Up", "text-[#41bf63]"],
+                ["09:47 AM", "Dist-SW2", "Interface Ten0/2 Down", "text-red-400"],
+                ["09:30 AM", "FW-01", "Config Updated", "text-[#41bf63]"]
               ].map(([time, device, detail, color]) => (
-                <div className="rounded-md border border-border bg-slate-50 p-3" key={`${time}-${device}`}>
+                <div className="rounded-md border border-white/5 bg-white/5 p-3" key={`${time}-${device}`}>
                   <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">{time}</p>
-                  <p className="mt-1 text-sm font-bold text-black">{device}</p>
+                  <p className="mt-1 text-sm font-bold text-white">{device}</p>
                   <p className={`mt-1 text-xs font-semibold ${color}`}>{detail}</p>
                 </div>
               ))}
@@ -529,33 +529,33 @@ export default function NetworkTopologyPage() {
           </div>
         </section>
 
-        <section className="mt-4 rounded-lg border border-border bg-white shadow-soft">
-          <div className="flex items-center gap-2 border-b border-border p-3">
-            <span className="rounded-md bg-[#0B2B32] px-3 py-1 text-xs font-bold text-white">Device List</span>
-            <span className="rounded-md border border-border px-3 py-1 text-xs font-bold text-slate-700">Link List</span>
-            <span className="rounded-md border border-border px-3 py-1 text-xs font-bold text-slate-700">Alarms on Map (12)</span>
+        <section className="mt-4 rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+          <div className="flex items-center gap-2 border-b border-white/5 p-3">
+            <span className="rounded-md bg-[#41bf63] px-3 py-1 text-xs font-bold text-[#0B0C10]">Device List</span>
+            <span className="rounded-md border border-white/5 px-3 py-1 text-xs font-bold text-slate-300">Link List</span>
+            <span className="rounded-md border border-white/5 px-3 py-1 text-xs font-bold text-slate-300">Alarms on Map (12)</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] text-left text-xs">
-              <thead className="border-b border-border text-[11px] uppercase tracking-wide text-slate-700">
+              <thead className="border-b border-white/5 text-[11px] uppercase tracking-wide text-slate-400">
                 <tr>
                   {["", "Device Name", "IP Address", "Type", "Status", "Uptime", "CPU", "Memory", "Traffic", "Actions"].map((head) => (
                     <th className="px-3 py-2 font-bold" key={head}>{head}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-white/5">
                 {devices.map(([name, ip, type, status, uptime, cpu, memory, traffic]) => (
-                  <tr className="hover:bg-slate-50" key={name}>
+                  <tr className="hover:bg-white/[0.02]" key={name}>
                     <td className="px-3 py-2"><Eye className="h-4 w-4 text-slate-500" /></td>
-                    <td className="px-3 py-2 font-bold text-black">{name}</td>
-                    <td className="px-3 py-2 font-semibold text-black">{ip}</td>
-                    <td className="px-3 py-2 font-semibold text-slate-700">{type}</td>
-                    <td className={`px-3 py-2 font-bold ${status === "Down" ? "text-danger" : "text-success"}`}>{status}</td>
-                    <td className="px-3 py-2 font-semibold text-black">{uptime}</td>
-                    <td className="px-3 py-2 font-semibold text-black">{cpu}</td>
-                    <td className="px-3 py-2 font-semibold text-black">{memory}</td>
-                    <td className="px-3 py-2 font-semibold text-black">{traffic}</td>
+                    <td className="px-3 py-2 font-bold text-white">{name}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{ip}</td>
+                    <td className="px-3 py-2 font-semibold text-slate-400">{type}</td>
+                    <td className={`px-3 py-2 font-bold ${status === "Down" ? "text-red-400" : "text-[#41bf63]"}`}>{status}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{uptime}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{cpu}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{memory}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{traffic}</td>
                     <td className="px-3 py-2"><MoreHorizontal className="h-4 w-4 text-slate-500" /></td>
                   </tr>
                 ))}

@@ -14,9 +14,9 @@ export function LandingProblem() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="border-l border-[#D4F84A]/20 pl-6 md:pl-10"
+              className="border-l border-[#41bf63]/20 pl-6 md:pl-10"
             >
-              <span className="mb-3 block text-[9px] font-black uppercase tracking-[0.4em] text-[#D4F84A]">
+              <span className="mb-3 block text-[9px] font-black uppercase tracking-[0.4em] text-[#41bf63]">
                 The Problem
               </span>
               <h2 className="mb-6 text-3xl font-bold leading-[1.05] text-white md:text-4xl lg:text-5xl tracking-tight uppercase italic">
@@ -26,7 +26,7 @@ export function LandingProblem() {
               <div className="space-y-7">
                 <div className="group relative">
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#D4F84A] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#D4F84A] group-hover:text-black transition-all">
+                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#41bf63] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#41bf63] group-hover:text-black transition-all">
                       01
                     </div>
                     <div>
@@ -41,7 +41,7 @@ export function LandingProblem() {
 
                 <div className="group relative">
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#D4F84A] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#D4F84A] group-hover:text-black transition-all">
+                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#41bf63] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#41bf63] group-hover:text-black transition-all">
                       02
                     </div>
                     <div>
@@ -56,7 +56,7 @@ export function LandingProblem() {
 
                 <div className="group relative">
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#D4F84A] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#D4F84A] group-hover:text-black transition-all">
+                    <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#41bf63] text-[9px] font-bold ring-1 ring-white/10 group-hover:bg-[#41bf63] group-hover:text-black transition-all">
                       03
                     </div>
                     <div>

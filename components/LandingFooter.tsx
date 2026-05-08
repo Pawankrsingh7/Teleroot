@@ -59,13 +59,13 @@ export function LandingFooter() {
               Autonomous AI-powered network intelligence for modern telecommunications.
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#D4F84A] hover:text-black">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#41bf63] hover:text-black">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#D4F84A] hover:text-black">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#41bf63] hover:text-black">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#D4F84A] hover:text-black">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-slate-400 transition-colors hover:bg-[#41bf63] hover:text-black">
                 <Github className="h-5 w-5" />
               </a>
             </div>
@@ -74,7 +74,7 @@ export function LandingFooter() {
           {/* Nav Columns */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#D4F84A]">
+              <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#41bf63]">
                 {section.title}
               </h4>
               <ul className="space-y-2">

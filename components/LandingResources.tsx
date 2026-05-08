@@ -34,14 +34,14 @@ export function LandingResources() {
       <div className="container mx-auto px-6">
         <div className="mb-16 flex flex-col items-end justify-between gap-6 lg:flex-row">
           <div className="max-w-2xl text-left">
-            <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#D4F84A]">
+            <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#41bf63]">
               Knowledge Center
             </h2>
             <h3 className="text-4xl font-black tracking-tight text-white sm:text-5xl uppercase">
               Insights & <span className="text-slate-500">Resources</span>
             </h3>
           </div>
-          <button className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white transition-all hover:text-[#D4F84A]">
+          <button className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white transition-all hover:text-[#41bf63]">
             View all resources
             <ArrowUpRight className="h-4 w-4" />
           </button>
@@ -72,7 +72,7 @@ export function LandingResources() {
               </div>
 
               <div className="relative z-20 -mt-12 flex flex-1 flex-col p-8">
-                <h4 className="mb-4 text-xl font-bold text-white group-hover:text-[#D4F84A] transition-colors leading-tight">
+                <h4 className="mb-4 text-xl font-bold text-white group-hover:text-[#41bf63] transition-colors leading-tight">
                   {resource.title}
                 </h4>
                 <p className="mb-8 text-sm text-slate-400 leading-relaxed">

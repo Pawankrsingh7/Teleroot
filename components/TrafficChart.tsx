@@ -12,7 +12,7 @@ import {
 import { trafficMetrics } from "@/lib/mock-data";
 
 const legendItems = [
-  { label: "Network Traffic", color: "#D4F84A" },
+  { label: "Network Traffic", color: "#41bf63" },
   { label: "Inbound Traffic", color: "#00E5FF" },
   { label: "Outbound Traffic", color: "#B065E0" }
 ];
@@ -22,26 +22,26 @@ export function TrafficChart() {
     <div className="flex flex-col xl:flex-row gap-8">
       {/* Metrics Column - Updated for Dark Theme */}
       <div className="xl:w-64 space-y-4 shrink-0">
-        <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-md">
-          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Total Network</p>
+        <div className="rounded-[16px] border border-white/5 bg-[#1a1e29]/50 p-5 backdrop-blur-md">
+          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Total Network</p>
           <p className="mt-1 text-3xl font-black text-white tracking-tight">1.4 TB/s</p>
-          <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-[#D4F84A]">
+          <div className="mt-2 flex items-center gap-1 text-[10px] font-bold text-[#41bf63]">
             <span>↑ 12.4%</span>
-            <span className="text-slate-500 font-medium">vs last hr</span>
+            <span className="text-slate-600 font-medium lowercase">vs last hr</span>
           </div>
         </div>
-        <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-md">
-          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Inbound Peak</p>
+        <div className="rounded-[16px] border border-white/5 bg-[#1a1e29]/50 p-5 backdrop-blur-md">
+          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Inbound Peak</p>
           <p className="mt-1 text-2xl font-black text-[#00E5FF] tracking-tight">842 GB/s</p>
         </div>
-        <div className="rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-md">
-          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Outbound Peak</p>
+        <div className="rounded-[16px] border border-white/5 bg-[#1a1e29]/50 p-5 backdrop-blur-md">
+          <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Outbound Peak</p>
           <p className="mt-1 text-2xl font-black text-[#B065E0] tracking-tight">612 GB/s</p>
         </div>
       </div>
 
       {/* Chart Column */}
-      <div className="flex-1 rounded-[16px] border border-white/10 bg-[#0F171A]/80 p-6 backdrop-blur-md shadow-inner flex flex-col">
+      <div className="flex-1 rounded-[16px] border border-white/5 bg-[#0a0b0d]/50 p-6 backdrop-blur-md shadow-inner flex flex-col">
         <div className="mb-8 flex items-center justify-between">
           <p className="text-xs font-bold uppercase tracking-widest text-white">Traffic Trend (24h)</p>
           <div className="flex flex-wrap gap-4 lg:gap-6">
@@ -62,8 +62,8 @@ export function TrafficChart() {
             >
               <defs>
                 <linearGradient id="colorNetwork" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#D4F84A" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#D4F84A" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#41bf63" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#41bf63" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorInbound" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#00E5FF" stopOpacity={0.3} />
@@ -104,7 +104,7 @@ export function TrafficChart() {
               <Area 
                 type="monotone" 
                 dataKey="network" 
-                stroke="#D4F84A" 
+                stroke="#41bf63" 
                 strokeWidth={3}
                 fillOpacity={1} 
                 fill="url(#colorNetwork)" 

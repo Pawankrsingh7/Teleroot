@@ -25,31 +25,48 @@ import { Sidebar } from "@/components/Sidebar";
 import { Navbar } from "@/components/Navbar";
 
 const summaryMetrics = [
-  { label: "Current", value: "7", helper: "active RCA cases", icon: Network, tone: "blue", spark: "M0 28 L35 27 L70 27 L105 25 L140 26 L180 24" },
-  { label: "Today's", value: "16", helper: "clusters analyzed", icon: Bell, tone: "orange", spark: "M0 29 L35 29 L70 28 L105 29 L140 25 L180 24" },
-  { label: "Success Rate", value: "88%", helper: "auto diagnosis", icon: ShieldCheck, tone: "green", spark: "M0 30 L35 29 L70 29 L105 27 L140 25 L180 21" },
-  { label: "Avg Time", value: "5 min", helper: "to root cause", icon: Clock3, tone: "blue", spark: "M0 27 L35 28 L70 28 L105 26 L140 19 L180 21" },
-  { label: "Affected Services", value: "3", helper: "service impact", icon: Siren, tone: "red", spark: "M0 28 L35 27 L70 25 L105 22 L140 18 L180 16" }
+  { label: "Current", value: "7", helper: "active RCA cases", icon: Network },
+  { label: "Today's", value: "16", helper: "clusters analyzed", icon: Bell },
+  { label: "Success Rate", value: "88%", helper: "auto diagnosis", icon: ShieldCheck },
+  { label: "Avg Time", value: "5 min", helper: "to root cause", icon: Clock3 },
+  { label: "Affected Services", value: "3", helper: "service impact", icon: Siren }
 ];
 
-const toneClasses = {
-  blue: "border-blue-200 bg-blue-50 text-blue-700",
-  green: "border-green-200 bg-green-50 text-green-700",
-  orange: "border-orange-200 bg-orange-50 text-orange-700",
-  red: "border-red-200 bg-red-50 text-red-700"
-};
+function RcaKpiCard({ metric }: { metric: (typeof summaryMetrics)[number] }) {
+  const Icon = metric.icon;
+
+  return (
+    <div className="group relative flex items-center gap-3 overflow-hidden rounded-xl border border-white/8 bg-[#13161F] px-4 py-3 transition-all duration-200 hover:border-[#41bf63]/30 hover:bg-[#1a1e29]">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all group-hover:border-[#41bf63]/30">
+        <Icon className="h-[18px] w-[18px] text-[#41bf63]" />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="truncate text-[11px] font-semibold uppercase leading-none tracking-wider text-slate-400">
+          {metric.label}
+        </span>
+        <span className="text-2xl font-black leading-tight tracking-tight text-white">
+          {metric.value}
+        </span>
+        <span className="truncate text-[10px] font-bold leading-none text-slate-500">
+          {metric.helper}
+        </span>
+      </div>
+      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#41bf63] transition-all duration-300 group-hover:w-full" />
+    </div>
+  );
+}
 
 const impactedServices = [
-  ["Internet Gateway", "Degraded", "w-[82%]", "bg-green-500"],
+  ["Internet Gateway", "Degraded", "w-[82%]", "bg-[#41bf63]"],
   ["VoIP Service", "Unavailable", "w-[58%]", "bg-orange-400"],
   ["Internal IT Apps", "Disrupted", "w-[64%]", "bg-yellow-400"]
 ];
 
 const impactRows = [
-  ["Fiber Link A-B", "Degraded", "text-orange-700"],
-  ["Internet Gateway", "Service Down", "text-red-700"],
-  ["Switch S2", "Disrupted", "text-orange-700"],
-  ["VoIP Service", "Unavailable", "text-red-700"]
+  ["Fiber Link A-B", "Degraded", "text-orange-400"],
+  ["Internet Gateway", "Service Down", "text-red-400"],
+  ["Switch S2", "Disrupted", "text-orange-400"],
+  ["VoIP Service", "Unavailable", "text-red-400"]
 ];
 
 const activityRows = [
@@ -65,7 +82,7 @@ function SeverityPill({ severity }: { severity: string }) {
   return (
     <span
       className={`inline-flex rounded-md border px-2 py-0.5 text-[11px] font-bold ${
-        critical ? "border-red-300 bg-red-50 text-red-700" : "border-orange-300 bg-orange-50 text-orange-700"
+        critical ? "border-red-500/25 bg-red-500/10 text-red-400" : "border-orange-500/25 bg-orange-500/10 text-orange-400"
       }`}
     >
       {severity}
@@ -76,7 +93,7 @@ function SeverityPill({ severity }: { severity: string }) {
 function MiniButton({ children }: { children: React.ReactNode }) {
   return (
     <button
-      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 text-xs font-bold text-black transition hover:border-[#0B2B32] hover:bg-slate-50"
+      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 text-xs font-bold text-slate-200 transition hover:border-[#41bf63]/30 hover:bg-[#41bf63]/10 hover:text-white"
       type="button"
     >
       {children}
@@ -105,55 +122,55 @@ function RcaMap() {
   ];
 
   const styles = {
-    critical: { bg: "bg-danger", line: "#DC2626", fill: "#DC2626", text: "text-danger" },
-    healthy: { bg: "bg-success", line: "#16A34A", fill: "#16A34A", text: "text-success" },
-    warning: { bg: "bg-warning", line: "#D97706", fill: "#D97706", text: "text-warning" }
+    critical: { bg: "bg-red-500", line: "#DC2626", fill: "#DC2626", text: "text-danger" },
+    healthy: { bg: "bg-[#41bf63]", line: "#16A34A", fill: "#16A34A", text: "text-success" },
+    warning: { bg: "bg-orange-400", line: "#D97706", fill: "#D97706", text: "text-warning" }
   };
 
   return (
-    <div className="rounded-lg border border-border bg-white p-5 text-black shadow-soft">
+    <div className="rounded-lg border border-white/5 bg-[#13161F] p-5 text-white shadow-xl">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold text-black">Real-time RCA Topology</h2>
-          <p className="mt-1 text-sm font-semibold text-slate-700">Root cause path, impacted services, and alarm cluster flow</p>
+          <h2 className="text-lg font-bold text-white">Real-time RCA Topology</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-500">Root cause path, impacted services, and alarm cluster flow</p>
         </div>
-        <div className="rounded-md border border-success/30 bg-success/10 px-3 py-1 text-xs font-bold text-success">
+        <div className="rounded-md border border-[#41bf63]/30 bg-[#41bf63]/10 px-3 py-1 text-xs font-bold text-[#41bf63]">
           Live 12s
         </div>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        <div className="rounded-lg border border-border bg-white p-2">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Clusters</p>
-          <p className="mt-1 text-lg font-bold text-black">3</p>
+        <div className="rounded-lg border border-white/5 bg-white/5 p-2">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Clusters</p>
+          <p className="mt-1 text-lg font-bold text-white">3</p>
         </div>
-        <div className="rounded-lg border border-border bg-white p-2">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Root Confidence</p>
-          <p className="mt-1 text-lg font-bold text-danger">90%</p>
+        <div className="rounded-lg border border-white/5 bg-white/5 p-2">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Root Confidence</p>
+          <p className="mt-1 text-lg font-bold text-red-400">90%</p>
         </div>
-        <div className="rounded-lg border border-border bg-white p-2">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Impacted</p>
-          <p className="mt-1 text-lg font-bold text-black">3</p>
+        <div className="rounded-lg border border-white/5 bg-white/5 p-2">
+          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Impacted</p>
+          <p className="mt-1 text-lg font-bold text-white">3</p>
         </div>
       </div>
 
-      <div className="relative mt-4 h-[420px] isolate overflow-hidden rounded-lg border border-slate-300 bg-slate-50">
+      <div className="relative mt-4 h-[420px] isolate overflow-hidden rounded-lg border border-white/5 bg-[#0B0C10]">
         <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" role="img" viewBox="0 0 100 100">
           <defs>
             <pattern height="10" id="rootCauseGrid" patternUnits="userSpaceOnUse" width="10">
-              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#D8E0EA" strokeWidth="0.42" />
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="0.42" />
             </pattern>
             <pattern height="5" id="rootCauseDots" patternUnits="userSpaceOnUse" width="5">
-              <circle cx="1" cy="1" fill="#94A3B8" opacity="0.32" r="0.22" />
+              <circle cx="1" cy="1" fill="#41bf63" opacity="0.32" r="0.22" />
             </pattern>
             <radialGradient cx="50%" cy="48%" id="rootCauseWash" r="58%">
-              <stop offset="0%" stopColor="#E0F2FE" stopOpacity="0.65" />
-              <stop offset="48%" stopColor="#F8FAFC" stopOpacity="0.78" />
-              <stop offset="100%" stopColor="#EFF6FF" stopOpacity="0.95" />
+              <stop offset="0%" stopColor="#41bf63" stopOpacity="0.12" />
+              <stop offset="48%" stopColor="#13161F" stopOpacity="0.82" />
+              <stop offset="100%" stopColor="#0B0C10" stopOpacity="0.96" />
             </radialGradient>
             <linearGradient id="rootCausePanelShade" x1="0%" x2="100%" y1="0%" y2="100%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="#E2E8F0" stopOpacity="0.18" />
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.04" />
+              <stop offset="100%" stopColor="#41bf63" stopOpacity="0.06" />
             </linearGradient>
           </defs>
           <rect fill="url(#rootCauseWash)" height="100" width="100" />
@@ -181,7 +198,7 @@ function RcaMap() {
                   <animate attributeName="cy" dur={link.duration} repeatCount="indefinite" values={`${link.from.y};${link.to.y}`} />
                 </circle>
                 <text
-                  fill="#0F172A"
+                  fill="#E2E8F0"
                   fontSize="2.6"
                   fontWeight="700"
                   textAnchor="middle"
@@ -208,25 +225,25 @@ function RcaMap() {
               <div className="relative">
                 <span className={`topology-pulse absolute inset-0 rounded-full ${tone.bg}`} />
                 <span
-                  className={`relative flex items-center justify-center rounded-full border-2 border-white bg-white shadow-md ${
+                  className={`relative flex items-center justify-center rounded-full border-2 border-white/20 bg-[#13161F] shadow-md ${
                     node.central ? "h-14 w-14" : "h-11 w-11"
                   }`}
                 >
                   <NodeIcon className={`h-5 w-5 ${tone.text}`} />
                 </span>
               </div>
-              <div className="min-w-[86px] rounded-md border border-border bg-white px-2 py-1 text-center text-[11px] font-bold leading-tight text-black shadow-sm">
+              <div className="min-w-[86px] rounded-md border border-white/10 bg-[#13161F]/95 px-2 py-1 text-center text-[11px] font-bold leading-tight text-white shadow-sm">
                 <p>{node.label}</p>
-                <p className="text-[10px] font-semibold text-slate-600">{node.meta}</p>
+                <p className="text-[10px] font-semibold text-slate-500">{node.meta}</p>
               </div>
             </div>
           );
         })}
 
-        <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center gap-3 rounded-md border border-border bg-white/95 px-3 py-2 text-[11px] font-bold text-slate-700 shadow-sm">
-          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-success" /> Healthy</span>
-          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-warning" /> Warning</span>
-          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-danger" /> Critical</span>
+        <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center gap-3 rounded-md border border-white/10 bg-[#13161F]/95 px-3 py-2 text-[11px] font-bold text-slate-300 shadow-sm">
+          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#41bf63]" /> Healthy</span>
+          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-orange-400" /> Warning</span>
+          <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-red-500" /> Critical</span>
           <span className="ml-auto text-slate-500">Updated 12s ago</span>
         </div>
       </div>
@@ -236,102 +253,84 @@ function RcaMap() {
 
 export default function RootCausePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0B0C10] text-white selection:bg-[#41bf63]/30">
       <Sidebar />
       <div className="app-shell lg:pl-72">
         <Navbar />
-        <main className="px-4 py-8 sm:px-6 lg:px-10 text-black bg-white">
+        <main className="px-4 py-8 sm:px-6 lg:px-10 bg-[#0B0C10] text-white">
 
-        <section className="mt-4 rounded-lg border border-border bg-white p-4 shadow-soft">
+        <section className="mt-4 rounded-lg border border-white/5 bg-[#13161F] p-4 shadow-xl">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#0B2B32]/20 bg-[#0B2B32]/10 text-[#0B2B32]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]">
                 <BrainCircuit className="h-5 w-5" />
               </span>
               <div>
-                <h2 className="text-lg font-bold text-black">RCA Command View</h2>
-                <p className="text-sm font-semibold text-slate-700">Cluster #2005, automated diagnosis, and service impact.</p>
+                <h2 className="text-lg font-bold text-white">RCA Command View</h2>
+                <p className="text-sm font-semibold text-slate-500">Cluster #2005, automated diagnosis, and service impact.</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              <span className="rounded-md border border-red-200 bg-red-50 px-3 py-1 text-xs font-bold text-red-700">Critical</span>
-              <span className="rounded-md border border-green-200 bg-green-50 px-3 py-1 text-xs font-bold text-green-700">90% Confidence</span>
-              <span className="rounded-md border border-border bg-slate-50 px-3 py-1 text-xs font-bold text-slate-700">Updated 12s ago</span>
+              <span className="rounded-md border border-red-500/25 bg-red-500/10 px-3 py-1 text-xs font-bold text-red-400">Critical</span>
+              <span className="rounded-md border border-[#41bf63]/25 bg-[#41bf63]/10 px-3 py-1 text-xs font-bold text-[#41bf63]">90% Confidence</span>
+              <span className="rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-slate-300">Updated 12s ago</span>
             </div>
           </div>
         </section>
 
-        <section className="mt-4 grid overflow-hidden rounded-lg border border-border bg-white shadow-soft sm:grid-cols-2 xl:grid-cols-5">
-          {summaryMetrics.map((metric) => {
-            const Icon = metric.icon;
-
-            return (
-              <div className="border-b border-border p-4 last:border-b-0 sm:border-r sm:last:border-r-0 xl:border-b-0" key={metric.label}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{metric.label}</p>
-                    <p className="mt-1 text-2xl font-bold text-black">{metric.value}</p>
-                    <p className="mt-1 text-xs font-semibold text-slate-600">{metric.helper}</p>
-                  </div>
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md border ${toneClasses[metric.tone as keyof typeof toneClasses]}`}>
-                    <Icon className="h-4 w-4" />
-                  </span>
-                </div>
-                <svg className="mt-3 h-5 w-full" preserveAspectRatio="none" viewBox="0 0 180 34">
-                  <path d={metric.spark} fill="none" stroke="#0B2B32" strokeLinecap="round" strokeWidth="1.8" />
-                </svg>
-              </div>
-            );
-          })}
+        <section className="mt-4 grid gap-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+          {summaryMetrics.map((metric) => (
+            <RcaKpiCard key={metric.label} metric={metric} />
+          ))}
         </section>
 
         <section className="mt-4 grid gap-4 xl:grid-cols-3">
-          <div className="rounded-lg border border-border bg-white shadow-soft">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <h2 className="text-base font-bold text-black">Incident Details</h2>
-              <MoreHorizontal className="h-5 w-5 text-black" />
+          <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
+              <h2 className="text-base font-bold text-white">Incident Details</h2>
+              <MoreHorizontal className="h-5 w-5 text-slate-400" />
             </div>
             <div className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Cluster ID</p>
                   <div className="mt-1 flex items-center gap-2">
-                    <span className="text-xl font-bold text-black">#2005</span>
+                    <span className="text-xl font-bold text-white">#2005</span>
                     <SeverityPill severity="Critical" />
                   </div>
                 </div>
-                <span className="rounded-md border border-border bg-slate-50 px-2 py-1 text-xs font-bold text-slate-700">ID #1023</span>
+                <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs font-bold text-slate-300">ID #1023</span>
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
-                <div className="rounded-md border border-border bg-slate-50 p-3">
+                <div className="rounded-md border border-white/5 bg-white/5 p-3">
                   <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Dependency Chain</p>
-                  <p className="mt-1 text-sm font-bold text-black">Fiber Link A-B / Switch S2</p>
+                  <p className="mt-1 text-sm font-bold text-white">Fiber Link A-B / Switch S2</p>
                 </div>
-                <div className="rounded-md border border-red-200 bg-red-50 p-3">
-                  <p className="text-xs font-bold uppercase tracking-wide text-red-700">Failed Node</p>
-                  <p className="mt-1 text-sm font-bold text-black">Router R1</p>
+                <div className="rounded-md border border-red-500/20 bg-red-500/10 p-3">
+                  <p className="text-xs font-bold uppercase tracking-wide text-red-400">Failed Node</p>
+                  <p className="mt-1 text-sm font-bold text-white">Router R1</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="rounded-lg border border-border bg-white shadow-soft">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <h2 className="text-base font-bold text-black">Impact Analysis</h2>
-              <MoreHorizontal className="h-5 w-5 text-black" />
+          <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
+              <h2 className="text-base font-bold text-white">Impact Analysis</h2>
+              <MoreHorizontal className="h-5 w-5 text-slate-400" />
             </div>
             <div className="p-4">
-              <div className="flex items-center gap-3 rounded-md border border-orange-200 bg-orange-50 p-3">
-                <Zap className="h-5 w-5 text-orange-700" />
+              <div className="flex items-center gap-3 rounded-md border border-orange-500/20 bg-orange-500/10 p-3">
+                <Zap className="h-5 w-5 text-orange-400" />
                 <div>
-                  <p className="text-sm font-bold text-black">Route dependency degraded</p>
-                  <p className="text-xs font-semibold text-orange-700">4 downstream objects affected</p>
+                  <p className="text-sm font-bold text-white">Route dependency degraded</p>
+                  <p className="text-xs font-semibold text-orange-400">4 downstream objects affected</p>
                 </div>
               </div>
               <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
                 {impactRows.map(([name, status, color]) => (
-                  <div className="rounded-md border border-border bg-slate-50 px-3 py-2" key={name}>
-                    <p className="text-xs font-bold text-black">{name}</p>
+                  <div className="rounded-md border border-white/5 bg-white/5 px-3 py-2" key={name}>
+                    <p className="text-xs font-bold text-white">{name}</p>
                     <p className={`mt-0.5 text-[11px] font-bold ${color}`}>{status}</p>
                   </div>
                 ))}
@@ -339,28 +338,28 @@ export default function RootCausePage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-border bg-white shadow-soft">
-            <div className="border-b border-border px-4 py-3">
-              <h2 className="text-base font-bold text-black">Suggested Action</h2>
+          <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+            <div className="border-b border-white/5 px-4 py-3">
+              <h2 className="text-base font-bold text-white">Suggested Action</h2>
             </div>
             <div className="p-4">
-              <div className="rounded-md border border-blue-200 bg-blue-50 p-3">
+              <div className="rounded-md border border-[#41bf63]/20 bg-[#41bf63]/10 p-3">
                 <div className="flex items-start gap-3">
-                  <Sparkles className="mt-0.5 h-5 w-5 text-blue-700" />
+                  <Sparkles className="mt-0.5 h-5 w-5 text-[#41bf63]" />
                   <div>
-                    <p className="text-sm font-bold text-black">Restart Router R1</p>
-                    <p className="text-xs font-semibold text-blue-700">Confidence: 90%</p>
+                    <p className="text-sm font-bold text-white">Restart Router R1</p>
+                    <p className="text-xs font-semibold text-[#41bf63]">Confidence: 90%</p>
                   </div>
                 </div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 {["Fiber Link A-B", "Switch S2"].map((node) => (
-                  <span className="rounded-md border border-border bg-slate-50 px-2 py-2 text-xs font-bold text-black" key={node}>
+                  <span className="rounded-md border border-white/5 bg-white/5 px-2 py-2 text-xs font-bold text-white" key={node}>
                     {node}
                   </span>
                 ))}
               </div>
-              <button className="mt-3 h-10 w-full rounded-lg bg-[#0B2B32] text-sm font-bold text-white hover:bg-[#123f49]" type="button">
+              <button className="mt-3 h-10 w-full rounded-lg bg-[#41bf63] text-sm font-bold text-[#0B0C10] hover:bg-[#6ee7a0]" type="button">
                 Execute Action
               </button>
             </div>
@@ -373,9 +372,9 @@ export default function RootCausePage() {
           </div>
 
           <aside className="space-y-4">
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border px-4 py-3">
-                <h2 className="text-sm font-bold uppercase tracking-wide text-black">RCA Timeline</h2>
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="border-b border-white/5 px-4 py-3">
+                <h2 className="text-sm font-bold uppercase tracking-wide text-white">RCA Timeline</h2>
               </div>
               <div className="space-y-4 p-4">
                 {[
@@ -384,31 +383,31 @@ export default function RootCausePage() {
                   ["Dependency path traced to Node R1", "7 min ago"]
                 ].map(([title, time], index) => (
                   <div className="relative flex gap-3" key={title}>
-                    {index < 2 && <span className="absolute left-3 top-7 h-full border-l border-dashed border-slate-300" />}
-                    <span className="relative z-10 mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#0B2B32] text-white">
+                    {index < 2 && <span className="absolute left-3 top-7 h-full border-l border-dashed border-white/10" />}
+                    <span className="relative z-10 mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#41bf63] text-[#0B0C10]">
                       <Play className="h-3 w-3" />
                     </span>
                     <div>
-                      <p className="text-sm font-bold text-black">{title}</p>
-                      <p className="text-xs font-semibold text-slate-600">{time}</p>
+                      <p className="text-sm font-bold text-white">{title}</p>
+                      <p className="text-xs font-semibold text-slate-500">{time}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border px-4 py-3">
-                <h2 className="text-sm font-bold uppercase tracking-wide text-black">Impacted Services</h2>
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="border-b border-white/5 px-4 py-3">
+                <h2 className="text-sm font-bold uppercase tracking-wide text-white">Impacted Services</h2>
               </div>
               <div className="space-y-2 p-4">
                 {impactedServices.map(([service, status, width, color]) => (
-                  <div className="rounded-md border border-border bg-white p-2" key={service}>
+                  <div className="rounded-md border border-white/5 bg-white/5 p-2" key={service}>
                     <div className="flex items-center justify-between text-xs font-bold">
-                      <span className="text-black">{service}</span>
-                      <span className="text-slate-600">{status}</span>
+                      <span className="text-white">{service}</span>
+                      <span className="text-slate-500">{status}</span>
                     </div>
-                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
                       <span className={`block h-full rounded-full ${width} ${color}`} />
                     </div>
                   </div>
@@ -418,11 +417,11 @@ export default function RootCausePage() {
           </aside>
         </section>
 
-        <section className="mt-4 rounded-lg border border-border bg-white shadow-soft">
-          <div className="flex flex-col gap-3 border-b border-border p-3 sm:flex-row sm:items-center sm:justify-between">
+        <section className="mt-4 rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+          <div className="flex flex-col gap-3 border-b border-white/5 p-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex gap-2">
-              <span className="rounded-md bg-[#0B2B32] px-3 py-1 text-xs font-bold text-white">RCA Activity</span>
-              <span className="rounded-md border border-border px-3 py-1 text-xs font-bold text-slate-700">Model Output</span>
+              <span className="rounded-md bg-[#41bf63] px-3 py-1 text-xs font-bold text-[#0B0C10]">RCA Activity</span>
+              <span className="rounded-md border border-white/10 px-3 py-1 text-xs font-bold text-slate-300">Model Output</span>
             </div>
             <div className="flex gap-2">
               <MiniButton><Filter className="h-3.5 w-3.5" /> Filter</MiniButton>
@@ -431,22 +430,22 @@ export default function RootCausePage() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-left text-xs">
-              <thead className="border-b border-border text-[11px] uppercase tracking-wide text-slate-700">
+              <thead className="border-b border-white/5 text-[11px] uppercase tracking-wide text-slate-400">
                 <tr>
                   {["ID", "Severity", "Incident", "Issue", "Assigned Team", "Status"].map((head) => (
                     <th className="px-3 py-2 font-bold" key={head}>{head}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-white/5">
                 {activityRows.map(([id, severity, incident, issue, team, status]) => (
-                  <tr className="hover:bg-slate-50" key={`${id}-${issue}`}>
-                    <td className="px-3 py-2 font-bold text-black">{id}</td>
+                  <tr className="hover:bg-white/[0.02]" key={`${id}-${issue}`}>
+                    <td className="px-3 py-2 font-bold text-white">{id}</td>
                     <td className="px-3 py-2"><SeverityPill severity={severity} /></td>
-                    <td className="px-3 py-2 font-semibold text-black">{incident}</td>
-                    <td className="px-3 py-2 font-semibold text-slate-700">{issue}</td>
-                    <td className="px-3 py-2 font-bold text-black">{team}</td>
-                    <td className="px-3 py-2 font-bold text-orange-700">{status}</td>
+                    <td className="px-3 py-2 font-semibold text-white">{incident}</td>
+                    <td className="px-3 py-2 font-semibold text-slate-400">{issue}</td>
+                    <td className="px-3 py-2 font-bold text-white">{team}</td>
+                    <td className="px-3 py-2 font-bold text-orange-400">{status}</td>
                   </tr>
                 ))}
               </tbody>

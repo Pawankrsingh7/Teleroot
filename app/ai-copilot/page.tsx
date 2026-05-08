@@ -1,393 +1,293 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import {
   Activity,
-  Bell,
-  Bot,
   ChevronDown,
-  ClipboardList,
-  Gauge,
-  MessageSquare,
-  Mic,
-  MoreHorizontal,
-  Network,
-  Play,
-  Search,
+  Filter,
   Send,
-  Settings,
-  ShieldCheck,
   Sparkles,
   TriangleAlert,
-  Zap
+  PlusCircle,
+  User,
+  CheckCircle2,
+  Clock,
+  Copy,
+  ThumbsUp,
+  ThumbsDown
 } from "lucide-react";
 import { Sidebar } from "@/components/Sidebar";
 import { Navbar } from "@/components/Navbar";
 
-const metrics = [
-  { label: "Open Alerts", value: "21", delta: "+1.8%", icon: Bell, tone: "blue", spark: "M0 30 L45 29 L90 27 L135 25 L180 24" },
-  { label: "Incident Cluster", value: "#1023", delta: "Router R1", icon: Network, tone: "orange", spark: "M0 29 L45 29 L90 29 L135 28 L180 26" },
-  { label: "Automation Success", value: "87%", delta: "67 rules in 24h", icon: ShieldCheck, tone: "green", spark: "M0 30 L45 28 L90 29 L135 26 L180 23" },
-  { label: "Predicted Failures", value: "1", delta: "next 24h", icon: TriangleAlert, tone: "orange", spark: "M0 31 L45 30 L90 27 L135 25 L180 26" }
-];
+type Severity = "High" | "Medium" | "Low";
 
-const toneClasses = {
-  blue: "border-blue-200 bg-blue-50 text-blue-700",
-  green: "border-green-200 bg-green-50 text-green-700",
-  orange: "border-orange-200 bg-orange-50 text-orange-700",
-  red: "border-red-200 bg-red-50 text-red-700"
+type AlertService = {
+  name: string;
+  issue: string;
+  expanded?: boolean;
+  solution?: {
+    steps: string[];
+    status: "Resolved" | "In Progress";
+  };
 };
 
-const quickActions = [
-  "Restart service with high CPU usage",
-  "Explain cluster #1023",
-  "Predict fiber link failures",
-  "Create a new automation rule"
-];
-
-type ChatMessage = {
-  role: "copilot" | "user";
-  text: string;
-  time: string;
+type AlertGroup = {
+  severity: Severity;
+  count: number;
+  services: AlertService[];
 };
 
-function MiniButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
-  return (
-    <button
-      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 text-xs font-bold text-black transition hover:border-[#0B2B32] hover:bg-slate-50"
-      onClick={onClick}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-}
-
-function TrafficMiniChart({ tick }: { tick: number }) {
-  const values = [20, 28, 34, 31, 29, 36, 45, 58, 53, 62, 88];
-
-  return (
-    <div className="mt-4 h-40 rounded-lg border border-border bg-slate-50 p-3">
-      <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 60">
-        <defs>
-          <linearGradient id="copilotTraffic" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#F97316" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#F97316" stopOpacity="0.04" />
-          </linearGradient>
-        </defs>
-        <path d="M0 45 C12 35 16 38 25 34 S44 37 52 29 S72 20 82 21 S90 8 100 12 L100 60 L0 60 Z" fill="url(#copilotTraffic)" />
-        <path d="M0 45 C12 35 16 38 25 34 S44 37 52 29 S72 20 82 21 S90 8 100 12" fill="none" stroke="#F97316" strokeLinecap="round" strokeWidth="2" />
-        <circle cx={(tick * 9) % 100} cy={60 - (values[tick % values.length] / 100) * 48} fill="#F97316" r="2" />
-      </svg>
-    </div>
-  );
-}
-
-function getCopilotReply(prompt: string) {
-  const text = prompt.toLowerCase();
-
-  if (text.includes("bandwidth") || text.includes("traffic")) {
-    return "Current aggregate bandwidth is 652K suspicious-flow events and 30.7 Gbps routed traffic. Router R1 remains the highest contributor.";
+const alertsData: AlertGroup[] = [
+  {
+    severity: "High",
+    count: 2,
+    services: [
+      {
+        name: "Core Switch R1",
+        issue: "Loss of Signal on Port 4",
+        expanded: true,
+        solution: {
+          steps: [
+            "Detected physical link failure on Port 4.",
+            "Rerouted traffic via Backup Router R2.",
+            "Triggered dispatch for transceiver replacement.",
+            "Verifying latency stability across new paths."
+          ],
+          status: "Resolved"
+        }
+      },
+      {
+        name: "Firewall Cluster Alpha",
+        issue: "Suspicious Traffic Spike",
+        expanded: true,
+        solution: {
+          steps: [
+            "Identified anomalous DDoS patterns.",
+            "Enabled aggressive rate-limiting rules.",
+            "Blocked originating malicious IPs."
+          ],
+          status: "In Progress"
+        }
+      }
+    ]
+  },
+  {
+    severity: "Medium",
+    count: 3,
+    services: [
+      { name: "VPN Gateway", issue: "High Memory Usage" },
+      { name: "Fiber Link A-6", issue: "Signal Attenuation" }
+    ]
+  },
+  {
+    severity: "Low",
+    count: 2,
+    services: [
+      { name: "Auth Server", issue: "Failed Login Anomalies" },
+      { name: "DMZ Host", issue: "SSL Certificate Expiring" }
+    ]
   }
+];
 
-  if (text.includes("restart")) {
-    return "Recommended automation: restart interface Ge0/1 on Router R1, validate link state, then rerun diagnostics. I can queue the playbook for approval.";
-  }
-
-  if (text.includes("fiber")) {
-    return "Fiber forecast shows one likely failure window in the next 24 hours. Link A-B has rising attenuation and should be scheduled for maintenance.";
-  }
-
-  if (text.includes("cluster") || text.includes("network down") || text.includes("router")) {
-    return "Router R1 is down and is impacting 1 switch, 2 fiber links, and 1 internet gateway. Root signal: interface loss of signal on Ge0/1.";
-  }
-
-  return "I checked the current operational context. No new critical dependency was found, but I recommend monitoring Router R1 and the A-B fiber path.";
-}
+const suggestions = [
+  "Show related alerts",
+  "What's the current status?",
+  "Recommend next steps",
+  "Create incident"
+];
 
 export default function AiCopilotPage() {
   const [input, setInput] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(0);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: "user", text: "Why is the network down?", time: "now" },
-    { role: "copilot", text: "I found that Router R1 is down. This has caused the outage impacting the network. Would you like to see the affected nodes?", time: "now" },
-    { role: "user", text: "Yes, show impacted nodes.", time: "now" },
-    { role: "copilot", text: "Router R1 failure is affecting 1 switch, 2 fiber links, and 1 internet gateway. Issue identified: Interface Loss of Signal.", time: "now" }
-  ]);
-  const [tick, setTick] = useState(0);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setLastUpdated((value) => (value + 1) % 60);
-      setTick((value) => value + 1);
-    }, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  const latestCopilot = useMemo(() => [...messages].reverse().find((message) => message.role === "copilot")?.text ?? "", [messages]);
-
-  const sendMessage = (text = input) => {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-
-    const time = `${lastUpdated}s ago`;
-    setMessages((current) => [
-      ...current,
-      { role: "user", text: trimmed, time },
-      { role: "copilot", text: getCopilotReply(trimmed), time: "just now" }
-    ]);
-    setInput("");
-  };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0B0C10] text-white selection:bg-[#41bf63]/30">
       <Sidebar />
-      <div className="app-shell lg:pl-72">
+      <div className="app-shell lg:pl-72 flex flex-col h-screen overflow-hidden">
         <Navbar />
-        <main className="px-4 py-8 sm:px-6 lg:px-10 text-black bg-white">
-
-        <section className="mt-4 rounded-lg border border-border bg-white p-4 shadow-soft">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#0B2B32]/20 bg-[#0B2B32]/10 text-[#0B2B32]">
-                <Bot className="h-5 w-5" />
-              </span>
-              <div>
-                <h2 className="text-lg font-bold text-black">AI Operations Copilot</h2>
-                <p className="text-sm font-semibold text-slate-700">Ask, diagnose, automate, and review live network context from one workspace.</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-md border border-green-200 bg-green-50 px-3 py-1 text-xs font-bold text-green-700">Online</span>
-              <span className="rounded-md border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700">R1 Incident Active</span>
-              <span className="rounded-md border border-border bg-slate-50 px-3 py-1 text-xs font-bold text-slate-700">Live {lastUpdated}s</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-4 grid overflow-hidden rounded-lg border border-border bg-white shadow-soft sm:grid-cols-2 xl:grid-cols-4">
-          {metrics.map((metric) => {
-            const Icon = metric.icon;
-            return (
-              <div className="border-b border-border px-4 py-3 last:border-b-0 sm:border-r sm:last:border-r-0 xl:border-b-0" key={metric.label}>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <p className="truncate text-[10px] font-bold uppercase leading-tight tracking-wide text-slate-500">{metric.label}</p>
-                    <p className="mt-1 text-xl font-bold leading-none text-black">{metric.value}</p>
-                    <p className="mt-1 text-[11px] font-bold leading-tight text-slate-600">{metric.delta}</p>
-                  </div>
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border ${toneClasses[metric.tone as keyof typeof toneClasses]}`}>
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-                <svg className="mt-2 h-4 w-full" preserveAspectRatio="none" viewBox="0 0 180 34">
-                  <path d={metric.spark} fill="none" stroke="#0B2B32" strokeLinecap="round" strokeWidth="1.8" />
-                </svg>
-              </div>
-            );
-          })}
-        </section>
-
-        <section className="mt-4 grid gap-4 xl:grid-cols-3">
-          {[
-            ["Active Incident", "Router R1 Down", "1 switch, 2 fiber links, 1 gateway impacted", TriangleAlert, "border-red-200 bg-red-50 text-red-700"],
-            ["Copilot Status", "Context Ready", "Telemetry, RCA, and topology loaded", Sparkles, "border-green-200 bg-green-50 text-green-700"],
-            ["Automation Queue", "2 Pending", "Diagnostics and restart awaiting approval", Play, "border-blue-200 bg-blue-50 text-blue-700"]
-          ].map(([label, value, detail, Icon, tone]) => {
-            const CardIcon = Icon as typeof Bot;
-
-            return (
-              <div className="rounded-lg border border-border bg-white p-4 shadow-soft" key={label as string}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{label as string}</p>
-                    <p className="mt-1 text-lg font-bold text-black">{value as string}</p>
-                    <p className="mt-1 text-xs font-semibold text-slate-600">{detail as string}</p>
-                  </div>
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md border ${tone as string}`}>
-                    <CardIcon className="h-4 w-4" />
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </section>
-
-        <section className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="space-y-4">
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex flex-col gap-3 border-b border-border p-4 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                  <h2 className="text-lg font-bold text-black">AI Copilot</h2>
-                  <p className="text-sm font-semibold text-slate-700">Real-time AI assistant for telecom operations.</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <MiniButton><Activity className="h-3.5 w-3.5" /> Live {lastUpdated}s</MiniButton>
-                  <MiniButton><ClipboardList className="h-3.5 w-3.5" /> Logs</MiniButton>
-                  <MiniButton><Settings className="h-3.5 w-3.5" /></MiniButton>
-                </div>
-              </div>
-
-              <div className="border-b border-border p-3">
-                <div className="flex flex-wrap gap-2">
-                  {quickActions.map((action) => (
-                    <button
-                      className="rounded-md border border-border bg-slate-50 px-3 py-1.5 text-xs font-bold text-black hover:border-[#0B2B32] hover:bg-white"
-                      key={action}
-                      onClick={() => sendMessage(action)}
-                      type="button"
-                    >
-                      {action}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-4">
-                <div className="rounded-lg border border-border bg-slate-50 p-4">
-                  <div className="space-y-3">
-                    {messages.map((message, index) => (
-                      <div className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`} key={`${message.role}-${index}`}>
-                        {message.role === "copilot" && (
-                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0B2B32] text-white">
-                            <Bot className="h-5 w-5" />
-                          </span>
-                        )}
-                        <div className={`max-w-[78%] rounded-lg border px-4 py-3 text-sm font-semibold shadow-sm ${message.role === "user" ? "border-blue-200 bg-blue-50 text-black" : "border-border bg-white text-black"}`}>
-                          <p>{message.text}</p>
-                          <p className="mt-2 text-[10px] font-bold text-slate-500">{message.time}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 flex gap-2 rounded-lg border border-slate-300 bg-white p-2">
-                    <input
-                      className="h-9 min-w-0 flex-1 bg-transparent px-2 text-sm font-semibold outline-none placeholder:text-slate-500"
-                      onChange={(event) => setInput(event.target.value)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter") sendMessage();
-                      }}
-                      placeholder="Ask a question or enter command..."
-                      value={input}
-                    />
-                    <button className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-700" type="button">
-                      <Mic className="h-4 w-4" />
-                    </button>
-                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#0B2B32] text-white" onClick={() => sendMessage()} type="button">
-                      <Send className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
-                <h2 className="text-lg font-bold text-black">Command History</h2>
-              </div>
-              <div className="grid gap-2 p-4 md:grid-cols-2">
-                {quickActions.map((action) => (
-                  <button
-                    className="flex items-center gap-2 rounded-md border border-border bg-slate-50 px-3 py-2 text-left text-xs font-bold text-black hover:bg-white"
-                    key={action}
-                    onClick={() => sendMessage(action)}
-                    type="button"
-                  >
-                    <MessageSquare className="h-4 w-4 text-[#0B2B32]" />
-                    {action}
+        <main className="flex-1 overflow-hidden p-4 sm:p-6 lg:p-8">
+          <div className="flex h-full gap-6 flex-col lg:flex-row">
+            
+            {/* Left Column: Alerts & Solutions */}
+            <div className="w-full lg:w-1/3 flex flex-col border border-white/5 rounded-2xl bg-[#13161F] shadow-2xl overflow-hidden">
+              <div className="flex items-center justify-between border-b border-white/5 p-5">
+                <h2 className="text-sm font-black text-white uppercase tracking-wider">Alerts & Solutions</h2>
+                <div className="flex items-center gap-3">
+                  <button className="flex items-center gap-1.5 text-[10px] font-black text-slate-500 hover:text-white uppercase tracking-widest transition">
+                    <Filter className="h-3.5 w-3.5" /> Filter
                   </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <aside className="space-y-4">
-            <div className="rounded-lg border border-border bg-white p-4 shadow-soft">
-              <h2 className="text-base font-bold text-black">24h Signal Summary</h2>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-md border border-orange-200 bg-orange-50 p-3">
-                  <p className="text-2xl font-bold text-black">13,450</p>
-                  <p className="text-xs font-bold text-orange-700">Events analyzed</p>
-                </div>
-                <div className="rounded-md border border-blue-200 bg-blue-50 p-3">
-                  <p className="text-2xl font-bold text-black">652K</p>
-                  <p className="text-xs font-bold text-blue-700">Linked signals</p>
+                  <span className="rounded-lg bg-red-500/20 px-2 py-0.5 text-[10px] font-black text-red-500 uppercase">12</span>
                 </div>
               </div>
-              <TrafficMiniChart tick={tick} />
-            </div>
-
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">Insights</h2>
-                <MoreHorizontal className="h-5 w-5 text-black" />
-              </div>
-              <div className="p-4">
-                <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Top Issue Detected</p>
-                <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3">
-                  <p className="text-lg font-bold text-black">Router R1 Down</p>
-                  <p className="mt-1 text-xs font-semibold text-red-700">Detected 3 min ago</p>
-                </div>
-                <div className="mt-4 rounded-lg border border-border bg-slate-50 p-3">
-                  <svg className="h-28 w-full" preserveAspectRatio="none" viewBox="0 0 100 50">
-                    <path d="M12 36 L45 18 L84 36" fill="none" stroke="#EF4444" strokeLinecap="round" strokeWidth="2" />
-                    <path d="M45 18 L84 24" fill="none" stroke="#16A34A" strokeLinecap="round" strokeWidth="2" />
-                    <circle cx="12" cy="36" fill="#0B2B32" r="6" />
-                    <circle cx="45" cy="18" fill="#DC2626" r="8" />
-                    <circle cx="84" cy="24" fill="#16A34A" r="6" />
-                    <text fill="#0F172A" fontSize="5" fontWeight="700" textAnchor="middle" x="45" y="20">R1</text>
-                  </svg>
-                </div>
-                <div className="mt-4 space-y-2 text-xs font-bold text-slate-700">
-                  <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-green-500" /> Switch S2 loss of signal</p>
-                  <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-green-500" /> Fiber Link A-6 degraded</p>
-                  <p className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-orange-500" /> Internet gateway service down</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">Suggested Actions</h2>
-              </div>
-              <div className="grid gap-2 p-4">
-                <button className="h-9 rounded-md bg-[#0B2B32] text-xs font-bold text-white" onClick={() => sendMessage("Restart interface Ge0/1 on Router R1")} type="button">Execute Action</button>
-                <button className="h-9 rounded-md border border-slate-300 bg-white text-xs font-bold text-black" onClick={() => sendMessage("Run diagnostics for Router R1")} type="button">Run Diagnostics</button>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
-                <h2 className="text-base font-bold text-black">Analysis Logs</h2>
-              </div>
-              <div className="space-y-3 p-4">
-                {[
-                  ["Incident identified: Router R1 Failure", "2 min ago"],
-                  ["User asked: Show impacted nodes", "4 min ago"],
-                  ["Copilot verified dependencies", "5 min ago"]
-                ].map(([log, time]) => (
-                  <div className="flex gap-3" key={log}>
-                    <span className="mt-1 h-2 w-2 rounded-full bg-[#0B2B32]" />
-                    <div>
-                      <p className="text-xs font-bold text-black">{log}</p>
-                      <p className="text-xs font-semibold text-slate-600">{time}</p>
+              
+              <div className="flex-1 overflow-y-auto p-5 space-y-6">
+                {alertsData.map((group) => (
+                  <div key={group.severity}>
+                    <div className="flex items-center gap-2 mb-4">
+                      <ChevronDown className="h-4 w-4 text-slate-500" />
+                      {group.severity === 'High' && <TriangleAlert className="h-4 w-4 text-red-500" />}
+                      {group.severity === 'Medium' && <TriangleAlert className="h-4 w-4 text-orange-500" />}
+                      {group.severity === 'Low' && <Activity className="h-4 w-4 text-blue-500" />}
+                      <span className="text-[11px] font-black text-white uppercase tracking-widest">{group.severity} - {group.count}</span>
+                    </div>
+                    <div className="ml-2 border-l border-white/5 pl-6 space-y-5">
+                      {group.services.map((service, idx) => (
+                        <div key={idx} className="relative">
+                          <div className="absolute -left-[25px] top-2 h-px w-4 bg-white/5" />
+                          <div className="flex items-center gap-2 mb-2">
+                            {group.severity === 'High' && <TriangleAlert className="h-3.5 w-3.5 text-red-500" />}
+                            {group.severity === 'Medium' && <TriangleAlert className="h-3.5 w-3.5 text-orange-500" />}
+                            {group.severity === 'Low' && <Activity className="h-3.5 w-3.5 text-blue-500" />}
+                            <span className="text-[12px] font-bold text-slate-300">Service: {service.name}</span>
+                          </div>
+                          
+                          <div className="ml-1.5 border-l border-white/5 pl-5">
+                            <div className="relative">
+                              <div className="absolute -left-[21px] top-2.5 h-px w-4 bg-white/5" />
+                              <div className="flex items-center justify-between cursor-pointer rounded-xl hover:bg-white/5 py-2 px-3 -ml-3 transition-colors">
+                                <div className="flex items-center gap-2">
+                                   {group.severity === 'High' && <div className="h-1.5 w-1.5 rounded-full bg-red-500" />}
+                                   {group.severity === 'Medium' && <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />}
+                                   {group.severity === 'Low' && <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />}
+                                   <span className="text-[11px] font-bold text-slate-400">Issue: {service.issue}</span>
+                                </div>
+                                {service.expanded ? <ChevronDown className="h-3.5 w-3.5 text-slate-600" /> : <ChevronDown className="h-3.5 w-3.5 text-slate-600 -rotate-90" />}
+                              </div>
+                              
+                              {service.expanded && service.solution && (
+                                <div className="mt-3 rounded-xl border border-white/5 bg-[#1a1e29]/50 p-4 shadow-xl ml-1">
+                                  <p className="text-[10px] font-black text-[#41bf63] uppercase tracking-widest mb-3">Proposed Solution</p>
+                                  <ul className="space-y-2 mb-4">
+                                    {service.solution.steps.map((step, i) => (
+                                      <li key={i} className="flex gap-2 text-[11px] font-bold text-slate-400">
+                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate-600" />
+                                        {step}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                  {service.solution.status === 'Resolved' ? (
+                                     <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#41bf63]/10 px-2.5 py-1 text-[9px] font-black text-[#41bf63] uppercase tracking-widest border border-[#41bf63]/20">
+                                       <CheckCircle2 className="h-3 w-3" /> Resolved
+                                     </span>
+                                  ) : (
+                                     <span className="inline-flex items-center gap-1.5 rounded-lg bg-blue-500/10 px-2.5 py-1 text-[9px] font-black text-blue-500 uppercase tracking-widest border border-blue-500/20">
+                                       <Clock className="h-3 w-3" /> In Progress
+                                     </span>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-lg border border-orange-200 bg-orange-50 p-4 shadow-soft">
-              <div className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-orange-700" />
-                <h2 className="text-base font-bold text-black">Predicted Failure</h2>
+            {/* Right Column: AI Copilot Chat */}
+            <div className="w-full lg:w-2/3 flex flex-col border border-white/5 rounded-2xl bg-[#13161F] shadow-2xl overflow-hidden">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-white/5 p-5">
+                <h2 className="text-sm font-black text-white uppercase tracking-wider">AI Copilot Chat</h2>
+                <button className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/5 px-4 py-2 text-[10px] font-black text-white uppercase tracking-widest transition-all hover:bg-[#41bf63] hover:text-black hover:border-transparent">
+                  <PlusCircle className="h-4 w-4" /> New Incident
+                </button>
               </div>
-              <p className="mt-2 text-sm font-semibold text-slate-700">{latestCopilot || "Router R1 requires attention."}</p>
-              <p className="mt-3 text-xs font-bold text-orange-700">11:00 AM analysis window</p>
+
+              {/* Chat Area */}
+              <div className="flex-1 overflow-y-auto p-8 bg-[#0a0b0d]/30">
+                <div className="flex flex-col items-center justify-center text-center pb-12 pt-6">
+                   <div className="h-14 w-14 rounded-2xl bg-[#41bf63]/10 flex items-center justify-center border border-[#41bf63]/20 mb-4">
+                     <Sparkles className="h-8 w-8 text-[#41bf63]" />
+                   </div>
+                   <h3 className="text-2xl font-black text-white uppercase tracking-tight">Intelligence <span className="text-[#41bf63]">Copilot</span></h3>
+                   <p className="mt-2 text-xs font-bold text-slate-500 uppercase tracking-widest max-w-sm">Operational analysis, incident diagnosis, and remediation support.</p>
+                </div>
+
+                <div className="space-y-8">
+                  {/* User Message */}
+                  <div className="flex justify-end gap-4">
+                     <div className="max-w-[75%] rounded-2xl rounded-tr-sm bg-white/5 border border-white/5 p-5 text-[13px] font-bold text-white shadow-2xl">
+                       <p className="leading-relaxed">Why is Core Switch R1 showing a loss of signal on Port 4?</p>
+                       <p className="mt-3 text-right text-[9px] font-black text-slate-500 uppercase tracking-widest">10:24 AM <CheckCircle2 className="inline h-3 w-3 text-[#41bf63] ml-1"/></p>
+                     </div>
+                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#41bf63] text-black shadow-[0_0_20px_rgba(65,191,99,0.3)]">
+                       <User className="h-5 w-5" />
+                     </div>
+                  </div>
+
+                  {/* Copilot Message */}
+                  <div className="flex justify-start gap-4">
+                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 border border-white/5 text-[#41bf63]">
+                       <Sparkles className="h-5 w-5" />
+                     </div>
+                     <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-white/5 bg-[#1a1e29]/50 p-6 text-[13px] font-bold text-slate-300 shadow-2xl leading-relaxed">
+                       <p>Core Switch R1 experienced a sudden physical link failure on Port 4, resulting in localized packet drops across the immediate segment.</p>
+                       
+                       <div className="mt-6 space-y-6">
+                         <div>
+                           <p className="text-[10px] font-black text-[#41bf63] uppercase tracking-[0.2em] mb-2">Root Cause Analysis</p>
+                           <p className="text-white">Hardware transceiver failure detected on interface Ge0/4.</p>
+                         </div>
+
+                         <div>
+                           <p className="text-[10px] font-black text-[#41bf63] uppercase tracking-[0.2em] mb-2">Network Impact</p>
+                           <ul className="space-y-1.5">
+                             <li className="flex gap-2 items-start"><span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#41bf63]" /> 1 switch, 2 fiber links, and 1 gateway momentarily disconnected.</li>
+                             <li className="flex gap-2 items-start"><span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#41bf63]" /> Temporary 14% spike in localized latency during reroute.</li>
+                           </ul>
+                         </div>
+
+                         <div>
+                           <p className="text-[10px] font-black text-[#41bf63] uppercase tracking-[0.2em] mb-2">Remediation Status</p>
+                           <ul className="space-y-2">
+                             <li className="flex gap-3 items-center"><span className="text-[10px] font-black text-[#41bf63] bg-[#41bf63]/10 h-5 w-5 rounded flex items-center justify-center border border-[#41bf63]/20">01</span> Auto-reroute engaged via Backup Router R2.</li>
+                             <li className="flex gap-3 items-center"><span className="text-[10px] font-black text-[#41bf63] bg-[#41bf63]/10 h-5 w-5 rounded flex items-center justify-center border border-[#41bf63]/20">02</span> Created hardware replacement ticket #1023.</li>
+                             <li className="flex gap-3 items-center"><span className="text-[10px] font-black text-[#41bf63] bg-[#41bf63]/10 h-5 w-5 rounded flex items-center justify-center border border-[#41bf63]/20">03</span> Continuous latency monitoring active.</li>
+                           </ul>
+                         </div>
+                       </div>
+
+                       <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4">
+                         <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">10:24 AM</p>
+                         <div className="flex gap-3">
+                           <button className="text-slate-600 hover:text-white transition"><Copy className="h-4 w-4" /></button>
+                           <button className="text-slate-600 hover:text-white transition"><ThumbsUp className="h-4 w-4" /></button>
+                           <button className="text-slate-600 hover:text-white transition"><ThumbsDown className="h-4 w-4" /></button>
+                         </div>
+                       </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Input Area */}
+              <div className="bg-[#13161F] p-5 border-t border-white/5">
+                <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+                   {suggestions.map(s => (
+                     <button key={s} className="whitespace-nowrap rounded-lg border border-white/5 bg-white/5 px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-widest transition-all hover:bg-white/10 hover:text-white hover:border-white/20 shadow-xl">
+                       {s}
+                     </button>
+                   ))}
+                </div>
+                <div className="relative flex items-center rounded-xl border border-white/10 bg-[#0a0b0d] shadow-2xl focus-within:border-[#41bf63]/50 transition-all">
+                   <input 
+                     className="h-14 w-full bg-transparent px-5 text-[13px] font-bold text-white outline-none placeholder:text-slate-600 tracking-wide" 
+                     placeholder="Query network status or ask for diagnosis..." 
+                     value={input}
+                     onChange={(e) => setInput(e.target.value)}
+                   />
+                   <button className="mr-3 h-10 w-10 rounded-lg flex items-center justify-center text-[#41bf63] hover:bg-[#41bf63]/10 transition-colors">
+                     <Send className="h-5 w-5" />
+                   </button>
+                </div>
+                <p className="mt-4 text-center text-[9px] font-black text-slate-600 uppercase tracking-[0.2em]">
+                   Teleroot AI Protocol v4.2 • Enterprise Intelligence
+                </p>
+              </div>
             </div>
-          </aside>
-        </section>
+          </div>
         </main>
       </div>
     </div>

@@ -47,7 +47,7 @@ export function LandingHowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative group rounded-[24px] bg-[#1B2629]/[0.02] border border-slate-100 p-8 transition-all hover:bg-white hover:shadow-2xl hover:border-[#D4F84A]/30"
+              className="relative group rounded-[24px] bg-[#1B2629]/[0.02] border border-slate-100 p-8 transition-all hover:bg-white hover:shadow-2xl hover:border-[#41bf63]/30"
             >
               {/* Large Faint Number Background */}
               <span className="absolute top-4 right-6 text-6xl font-black text-[#1B2629] opacity-[0.03] select-none group-hover:opacity-[0.08] transition-opacity">
@@ -56,7 +56,7 @@ export function LandingHowItWorks() {
 
               <div className="relative z-10">
                 {/* Minimalist Icon Indicator */}
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2C30] text-[#D4F84A] shadow-lg transition-transform group-hover:scale-110">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2C30] text-[#41bf63] shadow-lg transition-transform group-hover:scale-110">
                   {step.icon}
                 </div>
 

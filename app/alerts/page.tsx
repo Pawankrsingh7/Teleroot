@@ -23,12 +23,12 @@ import { Sidebar } from "@/components/Sidebar";
 import { Navbar } from "@/components/Navbar";
 
 const metrics = [
-  { label: "Total Alerts", value: "68", icon: Bell, tone: "blue", spark: "M0 30 L35 30 L70 28 L105 30 L140 30 L180 26" },
-  { label: "Open", value: "43", icon: Siren, tone: "green", spark: "M0 29 L35 27 L70 27 L105 26 L140 25 L180 24" },
-  { label: "Acknowledged", value: "15", icon: Ticket, tone: "orange", spark: "M0 29 L40 29 L80 30 L120 28 L180 27" },
-  { label: "Critical", value: "21", icon: TriangleAlert, tone: "red", spark: "M0 30 L35 28 L70 31 L105 29 L140 24 L180 22" },
-  { label: "Major", value: "28", icon: Flame, tone: "rose", spark: "M0 28 L35 26 L70 28 L105 29 L140 25 L180 27" },
-  { label: "Successes", value: "38", icon: ShieldCheck, tone: "purple", spark: "M0 30 L35 29 L70 28 L105 27 L140 29 L180 24" }
+  { label: "Total Alerts", value: "68", icon: Bell },
+  { label: "Open", value: "43", icon: Siren },
+  { label: "Acknowledged", value: "15", icon: Ticket },
+  { label: "Critical", value: "21", icon: TriangleAlert },
+  { label: "Major", value: "28", icon: Flame },
+  { label: "Successes", value: "38", icon: ShieldCheck }
 ];
 
 const alerts = [
@@ -45,14 +45,26 @@ const openAlerts = [
   { id: "#1017", severity: "Major", incident: "Router SSPP Adj. Down", device: "Router R1", issue: "Fiber Degradation", team: "SysOps" }
 ];
 
-const toneClasses = {
-  blue: "bg-blue-50 text-blue-700 border-blue-200",
-  green: "bg-green-50 text-green-700 border-green-200",
-  orange: "bg-orange-50 text-orange-700 border-orange-200",
-  purple: "bg-violet-50 text-violet-700 border-violet-200",
-  red: "bg-red-50 text-red-700 border-red-200",
-  rose: "bg-rose-50 text-rose-700 border-rose-200"
-};
+function AlertKpiCard({ metric }: { metric: (typeof metrics)[number] }) {
+  const Icon = metric.icon;
+
+  return (
+    <div className="group relative flex items-center gap-3 overflow-hidden rounded-xl border border-white/8 bg-[#13161F] px-4 py-3 transition-all duration-200 hover:border-[#41bf63]/30 hover:bg-[#1a1e29]">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-all group-hover:border-[#41bf63]/30">
+        <Icon className="h-[18px] w-[18px] text-[#41bf63]" />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="truncate text-[11px] font-semibold uppercase leading-none tracking-wider text-slate-400">
+          {metric.label}
+        </span>
+        <span className="text-2xl font-black leading-tight tracking-tight text-white">
+          {metric.value}
+        </span>
+      </div>
+      <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#41bf63] transition-all duration-300 group-hover:w-full" />
+    </div>
+  );
+}
 
 function SeverityBadge({ severity }: { severity: string }) {
   const critical = severity === "Critical";
@@ -60,7 +72,7 @@ function SeverityBadge({ severity }: { severity: string }) {
   return (
     <span
       className={`rounded-md border px-2 py-0.5 text-[11px] font-bold ${
-        critical ? "border-red-300 bg-red-50 text-red-700" : "border-orange-300 bg-orange-50 text-orange-700"
+        critical ? "border-red-500/25 bg-red-500/10 text-red-400" : "border-orange-500/25 bg-orange-500/10 text-orange-400"
       }`}
     >
       {severity}
@@ -71,7 +83,7 @@ function SeverityBadge({ severity }: { severity: string }) {
 function MiniButton({ children }: { children: React.ReactNode }) {
   return (
     <button
-      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 text-xs font-bold text-black transition-all hover:border-[#0B2B32] hover:bg-slate-50"
+      className="inline-flex h-8 items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 text-xs font-bold text-slate-200 transition-all hover:border-[#41bf63]/30 hover:bg-[#41bf63]/10 hover:text-white"
       type="button"
     >
       {children}
@@ -81,62 +93,45 @@ function MiniButton({ children }: { children: React.ReactNode }) {
 
 export default function AlertsPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0B0C10] text-white selection:bg-[#41bf63]/30">
       <Sidebar />
       <div className="app-shell lg:pl-72">
         <Navbar />
-        <main className="px-4 py-8 sm:px-6 lg:px-10 text-black bg-white">
+        <main className="px-4 py-8 sm:px-6 lg:px-10 bg-[#0B0C10] text-white">
 
-        <section className="mt-4 grid overflow-hidden rounded-lg border border-border bg-white shadow-soft sm:grid-cols-2 xl:grid-cols-6">
-          {metrics.map((metric) => {
-            const Icon = metric.icon;
-
-            return (
-              <div className="border-b border-border p-4 last:border-b-0 sm:border-r sm:last:border-r-0 xl:border-b-0" key={metric.label}>
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{metric.label}</p>
-                    <p className="mt-1 text-2xl font-bold text-black">{metric.value}</p>
-                  </div>
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-md border ${toneClasses[metric.tone as keyof typeof toneClasses]}`}>
-                    <Icon className="h-4 w-4" />
-                  </span>
-                </div>
-                <svg className="mt-3 h-5 w-full" preserveAspectRatio="none" viewBox="0 0 180 34">
-                  <path d={metric.spark} fill="none" stroke="#0B2B32" strokeLinecap="round" strokeWidth="1.8" />
-                </svg>
-              </div>
-            );
-          })}
+        <section className="mt-4 grid gap-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+          {metrics.map((metric) => (
+            <AlertKpiCard key={metric.label} metric={metric} />
+          ))}
         </section>
 
         <section className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
           <div className="space-y-4">
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border px-3 py-2">
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/5 px-3 py-2">
                 <div>
-                  <h2 className="text-base font-bold text-black">Incident Summary</h2>
-                  <p className="text-[11px] font-semibold text-slate-600">Live incident load, impact, ownership, and escalation state.</p>
+                  <h2 className="text-base font-bold text-white">Incident Summary</h2>
+                  <p className="text-[11px] font-semibold text-slate-500">Live incident load, impact, ownership, and escalation state.</p>
                 </div>
-                <MoreHorizontal className="h-4 w-4 text-black" />
+                <MoreHorizontal className="h-4 w-4 text-slate-400" />
               </div>
-              <div className="grid gap-0 divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-5">
+              <div className="grid gap-0 divide-y divide-white/5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:divide-white/5 xl:grid-cols-5">
                 {[
-                  ["Ongoing Incidents", "5", "Active cases", Siren, "border-red-200 bg-red-50 text-red-700"],
-                  ["Top Issue", "Node Down", "Most repeated", TriangleAlert, "border-orange-200 bg-orange-50 text-orange-700"],
-                  ["Major Impact", "21", "Affected alerts", Flame, "border-rose-200 bg-rose-50 text-rose-700"],
-                  ["Avg BSSA", "22", "Score index", Gauge, "border-blue-200 bg-blue-50 text-blue-700"],
-                  ["Avg Response", "15 min", "Team SLA", Clock3, "border-green-200 bg-green-50 text-green-700"]
+                  ["Ongoing Incidents", "5", "Active cases", Siren, "border-red-500/20 bg-red-500/10 text-red-400"],
+                  ["Top Issue", "Node Down", "Most repeated", TriangleAlert, "border-orange-500/20 bg-orange-500/10 text-orange-400"],
+                  ["Major Impact", "21", "Affected alerts", Flame, "border-rose-500/20 bg-rose-500/10 text-rose-400"],
+                  ["Avg BSSA", "22", "Score index", Gauge, "border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]"],
+                  ["Avg Response", "15 min", "Team SLA", Clock3, "border-[#41bf63]/20 bg-[#41bf63]/10 text-[#41bf63]"]
                 ].map(([label, value, helper, Icon, tone]) => {
                   const SummaryIcon = Icon as typeof Siren;
 
                   return (
-                    <div className="bg-white px-3 py-2" key={label as string}>
+                    <div className="bg-[#13161F] px-3 py-2" key={label as string}>
                       <div className="flex items-center justify-between gap-2">
                         <div className="min-w-0">
                           <p className="truncate text-[9px] font-bold uppercase leading-tight tracking-wide text-slate-500">{label as string}</p>
-                          <p className="mt-1 truncate text-lg font-bold leading-none text-black">{value as string}</p>
-                          <p className="mt-0.5 truncate text-[10px] font-semibold leading-tight text-slate-600">{helper as string}</p>
+                          <p className="mt-1 truncate text-lg font-bold leading-none text-white">{value as string}</p>
+                          <p className="mt-0.5 truncate text-[10px] font-semibold leading-tight text-slate-500">{helper as string}</p>
                         </div>
                         <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border ${tone as string}`}>
                           <SummaryIcon className="h-3 w-3" />
@@ -146,7 +141,7 @@ export default function AlertsPage() {
                   );
                 })}
               </div>
-              <div className="grid gap-2 border-t border-border bg-slate-50 px-3 py-2 md:grid-cols-3">
+              <div className="grid gap-2 border-t border-white/5 bg-[#1a1e29]/30 px-3 py-2 md:grid-cols-3">
                 {[
                   ["Primary team", "NOC", Server],
                   ["Escalation", "SysOps ready", UserRound],
@@ -155,11 +150,11 @@ export default function AlertsPage() {
                   const DetailIcon = Icon as typeof Server;
 
                   return (
-                    <div className="flex min-w-0 items-center gap-2 rounded-md border border-border bg-white px-2.5 py-1.5" key={label as string}>
-                      <DetailIcon className="h-3.5 w-3.5 shrink-0 text-[#0B2B32]" />
+                    <div className="flex min-w-0 items-center gap-2 rounded-md border border-white/5 bg-white/5 px-2.5 py-1.5" key={label as string}>
+                      <DetailIcon className="h-3.5 w-3.5 shrink-0 text-[#41bf63]" />
                       <div className="min-w-0">
                         <p className="truncate text-[9px] font-bold uppercase tracking-wide text-slate-500">{label as string}</p>
-                        <p className="truncate text-xs font-bold text-black">{value as string}</p>
+                        <p className="truncate text-xs font-bold text-white">{value as string}</p>
                       </div>
                     </div>
                   );
@@ -167,12 +162,12 @@ export default function AlertsPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="border-b border-border p-4">
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="border-b border-white/5 p-4">
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                   <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-black">Alerts Activity</h2>
-                    <span className="rounded-full border border-border px-2 py-0.5 text-xs font-bold text-slate-700">Live</span>
+                    <h2 className="text-lg font-bold text-white">Alerts Activity</h2>
+                    <span className="rounded-full border border-[#41bf63]/25 bg-[#41bf63]/10 px-2 py-0.5 text-xs font-bold text-[#41bf63]">Live</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <MiniButton>Servers</MiniButton>
@@ -186,41 +181,41 @@ export default function AlertsPage() {
                   <MiniButton>Device <ChevronDown className="h-3.5 w-3.5" /></MiniButton>
                   <MiniButton>Assigned Team <ChevronDown className="h-3.5 w-3.5" /></MiniButton>
                   <MiniButton>Group By</MiniButton>
-                  <span className="rounded-md border border-[#0B2B32]/30 bg-[#0B2B32]/10 px-2.5 py-1 text-xs font-bold text-black">
+                  <span className="rounded-md border border-[#41bf63]/30 bg-[#41bf63]/10 px-2.5 py-1 text-xs font-bold text-[#41bf63]">
                     Clusters
                   </span>
                 </div>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[850px] text-left text-xs">
-                  <thead className="border-b border-border text-[11px] uppercase tracking-wide text-slate-700">
+                  <thead className="border-b border-white/5 text-[11px] uppercase tracking-wide text-slate-400">
                     <tr>
                       {["ID", "Severity", "Incident", "Affected Node", "Issue", "RCA", "Assigned Team", "Status"].map((head) => (
                         <th className="px-3 py-2 font-bold" key={head}>{head}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr className="bg-[#0B2B32]/5">
-                      <td className="px-3 py-3 font-bold text-black">#1033</td>
+                  <tbody className="divide-y divide-white/5">
+                    <tr className="bg-[#41bf63]/5">
+                      <td className="px-3 py-3 font-bold text-white">#1033</td>
                       <td className="px-3 py-3"><SeverityBadge severity="Critical" /></td>
-                      <td className="px-3 py-3 font-bold text-black">Router R1</td>
-                      <td className="px-3 py-3 font-semibold text-black">Router R1</td>
-                      <td className="px-3 py-3 font-semibold text-black">Node Down</td>
-                      <td className="px-3 py-3 font-bold text-red-700">Link</td>
-                      <td className="px-3 py-3 font-bold text-orange-700">NOC</td>
-                      <td className="px-3 py-3 font-bold text-orange-700">Open</td>
+                      <td className="px-3 py-3 font-bold text-white">Router R1</td>
+                      <td className="px-3 py-3 font-semibold text-white">Router R1</td>
+                      <td className="px-3 py-3 font-semibold text-white">Node Down</td>
+                      <td className="px-3 py-3 font-bold text-red-400">Link</td>
+                      <td className="px-3 py-3 font-bold text-orange-400">NOC</td>
+                      <td className="px-3 py-3 font-bold text-orange-400">Open</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-3" />
                       <td className="px-3 py-3">
-                        <span className="rounded-md border border-border bg-white px-3 py-2 text-xs font-bold text-black shadow-sm">
+                        <span className="rounded-md border border-white/5 bg-white/5 px-3 py-2 text-xs font-bold text-white shadow-sm">
                           Cluster #2005
                         </span>
                       </td>
                       <td className="px-3 py-3" colSpan={6}>
-                        <div className="relative h-9 rounded-md bg-slate-50">
-                          <span className="absolute left-0 right-0 top-1/2 h-px bg-[#0B2B32]/30" />
+                        <div className="relative h-9 rounded-md bg-[#1a1e29]/40">
+                          <span className="absolute left-0 right-0 top-1/2 h-px bg-[#41bf63]/30" />
                           <span className="absolute left-[22%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-green-500" />
                           <span className="absolute left-[53%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-blue-500" />
                           <span className="absolute left-[70%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-red-500" />
@@ -229,15 +224,15 @@ export default function AlertsPage() {
                       </td>
                     </tr>
                     {alerts.map((alert, index) => (
-                      <tr className="transition hover:bg-slate-50" key={`${alert.id}-${index}`}>
-                        <td className="px-3 py-2 font-bold text-black">{alert.id}</td>
+                      <tr className="transition hover:bg-[#1a1e29]/40" key={`${alert.id}-${index}`}>
+                        <td className="px-3 py-2 font-bold text-white">{alert.id}</td>
                         <td className="px-3 py-2"><SeverityBadge severity={alert.severity} /></td>
-                        <td className="px-3 py-2 font-semibold text-black">{alert.incident}</td>
-                        <td className="px-3 py-2 font-semibold text-black">{alert.node}</td>
-                        <td className="px-3 py-2 font-semibold text-black">{alert.issue}</td>
-                        <td className="px-3 py-2 font-semibold text-slate-700">{alert.rca}</td>
-                        <td className="px-3 py-2 font-semibold text-black">{alert.team}</td>
-                        <td className="px-3 py-2 font-bold text-orange-700">{alert.status}</td>
+                        <td className="px-3 py-2 font-semibold text-white">{alert.incident}</td>
+                        <td className="px-3 py-2 font-semibold text-white">{alert.node}</td>
+                        <td className="px-3 py-2 font-semibold text-white">{alert.issue}</td>
+                        <td className="px-3 py-2 font-semibold text-slate-400">{alert.rca}</td>
+                        <td className="px-3 py-2 font-semibold text-white">{alert.team}</td>
+                        <td className="px-3 py-2 font-bold text-orange-400">{alert.status}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -245,9 +240,9 @@ export default function AlertsPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border p-3">
-                <h2 className="text-lg font-bold text-black">Open Alerts (43)</h2>
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/5 p-3">
+                <h2 className="text-lg font-bold text-white">Open Alerts (43)</h2>
                 <div className="flex gap-2">
                   <MiniButton>Now <ChevronDown className="h-3.5 w-3.5" /></MiniButton>
                   <MiniButton>Filter <ChevronDown className="h-3.5 w-3.5" /></MiniButton>
@@ -255,24 +250,24 @@ export default function AlertsPage() {
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[640px] table-fixed text-left text-xs">
-                  <thead className="border-b border-border text-[11px] uppercase tracking-wide text-slate-700">
+                  <thead className="border-b border-white/5 text-[11px] uppercase tracking-wide text-slate-400">
                     <tr>
                       {["ID", "Severity", "Incident", "Device", "Issue", "RCA", "Assigned Team", "Status"].map((head) => (
                         <th className="px-2 py-2 font-bold" key={head}>{head}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-border">
+                  <tbody className="divide-y divide-white/5">
                     {openAlerts.map((alert) => (
-                      <tr className="hover:bg-slate-50" key={alert.id}>
-                        <td className="px-2 py-2 font-bold text-black">{alert.id}</td>
+                      <tr className="hover:bg-[#1a1e29]/40" key={alert.id}>
+                        <td className="px-2 py-2 font-bold text-white">{alert.id}</td>
                         <td className="px-2 py-2"><SeverityBadge severity={alert.severity} /></td>
-                        <td className="px-2 py-2 font-semibold text-black">{alert.incident}</td>
-                        <td className="px-2 py-2 font-semibold text-black">{alert.device}</td>
-                        <td className="px-2 py-2 font-bold text-orange-700">{alert.issue}</td>
-                        <td className="px-2 py-2 font-semibold text-red-700">Alert</td>
-                        <td className="px-2 py-2 font-semibold text-black">{alert.team}</td>
-                        <td className="px-2 py-2 font-bold text-orange-700">Open</td>
+                        <td className="px-2 py-2 font-semibold text-white">{alert.incident}</td>
+                        <td className="px-2 py-2 font-semibold text-white">{alert.device}</td>
+                        <td className="px-2 py-2 font-bold text-orange-400">{alert.issue}</td>
+                        <td className="px-2 py-2 font-semibold text-red-400">Alert</td>
+                        <td className="px-2 py-2 font-semibold text-white">{alert.team}</td>
+                        <td className="px-2 py-2 font-bold text-orange-400">Open</td>
                       </tr>
                     ))}
                   </tbody>
@@ -282,28 +277,28 @@ export default function AlertsPage() {
           </div>
 
           <aside className="space-y-4">
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border p-4">
-                <h2 className="text-lg font-bold text-black">Incident Details</h2>
-                <MoreHorizontal className="h-5 w-5 text-black" />
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/5 p-4">
+                <h2 className="text-lg font-bold text-white">Incident Details</h2>
+                <MoreHorizontal className="h-5 w-5 text-slate-400" />
               </div>
               <div className="p-4">
-                <p className="text-sm font-semibold text-slate-700">Cluster ID <span className="text-xl font-bold text-black">#2005</span></p>
-                <div className="mt-3 rounded-lg border border-border bg-white p-3">
-                  <p className="text-sm font-semibold text-black">Today 10:32 AM</p>
-                  <p className="mt-1 text-sm font-bold text-orange-700">Status: Ongoing</p>
+                <p className="text-sm font-semibold text-slate-400">Cluster ID <span className="text-xl font-bold text-white">#2005</span></p>
+                <div className="mt-3 rounded-lg border border-white/5 bg-white/5 p-3">
+                  <p className="text-sm font-semibold text-white">Today 10:32 AM</p>
+                  <p className="mt-1 text-sm font-bold text-orange-400">Status: Ongoing</p>
                 </div>
                 <div className="mt-5">
-                  <p className="text-sm font-bold text-black">Root Cause Identified:</p>
-                  <div className="mt-3 rounded-lg border border-border bg-slate-50 p-3 text-sm font-bold text-black">
+                  <p className="text-sm font-bold text-white">Root Cause Identified:</p>
+                  <div className="mt-3 rounded-lg border border-white/5 bg-[#1a1e29]/40 p-3 text-sm font-bold text-white">
                     Router R1
                   </div>
                 </div>
                 <div className="mt-5">
-                  <p className="text-sm font-bold text-black">Impacted Nodes:</p>
+                  <p className="text-sm font-bold text-white">Impacted Nodes:</p>
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     {["Fieer Link A-B", "Switch-S2"].map((node) => (
-                      <span className="rounded-lg border border-border bg-white p-2 text-xs font-bold text-black" key={node}>
+                      <span className="rounded-lg border border-white/5 bg-white/5 p-2 text-xs font-bold text-white" key={node}>
                         {node}
                       </span>
                     ))}
@@ -313,17 +308,17 @@ export default function AlertsPage() {
                   <button className="h-10 rounded-lg bg-orange-500 text-sm font-bold text-white hover:bg-orange-600" type="button">
                     ACKNOWLEDGE
                   </button>
-                  <button className="h-10 rounded-lg bg-[#0B2B32] text-sm font-bold text-white hover:bg-[#123f49]" type="button">
+                  <button className="h-10 rounded-lg bg-[#41bf63] text-sm font-bold text-[#0B0C10] hover:bg-[#6ee7a0]" type="button">
                     RESOLVE
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-white shadow-soft">
-              <div className="flex items-center justify-between border-b border-border p-4">
-                <h2 className="text-lg font-bold text-black">Activity Timeline</h2>
-                <MoreHorizontal className="h-5 w-5 text-black" />
+            <div className="rounded-lg border border-white/5 bg-[#13161F] shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/5 p-4">
+                <h2 className="text-lg font-bold text-white">Activity Timeline</h2>
+                <MoreHorizontal className="h-5 w-5 text-slate-400" />
               </div>
               <div className="space-y-4 p-4">
                 {[
@@ -335,14 +330,14 @@ export default function AlertsPage() {
 
                   return (
                     <div className="relative flex gap-3" key={title as string}>
-                      {index < 2 && <span className="absolute left-4 top-9 h-full border-l border-dashed border-slate-300" />}
-                      <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-[#0B2B32] text-white">
+                      {index < 2 && <span className="absolute left-4 top-9 h-full border-l border-dashed border-white/10" />}
+                      <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-[#41bf63] text-[#0B0C10]">
                         <TimelineIcon className="h-4 w-4" />
                       </span>
                       <div>
-                        <p className="text-sm font-bold text-black">{title as string}</p>
-                        <p className="text-xs font-bold text-slate-600">{meta as string}</p>
-                        <p className="mt-1 text-sm font-semibold text-slate-700">{body as string}</p>
+                        <p className="text-sm font-bold text-white">{title as string}</p>
+                        <p className="text-xs font-bold text-slate-500">{meta as string}</p>
+                        <p className="mt-1 text-sm font-semibold text-slate-400">{body as string}</p>
                       </div>
                     </div>
                   );
@@ -350,10 +345,10 @@ export default function AlertsPage() {
                 <div className="relative mt-2">
                   <MessageSquare className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                   <input
-                    className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-10 text-sm font-semibold text-black outline-none placeholder:text-slate-500 focus:border-[#0B2B32]"
+                    className="h-10 w-full rounded-lg border border-white/10 bg-white/5 pl-9 pr-10 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-[#41bf63]"
                     placeholder="Comment..."
                   />
-                  <SendHorizonal className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0B2B32]" />
+                  <SendHorizonal className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#41bf63]" />
                 </div>
               </div>
             </div>
