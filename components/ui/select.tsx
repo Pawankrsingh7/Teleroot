@@ -1,3 +1,5 @@
+"use client";
+
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,14 +15,14 @@ function SelectTrigger({
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "flex h-10 min-w-28 items-center justify-between gap-2 rounded-lg border border-slate-300 bg-white px-3 text-sm font-semibold text-black shadow-sm transition-all duration-200 hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-info/25 data-[state=open]:border-info",
+        "flex h-10 min-w-28 items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#41bf63]/25 data-[state=open]:border-[#41bf63]",
         className
       )}
       {...props}
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="h-4 w-4 text-black" />
+        <ChevronDown className="h-4 w-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -37,7 +39,7 @@ function SelectContent({
         position="popper"
         sideOffset={8}
         className={cn(
-          "z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-slate-300 bg-white text-black shadow-soft",
+          "z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-white/10 bg-[#13161F] text-white shadow-2xl animate-in fade-in-0 zoom-in-95",
           className
         )}
         {...props}
@@ -56,7 +58,7 @@ function SelectItem({
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative flex cursor-pointer select-none items-center rounded-md py-2 pl-8 pr-3 text-sm font-semibold text-black outline-none transition-all duration-200 focus:bg-slate-100 data-[state=checked]:bg-info/10 data-[state=checked]:text-info",
+        "relative flex cursor-pointer select-none items-center rounded-md py-2 pl-8 pr-3 text-sm font-semibold text-white outline-none transition-all duration-200 focus:bg-white/10 data-[state=checked]:bg-[#41bf63]/10 data-[state=checked]:text-[#41bf63]",
         className
       )}
       {...props}

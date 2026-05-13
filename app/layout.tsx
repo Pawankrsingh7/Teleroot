@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import { ChatWidget } from "@/components/ChatWidget";
 
 export const metadata: Metadata = {
-  title: "TeleRoot Dashboard",
+  title: "TeleSec Dashboard",
   description: "Cyber-security and network monitoring dashboard"
 };
 
@@ -21,3 +21,4 @@ export default function RootLayout({
     </html>
   );
 }
+

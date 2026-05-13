@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,16 +7,16 @@ import Link from "next/link";
 
 const faqs = [
   {
-    question: "What exactly does TeleRoot do?",
-    answer: "TeleRoot is an enterprise-grade network monitoring and automation platform. We provide real-time 3D topology mapping, AI-driven root-cause analysis, and auto-remediation for complex telecom and cloud infrastructures."
+    question: "What exactly does TeleSec do?",
+    answer: "TeleSec is an enterprise-grade network monitoring and automation platform. We provide real-time 3D topology mapping, AI-driven root-cause analysis, and auto-remediation for complex telecom and cloud infrastructures."
   },
   {
     question: "How does the AI Copilot work?",
     answer: "Our AI Copilot is powered by a proprietary Large Language Model (LLM) trained specifically on network telemetry, syslogs, and routing tables. You can ask it plain-English questions about latency or hardware health, and it instantly analyzes millions of logs to provide the exact root cause and suggested fixes."
   },
   {
-    question: "Can TeleRoot integrate with our existing hardware?",
-    answer: "Yes. TeleRoot is completely vendor-agnostic. We support seamless integrations with legacy hardware (Cisco, Juniper, Arista) and modern cloud-native orchestrators via secure APIs, SNMP, and custom webhooks."
+    question: "Can TeleSec integrate with our existing hardware?",
+    answer: "Yes. TeleSec is completely vendor-agnostic. We support seamless integrations with legacy hardware (Cisco, Juniper, Arista) and modern cloud-native orchestrators via secure APIs, SNMP, and custom webhooks."
   },
   {
     question: "What is the typical deployment time?",
@@ -101,3 +101,4 @@ export function LandingFAQ() {
     </section>
   );
 }
+

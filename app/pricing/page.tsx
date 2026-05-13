@@ -1,11 +1,11 @@
-import { LandingNavbar } from "@/components/LandingNavbar";
+﻿import { LandingNavbar } from "@/components/LandingNavbar";
 import { DetailedPricing } from "@/components/DetailedPricing";
 import { LandingFooter } from "@/components/LandingFooter";
 import { PricingFAQ } from "@/components/PricingFAQ";
 
 export const metadata = {
-  title: "Pricing | TeleRoot",
-  description: "Simple, transparent pricing to power your growth with TeleRoot.",
+  title: "Pricing | TeleSec",
+  description: "Simple, transparent pricing to power your growth with TeleSec.",
 };
 
 export default function PricingPage() {
@@ -25,3 +25,4 @@ export default function PricingPage() {
     </div>
   );
 }
+

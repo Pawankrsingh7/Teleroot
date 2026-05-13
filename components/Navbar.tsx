@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState, useEffect } from "react";
 import { Bell, Menu, Search, User, Shield, Users, LogOut } from "lucide-react";
@@ -174,7 +174,7 @@ export function Navbar() {
                         <span className="rounded bg-[#41bf63]/10 px-1.5 py-0.5 text-[9px] font-black text-[#41bf63] border border-[#41bf63]/20">BETA</span>
                       )}
                     </div>
-                    <p className="text-xs font-medium text-slate-400 truncate">{user?.email || "admin@teleroot.io"}</p>
+                    <p className="text-xs font-medium text-slate-400 truncate">{user?.email || "admin@telesec.io"}</p>
                   </div>
                   <div className="p-2 flex flex-col gap-1">
                     <Link href="/profile?tab=settings" className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-all">
@@ -205,3 +205,4 @@ export function Navbar() {
     </header>
   );
 }
+

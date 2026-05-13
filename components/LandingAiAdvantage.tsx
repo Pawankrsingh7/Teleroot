@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Zap, Brain, Activity, Search, MessageSquare, ShieldAlert, Server } from "lucide-react";
@@ -48,17 +48,17 @@ const aiAdvantages = [
   }
 ];
 
-/* ─── Center circle — layered rings with per-gap spinning green arcs ──────── */
+/* â”€â”€â”€ Center circle â€” layered rings with per-gap spinning green arcs â”€â”€â”€â”€â”€â”€â”€â”€ */
 function CenterCircle() {
   return (
     <div className="relative w-[190px] h-[190px] flex items-center justify-center group cursor-pointer">
 
-      {/* ── LAYER ORDER (back → front):
-           Ring4 (z1) → Arc1-in-gap (z2) → Ring3 (z3) → Arc2-in-gap (z4)
-           → Ring2 (z5) → Arc3-in-gap (z6) → Ring1 (z7)
-      ── */}
+      {/* â”€â”€ LAYER ORDER (back â†’ front):
+           Ring4 (z1) â†’ Arc1-in-gap (z2) â†’ Ring3 (z3) â†’ Arc2-in-gap (z4)
+           â†’ Ring2 (z5) â†’ Arc3-in-gap (z6) â†’ Ring1 (z7)
+      â”€â”€ */}
 
-      {/* Ring 4 – outermost white halo  [z:1] */}
+      {/* Ring 4 â€“ outermost white halo  [z:1] */}
       <div
         className="absolute rounded-full bg-white transition-all duration-500 group-hover:scale-[1.06]"
         style={{
@@ -70,8 +70,8 @@ function CenterCircle() {
         }}
       />
 
-      {/* Arc 1 — sits in gap between Ring4(270) & Ring3(236), midpoint ≈253px  [z:2] */}
-      {/* Arc radius=124, circumference≈779; ~120° arc = dash 260, gap 519 */}
+      {/* Arc 1 â€” sits in gap between Ring4(270) & Ring3(236), midpoint â‰ˆ253px  [z:2] */}
+      {/* Arc radius=124, circumferenceâ‰ˆ779; ~120Â° arc = dash 260, gap 519 */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
@@ -98,8 +98,8 @@ function CenterCircle() {
         }}
       />
 
-      {/* Arc 2 — sits in gap between Ring3(236) & Ring2(210), midpoint ≈223px  [z:4] */}
-      {/* Arc radius=109, circumference≈685; ~120° arc = dash 228, gap 457 */}
+      {/* Arc 2 â€” sits in gap between Ring3(236) & Ring2(210), midpoint â‰ˆ223px  [z:4] */}
+      {/* Arc radius=109, circumferenceâ‰ˆ685; ~120Â° arc = dash 228, gap 457 */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
@@ -126,8 +126,8 @@ function CenterCircle() {
         }}
       />
 
-      {/* Arc 3 — sits in gap between Ring2(210) & Ring1(178), midpoint ≈194px  [z:6] */}
-      {/* Arc radius=95, circumference≈597; ~120° arc = dash 199, gap 398 */}
+      {/* Arc 3 â€” sits in gap between Ring2(210) & Ring1(178), midpoint â‰ˆ194px  [z:6] */}
+      {/* Arc radius=95, circumferenceâ‰ˆ597; ~120Â° arc = dash 199, gap 398 */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
@@ -142,7 +142,7 @@ function CenterCircle() {
         </svg>
       </motion.div>
 
-      {/* Ring 1 – innermost raised content bubble  [z:7] */}
+      {/* Ring 1 â€“ innermost raised content bubble  [z:7] */}
       <div
         className="absolute rounded-full bg-white flex flex-col items-center justify-center text-center transition-all duration-500 group-hover:scale-105 px-4"
         style={{
@@ -154,14 +154,14 @@ function CenterCircle() {
         }}
       >
         <h2 className="text-[14px] font-bold text-[#1F2C30] leading-snug transition-colors duration-300 group-hover:text-[#1a7a40]">
-          Advantages <br /> of TeleRoot AI
+          Advantages <br /> of TeleSec AI
         </h2>
       </div>
     </div>
   );
 }
 
-/* ─── Main Section ───────────────────────────────────────────────────────── */
+/* â”€â”€â”€ Main Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 export function LandingAiAdvantage() {
   return (
     <section id="ai-advantage" className="bg-white py-16 overflow-hidden relative border-b border-slate-100">
@@ -175,12 +175,12 @@ export function LandingAiAdvantage() {
           </h3>
         </div>
 
-        {/* ── Mobile View ── */}
+        {/* â”€â”€ Mobile View â”€â”€ */}
         <div className="lg:hidden">
           <div className="flex flex-col gap-8 items-center">
             {aiAdvantages.map((item, idx) => (
               <div key={idx} className="flex flex-col items-center text-center gap-4">
-                {/* Outline-only circles — mobile */}
+                {/* Outline-only circles â€” mobile */}
                 <div className="relative w-20 h-20 rounded-full flex items-center justify-center bg-transparent">
                   <div className="absolute inset-[-10px] rounded-full border border-slate-300" />
                   <div className="absolute inset-[-4px] rounded-full border border-dashed border-slate-400 border-b-transparent rotate-[45deg]" />
@@ -194,15 +194,15 @@ export function LandingAiAdvantage() {
           </div>
         </div>
 
-        {/* ── Desktop Circular Layout ── */}
+        {/* â”€â”€ Desktop Circular Layout â”€â”€ */}
         <div className="hidden lg:block relative max-w-[850px] h-[480px] mx-auto mt-8">
 
-          {/* Center — 3D layered rings */}
+          {/* Center â€” 3D layered rings */}
           <div id="ai-advantage-center" className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100]">
             <CenterCircle />
           </div>
 
-          {/* 7 Surrounding Nodes — outline-only circles (previous style) */}
+          {/* 7 Surrounding Nodes â€” outline-only circles (previous style) */}
           {aiAdvantages.map((item, idx) => (
             <motion.div
               key={idx}
@@ -218,7 +218,7 @@ export function LandingAiAdvantage() {
               {/* Dashed rotating ring */}
               <div className="absolute inset-[-6px] rounded-full border border-dashed border-slate-400 border-b-transparent rotate-[20deg] group-hover:rotate-[200deg] transition-transform duration-700" />
 
-              {/* Main circle — outline only, no fill */}
+              {/* Main circle â€” outline only, no fill */}
               <div className="absolute inset-0 rounded-full border-2 border-slate-700 bg-transparent" />
 
               {/* Inner accent ring */}
@@ -243,3 +243,4 @@ export function LandingAiAdvantage() {
     </section>
   );
 }
+

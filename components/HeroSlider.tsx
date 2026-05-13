@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -58,13 +58,13 @@ export function HeroSlider() {
             </span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-slate-300 md:text-xl">
-            Teleroot provides enterprise-grade autonomous monitoring and real-time 
+            Telesec provides enterprise-grade autonomous monitoring and real-time 
             topology insights for global telecommunications networks.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/dashboard">
+            <Link href="/resources/center">
               <Button size="lg" className="h-14 rounded-full bg-primary px-10 text-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary/90">
-                Explore Dashboard
+                Explore Resources
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="h-14 rounded-full border-white/20 px-10 text-lg font-semibold text-white backdrop-blur-sm hover:bg-white/10">
@@ -95,3 +95,4 @@ export function HeroSlider() {
     </section>
   );
 }
+

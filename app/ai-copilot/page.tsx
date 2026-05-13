@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -283,7 +283,7 @@ export default function AiCopilotPage() {
                    </button>
                 </div>
                 <p className="mt-4 text-center text-[9px] font-black text-slate-600 uppercase tracking-[0.2em]">
-                   Teleroot AI Protocol v4.2 • Enterprise Intelligence
+                   Telesec AI Protocol v4.2 â€¢ Enterprise Intelligence
                 </p>
               </div>
             </div>
@@ -293,3 +293,4 @@ export default function AiCopilotPage() {
     </div>
   );
 }
+

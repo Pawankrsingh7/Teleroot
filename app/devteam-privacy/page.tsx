@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import {
   CheckCircle2,
   ClipboardList,
@@ -34,7 +34,7 @@ const sections = [
     icon: Users,
     title: "3. Who Can Access It",
     points: [
-      "Application details may be reviewed by Teleroot maintainers, program reviewers, and team members responsible for Dev-Team coordination.",
+      "Application details may be reviewed by Telesec maintainers, program reviewers, and team members responsible for Dev-Team coordination.",
       "We do not sell Dev-Team applicant data or share it with advertisers.",
       "If a project requires collaboration with trusted maintainers, only the information reasonably needed for review or onboarding may be shared.",
     ],
@@ -45,7 +45,7 @@ const sections = [
     points: [
       "We keep application information only for as long as needed to review applications, manage participation, improve onboarding, or satisfy reasonable operational requirements.",
       "If your application is not accepted, we may retain limited information to avoid duplicate reviews and improve future program decisions.",
-      "You may request deletion of your Dev-Team application information by contacting Teleroot.",
+      "You may request deletion of your Dev-Team application information by contacting Telesec.",
     ],
   },
   {
@@ -54,7 +54,7 @@ const sections = [
     points: [
       "We use reasonable administrative and technical safeguards to protect Dev-Team application information.",
       "No online system is perfectly secure, so applicants should avoid submitting secrets, private customer data, confidential code, or sensitive employer material.",
-      "Security-related reports should be shared through approved Teleroot channels rather than public comments or application fields.",
+      "Security-related reports should be shared through approved Telesec channels rather than public comments or application fields.",
     ],
   },
   {
@@ -63,7 +63,7 @@ const sections = [
     points: [
       "You can choose not to submit optional portfolio, GitHub, or project links, although doing so may limit our ability to evaluate your application.",
       "You can request correction or deletion of Dev-Team application information where reasonably possible.",
-      "If you no longer want to participate in the Dev-Team Program, you can contact Teleroot to request removal from active program communications.",
+      "If you no longer want to participate in the Dev-Team Program, you can contact Telesec to request removal from active program communications.",
     ],
   },
 ];
@@ -83,7 +83,7 @@ export default function DevTeamPrivacyPage() {
               Privacy Policy
             </h1>
             <p className="mt-2 max-w-2xl text-[11px] leading-5 text-slate-200 sm:text-xs">
-              This policy explains how Teleroot handles information submitted by Dev-Team applicants and contributors during application review, onboarding, and program participation.
+              This policy explains how Telesec handles information submitted by Dev-Team applicants and contributors during application review, onboarding, and program participation.
             </p>
           </div>
         </div>
@@ -135,11 +135,11 @@ export default function DevTeamPrivacyPage() {
           <div>
             <h2 className="text-xl font-black">Privacy Questions?</h2>
             <p className="mt-2 text-sm leading-6 text-slate-300">
-              Contact Teleroot if you need to update, correct, or delete Dev-Team application information.
+              Contact Telesec if you need to update, correct, or delete Dev-Team application information.
             </p>
           </div>
           <Link
-            href="mailto:privacy@teleroot.com"
+            href="mailto:privacy@telesec.com"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-[8px] bg-[#16b957] px-5 text-sm font-black uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#24c862]"
           >
             <Mail className="h-4 w-4" />
@@ -150,3 +150,4 @@ export default function DevTeamPrivacyPage() {
     </main>
   );
 }
+

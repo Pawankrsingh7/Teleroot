@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import {
@@ -48,7 +48,7 @@ export default function BillingUsagePage() {
               </div>
               <h1 className="text-2xl font-black uppercase tracking-tight text-white lg:text-[28px]">Subscription Control Center</h1>
               <p className="mt-2 max-w-xl text-sm font-medium leading-relaxed text-slate-400">
-                Manage your TeleRoot subscription, track network usage limits, review billing history, and update payment details in one place.
+                Manage your TeleSec subscription, track network usage limits, review billing history, and update payment details in one place.
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function BillingUsagePage() {
                     <div className="mt-5 flex items-end justify-between">
                       <div>
                         <p className="text-[8px] font-black uppercase tracking-widest text-white/50">Name</p>
-                        <p className="text-xs font-bold text-white">TeleRoot Admin</p>
+                        <p className="text-xs font-bold text-white">TeleSec Admin</p>
                       </div>
                       <div>
                         <p className="text-[8px] font-black uppercase tracking-widest text-white/50">Valid Thru</p>
@@ -207,3 +207,4 @@ export default function BillingUsagePage() {
     </div>
   );
 }
+

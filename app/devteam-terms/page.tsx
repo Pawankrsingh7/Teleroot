@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import {
   CheckCircle2,
   Code2,
@@ -14,9 +14,9 @@ const sections = [
     icon: Users,
     title: "1. Eligibility And Application Review",
     points: [
-      "The Dev-Team Program is open to developers, designers, operators, researchers, and technical contributors who want to support Teleroot's open-source infrastructure work.",
+      "The Dev-Team Program is open to developers, designers, operators, researchers, and technical contributors who want to support Telesec's open-source infrastructure work.",
       "You agree to provide accurate details about your identity, skills, portfolio, GitHub profile, and past technical work.",
-      "Teleroot may approve, reject, pause, or defer an application based on project needs, contribution fit, conduct history, and available maintainer capacity.",
+      "Telesec may approve, reject, pause, or defer an application based on project needs, contribution fit, conduct history, and available maintainer capacity.",
     ],
   },
   {
@@ -33,8 +33,8 @@ const sections = [
     title: "3. Open-Source Rights",
     points: [
       "By submitting code, documentation, designs, or ideas, you confirm that you have the right to share that work.",
-      "Accepted contributions may be used, modified, distributed, and maintained under the license of the relevant Teleroot repository.",
-      "You retain ownership of your original work, while granting Teleroot and the community the rights required to use it within the project license.",
+      "Accepted contributions may be used, modified, distributed, and maintained under the license of the relevant Telesec repository.",
+      "You retain ownership of your original work, while granting Telesec and the community the rights required to use it within the project license.",
     ],
   },
   {
@@ -43,7 +43,7 @@ const sections = [
     points: [
       "Do not submit secrets, access tokens, customer information, confidential employer materials, or unauthorized third-party code.",
       "If you discover a security concern, report it responsibly instead of posting exploit details publicly.",
-      "Program access, private discussions, roadmaps, or review notes may not be shared outside approved Teleroot channels.",
+      "Program access, private discussions, roadmaps, or review notes may not be shared outside approved Telesec channels.",
     ],
   },
   {
@@ -52,7 +52,7 @@ const sections = [
     points: [
       "Members must communicate respectfully with maintainers, contributors, applicants, and users.",
       "Harassment, abuse, spam, impersonation, disruptive behavior, or misuse of access may result in removal from the program.",
-      "Teleroot may moderate discussions, close submissions, or limit access to keep the program productive and safe.",
+      "Telesec may moderate discussions, close submissions, or limit access to keep the program productive and safe.",
     ],
   },
   {
@@ -60,7 +60,7 @@ const sections = [
     title: "6. Data Use And Program Changes",
     points: [
       "Application information is used to review eligibility, contact applicants, and manage Dev-Team participation.",
-      "Teleroot may update requirements, benefits, project access, review criteria, or these terms as the program evolves.",
+      "Telesec may update requirements, benefits, project access, review criteria, or these terms as the program evolves.",
       "Continued participation after updates means you accept the latest Dev-Team Terms & Conditions.",
     ],
   },
@@ -81,7 +81,7 @@ export default function DevTeamTermsPage() {
               Terms & Conditions
             </h1>
             <p className="mt-2 max-w-2xl text-[11px] leading-5 text-slate-200 sm:text-xs">
-              These terms are written specifically for Teleroot Dev-Team applicants and contributors. They define how applications, contributions, conduct, security, and open-source rights are handled.
+              These terms are written specifically for Telesec Dev-Team applicants and contributors. They define how applications, contributions, conduct, security, and open-source rights are handled.
             </p>
           </div>
         </div>
@@ -130,11 +130,11 @@ export default function DevTeamTermsPage() {
           <div>
             <h2 className="text-xl font-black">Questions About Dev-Team Terms?</h2>
             <p className="mt-2 text-sm leading-6 text-slate-300">
-              Contact the Teleroot team before submitting sensitive material, private code, or security-related information.
+              Contact the Telesec team before submitting sensitive material, private code, or security-related information.
             </p>
           </div>
           <Link
-            href="mailto:devteam@teleroot.com"
+            href="mailto:devteam@telesec.com"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-[8px] bg-[#16b957] px-5 text-sm font-black uppercase tracking-[0.14em] text-white transition-colors hover:bg-[#24c862]"
           >
             <Mail className="h-4 w-4" />
@@ -145,3 +145,4 @@ export default function DevTeamTermsPage() {
     </main>
   );
 }
+

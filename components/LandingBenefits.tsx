@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Clock, TrendingDown, Activity, ShieldCheck, Cpu } from "lucide-react";
@@ -41,7 +41,7 @@ export function LandingBenefits() {
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#85B100]">Value</h2>
           <h3 className="text-3xl font-bold text-[#1F2C30] sm:text-4xl lg:text-5xl tracking-tight">
-            Benefits of <span className="text-[#85B100]">TeleRoot</span> for Enterprise
+            Benefits of <span className="text-[#85B100]">TeleSec</span> for Enterprise
           </h3>
         </div>
 
@@ -76,3 +76,4 @@ export function LandingBenefits() {
     </section>
   );
 }
+

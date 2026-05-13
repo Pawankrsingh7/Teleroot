@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -30,40 +30,55 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { DevTeamModal } from "./DevTeamModal";
 
-const productsMenu = {
+interface MenuItem {
+  title: string;
+  desc?: string;
+  icon: any;
+  href: string;
+}
+
+const productsMenu: {
+  intelligence: MenuItem[];
+  automation: MenuItem[];
+  security: MenuItem[];
+} = {
   intelligence: [
-    { title: "Project Dashboard", desc: "Unified view of health", icon: Layout },
-    { title: "Topology Mapping", desc: "Real-time 3D visualization", icon: Monitor },
-    { title: "Root Cause AI", desc: "Intelligent troubleshooting", icon: FileSearch },
+    { title: "Project Dashboard", desc: "Unified view of health", icon: Layout, href: "#" },
+    { title: "Topology Mapping", desc: "Real-time 3D visualization", icon: Monitor, href: "#" },
+    { title: "Root Cause AI", desc: "Intelligent troubleshooting", icon: FileSearch, href: "#" },
   ],
   automation: [
-    { title: "Playbook Engine", icon: Zap },
-    { title: "Agent Orchestrator", icon: Users },
-    { title: "Network CI/CD", icon: RefreshCw },
+    { title: "Playbook Engine", icon: Zap, href: "#" },
+    { title: "Agent Orchestrator", icon: Users, href: "#" },
+    { title: "Network CI/CD", icon: RefreshCw, href: "#" },
   ],
   security: [
-    { title: "Fraud Detection", icon: ShieldAlert },
-    { title: "Audit Logging", icon: Lock },
-    { title: "RBAC Control", icon: Key },
+    { title: "Fraud Detection", icon: ShieldAlert, href: "#" },
+    { title: "Audit Logging", icon: Lock, href: "#" },
+    { title: "RBAC Control", icon: Key, href: "#" },
   ]
 };
 
-const resourcesMenu = {
+const resourcesMenu: {
+  discover: MenuItem[];
+  learn: MenuItem[];
+  support: MenuItem[];
+} = {
   discover: [
-    { title: "Resource Center", desc: "Explore Teleroot Resources", icon: BookOpen },
-    { title: "Blog", desc: "Latest industry insights", icon: Layout },
-    { title: "Case Studies", desc: "Customer success stories", icon: FileCheck },
-    { title: "Webinars & Events", desc: "Join our live sessions", icon: Video },
+    { title: "Resource Center", desc: "Explore Telesec Resources", icon: BookOpen, href: "/resources/center" },
+    { title: "Blog", desc: "Latest industry insights", icon: Layout, href: "#" },
+    { title: "Case Studies", desc: "Customer success stories", icon: FileCheck, href: "/resources/case-studies" },
+    { title: "Webinars & Events", desc: "Join our live sessions", icon: Video, href: "/resources/webinars-events" },
   ],
   learn: [
-    { title: "Learning Guides", icon: GraduationCap },
-    { title: "Solution Sheets", icon: FileText },
-    { title: "Glossary", icon: Type },
-    { title: "Product Tours", icon: Monitor },
-    { title: "ROI Calculator", icon: Calculator },
+    { title: "Learning Guides", icon: GraduationCap, href: "/resources/learning-guides" },
+    { title: "Solution Sheets", icon: FileText, href: "/resources/solution-sheets" },
+    { title: "Glossary", icon: Type, href: "#" },
+    { title: "Product Tours", icon: Monitor, href: "#" },
+    { title: "ROI Calculator", icon: Calculator, href: "#" },
   ],
   support: [
-    { title: "Documentation", icon: FileSearch },
+    { title: "Documentation", icon: FileSearch, href: "#" },
   ]
 };
 
@@ -117,7 +132,7 @@ export function LandingNavbar() {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
-          <span className="text-lg lg:text-base xl:text-xl font-bold tracking-[0.2em] text-white uppercase">TeleRoot</span>
+          <span className="text-lg lg:text-base xl:text-xl font-bold tracking-[0.2em] text-white uppercase">TeleSec</span>
         </Link>
 
         {/* Desktop Nav & Action Buttons Wrapper */}
@@ -175,7 +190,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-6">
                             {productsMenu.intelligence.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-start gap-4">
+                              <Link key={item.title} href={item.href} className="group flex items-start gap-4">
                                 <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white/70 transition-all group-hover:bg-[#41bf63] group-hover:text-black">
                                   <item.icon className="h-4.5 w-4.5" />
                                 </div>
@@ -195,7 +210,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-4">
                             {productsMenu.automation.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-center gap-3 py-0.5">
+                              <Link key={item.title} href={item.href} className="group flex items-center gap-3 py-0.5">
                                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-white/60 transition-all group-hover:bg-white/10 group-hover:text-[#41bf63]">
                                   <item.icon className="h-3.5 w-3.5" />
                                 </div>
@@ -212,7 +227,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-4">
                             {productsMenu.security.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-center gap-3 py-0.5">
+                              <Link key={item.title} href={item.href} className="group flex items-center gap-3 py-0.5">
                                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-white/60 transition-all group-hover:bg-white/10 group-hover:text-[#41bf63]">
                                   <item.icon className="h-3.5 w-3.5" />
                                 </div>
@@ -250,7 +265,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-6">
                             {resourcesMenu.discover.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-start gap-4">
+                              <Link key={item.title} href={item.href} className="group flex items-start gap-4">
                                 <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white/70 transition-all group-hover:bg-[#41bf63] group-hover:text-black">
                                   <item.icon className="h-4.5 w-4.5" />
                                 </div>
@@ -270,7 +285,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-4">
                             {resourcesMenu.learn.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-center gap-3 py-0.5">
+                              <Link key={item.title} href={item.href} className="group flex items-center gap-3 py-0.5">
                                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-white/60 transition-all group-hover:bg-white/10 group-hover:text-[#41bf63]">
                                   <item.icon className="h-3.5 w-3.5" />
                                 </div>
@@ -287,7 +302,7 @@ export function LandingNavbar() {
                           </div>
                           <div className="flex flex-col gap-4">
                             {resourcesMenu.support.map((item) => (
-                              <Link key={item.title} href="#" className="group flex items-center gap-3 py-0.5">
+                              <Link key={item.title} href={item.href} className="group flex items-center gap-3 py-0.5">
                                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white/5 text-white/60 transition-all group-hover:bg-white/10 group-hover:text-[#41bf63]">
                                   <item.icon className="h-3.5 w-3.5" />
                                 </div>

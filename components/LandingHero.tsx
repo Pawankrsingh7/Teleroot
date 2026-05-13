@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -34,7 +34,7 @@ export function LandingHero() {
 
           {/* Structured Description */}
           <p className="mx-auto mb-10 max-w-2xl text-[14px] font-medium leading-relaxed text-slate-400 md:text-base tracking-normal">
-            TeleRoot unifies network intelligence — hardware, software, and AI — with
+            TeleSec unifies network intelligence â€” hardware, software, and AI â€” with
             real-time observability to speed up engineering and improve resiliency against
             outages in production infrastructure.
           </p>
@@ -64,7 +64,7 @@ export function LandingHero() {
                 <Sparkles className="h-3 w-3" />
               </span>
               <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-white">
-                Teleroot Insider Beta is now live — Early users can access experimental AI features.
+                Telesec Insider Beta is now live â€” Early users can access experimental AI features.
               </p>
               <button
                 onClick={() => {
@@ -85,4 +85,5 @@ export function LandingHero() {
     </section>
   );
 }
+
 

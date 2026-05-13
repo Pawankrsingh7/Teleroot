@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { ShieldCheck, FileText, Lock, Loader2, ArrowRight } from "lucide-react";
@@ -113,7 +113,7 @@ export function IamTermsModal({ isOpen, onAccept }: IamTermsModalProps) {
                         Dashboard Terms & Conditions
                       </span>
                       <span className="text-[10px] text-slate-400">
-                        I agree to abide by the Teleroot acceptable use policy and standard operating procedures for IAM level access.
+                        I agree to abide by the Telesec acceptable use policy and standard operating procedures for IAM level access.
                       </span>
                     </div>
                   </label>
@@ -165,3 +165,4 @@ export function IamTermsModal({ isOpen, onAccept }: IamTermsModalProps) {
     </AnimatePresence>
   );
 }
+

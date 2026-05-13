@@ -56,7 +56,7 @@ export function LandingCTA() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/dashboard" className="group flex h-14 items-center rounded-full bg-[#41bf63] pl-6 pr-1.5 text-sm font-bold text-black transition-all hover:bg-[#bce628]">
+              <Link href="/signup" className="group flex h-14 items-center rounded-full bg-[#41bf63] pl-6 pr-1.5 text-sm font-bold text-black transition-all hover:bg-[#bce628]">
                 <span className="mr-4 text-black">Get Started Free</span>
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1F2C30] text-[#41bf63] transition-transform group-hover:scale-105">
                   <ArrowUpRight className="h-4.5 w-4.5" />

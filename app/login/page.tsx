@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -119,13 +119,13 @@ function LoginContent() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mb-5">
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELEROOT</span>
+              <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELESEC</span>
               <span className="text-[6px] font-bold text-[#41bf63] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
             </div>
           </Link>
 
           <div className="mb-4">
-            <h1 className="text-xl lg:text-2xl font-bold mb-0.5">Sign in to Teleroot</h1>
+            <h1 className="text-xl lg:text-2xl font-bold mb-0.5">Sign in to Telesec</h1>
             <div className="flex items-center gap-2">
               <p className="text-slate-400 text-[11px]">Access your account to continue</p>
               <div className="flex items-center gap-1 rounded-full bg-[#41bf63]/10 px-1.5 py-0.5 border border-[#41bf63]/20">
@@ -300,7 +300,7 @@ function LoginContent() {
                           </div>
                         </div>
                         <span className="text-xs text-white">
-                          I agree to the Teleroot <Link href="/terms" className="text-[#41bf63] hover:underline">Terms & Conditions</Link>.
+                          I agree to the Telesec <Link href="/terms" className="text-[#41bf63] hover:underline">Terms & Conditions</Link>.
                         </span>
                       </label>
                       <label className="flex items-center gap-3 cursor-pointer group">
@@ -346,7 +346,7 @@ function LoginContent() {
              <div className="flex items-center gap-2 text-slate-600">
                 <Lock className="h-2.5 w-2.5" />
                 <p className="text-[9px] leading-relaxed text-center">
-                  By continuing, you agree to Teleroot's<br />
+                  By continuing, you agree to Telesec's<br />
                   <Link href="#" className="text-[#41bf63] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#41bf63] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#41bf63] hover:underline">Cookie Policy</Link>.
                 </p>
              </div>
@@ -376,7 +376,7 @@ function LoginContent() {
             <div className="h-0.5 w-10 bg-[#41bf63] mb-6" />
 
             <p className="text-slate-400 text-sm leading-relaxed mb-10 max-w-md">
-              Teleroot unifies network intelligence — hardware, software, and AI — with real-time observability to speed up engineering and improve resiliency against outages in production infrastructure.
+              Telesec unifies network intelligence â€” hardware, software, and AI â€” with real-time observability to speed up engineering and improve resiliency against outages in production infrastructure.
             </p>
 
             <div className="grid grid-cols-3 gap-0 border-t border-white/10 pt-8">
@@ -406,7 +406,7 @@ function LoginContent() {
       {/* Footer copyright */}
       <div className="fixed bottom-4 left-0 right-0 text-center z-20 pointer-events-none">
         <p className="text-[10px] text-slate-700 font-medium tracking-wider">
-          © 2026 Teleroot. All rights reserved.
+          Â© 2026 Telesec. All rights reserved.
         </p>
       </div>
       <GoogleLoginModal 
@@ -425,3 +425,4 @@ export default function LoginPage() {
     </Suspense>
   );
 }
+

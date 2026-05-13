@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -76,7 +76,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                 <div className="flex h-8 w-8 items-center justify-center rounded-md bg-white/5 text-white">
                   <Activity className="h-5 w-5" />
                 </div>
-                <span className="text-xl font-black text-white">Teleroot</span>
+                <span className="text-xl font-black text-white">Telesec</span>
               </div>
 
               <div className="relative z-10 flex h-full w-full flex-col justify-between p-8 pt-24 xl:p-9 xl:pt-24">
@@ -89,7 +89,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                     <span className="text-[#41bf63]">network intelligence</span>
                   </h2>
                   <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-300">
-                    Join DevTeam and contribute to Teleroot's open-source infrastructure platform. 
+                    Join DevTeam and contribute to Telesec's open-source infrastructure platform. 
                     Collaborate, innovate, and make an impact.
                   </p>
                 </div>
@@ -158,7 +158,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                       <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#41bf63] text-black">
                         <Activity className="h-5 w-5" />
                       </div>
-                      <span className="text-base font-black uppercase tracking-widest text-white">TeleRoot</span>
+                      <span className="text-base font-black uppercase tracking-widest text-white">TeleSec</span>
                     </div>
                   </div>
 
@@ -170,7 +170,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                       </div>
                       <div>
                         <h3 className="text-lg font-black uppercase tracking-wide text-white">Join Dev-Team</h3>
-                        <p className="text-xs font-medium text-slate-300">Contribute to Teleroot's open-source infrastructure platform</p>
+                        <p className="text-xs font-medium text-slate-300">Contribute to Telesec's open-source infrastructure platform</p>
                       </div>
                     </div>
                     <div className="hidden items-center gap-2 rounded-full border border-purple-500/10 bg-purple-500/10 px-4 py-2 sm:flex">
@@ -262,7 +262,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                       <div className="space-y-2">
                         <label className="block text-xs font-black uppercase tracking-[0.18em] text-white">Why do you want to contribute? <span className="text-red-400">*</span></label>
                         <textarea
-                          required rows={3} placeholder="Tell us about your skills, what you'd like to work on, and why Teleroot interests you..." 
+                          required rows={3} placeholder="Tell us about your skills, what you'd like to work on, and why Telesec interests you..." 
                           name="message" value={form.message} onChange={handleChange}
                           className="h-[58px] w-full resize-none rounded-[8px] border border-white/10 bg-white/[0.03] p-3 text-sm text-white outline-none transition-all focus:border-[#41bf63]/40 focus:bg-white/[0.05]"
                         />
@@ -338,7 +338,7 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
                     Application <br /> Submitted!
                   </h3>
                   <p className="mb-10 max-w-sm text-[15px] font-medium text-slate-400 leading-relaxed">
-                    Thanks for your interest in joining the Teleroot DevTeam. We've received your application and our team will get back to you soon.
+                    Thanks for your interest in joining the Telesec DevTeam. We've received your application and our team will get back to you soon.
                   </p>
                   <button
                     onClick={handleClose}
@@ -355,3 +355,4 @@ export function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
     </AnimatePresence>
   );
 }
+

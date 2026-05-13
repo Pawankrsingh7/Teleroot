@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
@@ -7,13 +7,13 @@ const testimonials = [
   {
     name: "Sarah Jenkins",
     role: "VP of Network Eng, GlobalTel",
-    content: "TeleRoot completely transformed how we manage our core network. The AI observability reduced our MTTR by 60% within the first month.",
+    content: "TeleSec completely transformed how we manage our core network. The AI observability reduced our MTTR by 60% within the first month.",
     rating: 5,
   },
   {
     name: "David Chen",
     role: "Lead DevOps, NextGen Infra",
-    content: "We ingest terabytes of logs daily. TeleRoot's data processing is shockingly fast, and the autonomous playbooks save my team countless hours.",
+    content: "We ingest terabytes of logs daily. TeleSec's data processing is shockingly fast, and the autonomous playbooks save my team countless hours.",
     rating: 5,
   },
   {
@@ -31,7 +31,7 @@ const testimonials = [
   {
     name: "James Wilson",
     role: "CTO, Horizon Comms",
-    content: "Deploying TeleRoot was incredibly smooth. The integrations worked out of the box, and the insights provided by the AI engine are unmatched.",
+    content: "Deploying TeleSec was incredibly smooth. The integrations worked out of the box, and the insights provided by the AI engine are unmatched.",
     rating: 5,
   }
 ];
@@ -80,7 +80,7 @@ export function LandingTestimonials() {
           Client Feedback & <span className="text-[#f59e0b]">Testimonial</span>
         </h3>
         <p className="mx-auto mt-6 max-w-2xl text-[14px] text-slate-500 leading-relaxed">
-          See how industry-leading engineers use TeleRoot's AI-driven observability 
+          See how industry-leading engineers use TeleSec's AI-driven observability 
           to prevent outages, reduce MTTR, and scale their infrastructure with confidence.
         </p>
       </div>
@@ -118,3 +118,4 @@ export function LandingTestimonials() {
     </section>
   );
 }
+

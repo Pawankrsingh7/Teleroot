@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -10,6 +10,7 @@ const features = [
     title: "Save Hours with AI-Powered Operations",
     description: "Reduce manual troubleshooting with smart automation that identifies bottlenecks in seconds, freeing up time for what matters most.",
     linkText: "Explore AI",
+    href: "/ai-copilot",
     bgColor: "bg-[#FFF4E5]",
     hoverBorder: "hover:border-orange-300 hover:ring-orange-300",
     graphic: (
@@ -24,8 +25,9 @@ const features = [
   {
     badge: "Auto-Healing",
     title: "Resolve Faults Automatically",
-    description: "Bring your network reliability to the next level. TeleRoot detects anomalies and self-corrects infrastructure before users notice.",
+    description: "Bring your network reliability to the next level. TeleSec detects anomalies and self-corrects infrastructure before users notice.",
     linkText: "Try It Now",
+    href: "/automation-playbooks",
     bgColor: "bg-[#EBF3FF]",
     hoverBorder: "hover:border-blue-300 hover:ring-blue-300",
     graphic: (
@@ -41,6 +43,7 @@ const features = [
     title: "Map Your Entire Infrastructure",
     description: "Maintain a living, 3D map of your entire network. Visualize physical fiber layers and logical cloud orchestrations instantly.",
     linkText: "View Topology",
+    href: "/network-topology",
     bgColor: "bg-[#F3E8FF]",
     hoverBorder: "hover:border-purple-300 hover:ring-purple-300",
     graphic: (
@@ -55,6 +58,7 @@ const features = [
     title: "Make Data-Driven Decisions",
     description: "Gain insights with real-time analytics and hardware degradation reports, helping you optimize performance and predict failures.",
     linkText: "View Insights",
+    href: "/optimization",
     bgColor: "bg-[#ECFDF5]",
     hoverBorder: "hover:border-emerald-300 hover:ring-emerald-300",
     graphic: (
@@ -69,6 +73,7 @@ const features = [
     title: "Process Petabytes at the Edge",
     description: "Our edge-ingestion pipeline processes billions of telemetry points with sub-millisecond overhead, built for global scale.",
     linkText: "Learn More",
+    href: "/fiber-monitoring",
     bgColor: "bg-[#FFF1F2]",
     hoverBorder: "hover:border-rose-300 hover:ring-rose-300",
     graphic: (
@@ -83,6 +88,7 @@ const features = [
     title: "Detect Threats in Real-Time",
     description: "Integrate native threat detection that blocks malicious traffic patterns and DDoS attempts autonomously.",
     linkText: "Explore Security",
+    href: "/fraud-detection",
     bgColor: "bg-[#F0FDF4]",
     hoverBorder: "hover:border-green-300 hover:ring-green-300",
     graphic: (
@@ -131,7 +137,7 @@ export function LandingFeatures() {
                 </div>
                 <div className="mt-auto">
                   <Link 
-                    href="/dashboard" 
+                    href={feature.href} 
                     className="group inline-flex items-center gap-1 border-b border-[#1F2C30] pb-0.5 text-[13px] font-bold text-[#1F2C30] transition-opacity hover:opacity-70"
                   >
                     {feature.linkText}
@@ -149,3 +155,4 @@ export function LandingFeatures() {
     </section>
   );
 }
+

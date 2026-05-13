@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -25,6 +25,13 @@ import {
 
 
 import { LandingNavbar } from "@/components/LandingNavbar";
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select";
 
 
 const paymentMethods = [
@@ -51,6 +58,33 @@ type CheckoutPlan = {
   sla: string;
 };
 
+const countries = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+  "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+  "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)",
+  "Denmark", "Djibouti", "Dominica", "Dominican Republic",
+  "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini (fmr. 'Swaziland')", "Ethiopia",
+  "Fiji", "Finland", "France",
+  "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+  "Haiti", "Holy See", "Honduras", "Hungary",
+  "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+  "Jamaica", "Japan", "Jordan",
+  "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan",
+  "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+  "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (formerly Burma)",
+  "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway",
+  "Oman",
+  "Pakistan", "Palau", "Palestine State", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal",
+  "Qatar",
+  "Romania", "Russia", "Rwanda",
+  "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+  "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+  "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan",
+  "Vanuatu", "Venezuela", "Vietnam",
+  "Yemen",
+  "Zambia", "Zimbabwe"
+];
+
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
@@ -67,9 +101,14 @@ export function PaymentCheckout({ plan, billing }: { plan: CheckoutPlan; billing
   const [country, setCountry] = useState("India");
 
   const currencies: Record<string, { code: string; symbol: string }> = {
-    "India": { code: "INR", symbol: "₹" },
+    "India": { code: "INR", symbol: "â‚¹" },
     "United States": { code: "USD", symbol: "$" },
-    "United Kingdom": { code: "GBP", symbol: "£" }
+    "United Kingdom": { code: "GBP", symbol: "Â£" },
+    "Germany": { code: "EUR", symbol: "â‚¬" },
+    "France": { code: "EUR", symbol: "â‚¬" },
+    "Italy": { code: "EUR", symbol: "â‚¬" },
+    "Spain": { code: "EUR", symbol: "â‚¬" },
+    "Netherlands": { code: "EUR", symbol: "â‚¬" }
   };
 
   const currentCurrency = currencies[country] || currencies["India"];
@@ -109,7 +148,7 @@ export function PaymentCheckout({ plan, billing }: { plan: CheckoutPlan; billing
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#41bf63]">Secure Checkout</p>
               </div>
               <h1 className="mt-3 text-2xl font-black tracking-tight text-white sm:text-4xl">Complete your purchase</h1>
-              <p className="mt-2 max-w-2xl text-sm font-semibold text-slate-400">You are almost there. Fill in your details and start your journey with TeleRoot.</p>
+              <p className="mt-2 max-w-2xl text-sm font-semibold text-slate-400">You are almost there. Fill in your details and start your journey with TeleSec.</p>
             </div>
           </div>
         </header>
@@ -153,16 +192,22 @@ export function PaymentCheckout({ plan, billing }: { plan: CheckoutPlan; billing
 
             <div className="mt-5 grid gap-4 md:grid-cols-3">
               <Field label="Country">
-                <select 
-                  className={`${inputClass} [&>option]:bg-[#13161F] [&>option]:text-white`} 
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  required
-                >
-                  <option value="India">India</option>
-                  <option value="United States">United States</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                </select>
+                <Select value={country} onValueChange={(val) => setCountry(val)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Country" />
+                  </SelectTrigger>
+                  <SelectContent 
+                    side="bottom" 
+                    position="popper" 
+                    className="z-[100] max-h-60"
+                  >
+                    {countries.map((c) => (
+                      <SelectItem key={c} value={c}>
+                        {c}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </Field>
               <div className="md:col-span-2">
                 <Field label="Address"><input className={inputClass} placeholder="123 Innovation Drive" required /></Field>
@@ -259,7 +304,7 @@ export function PaymentCheckout({ plan, billing }: { plan: CheckoutPlan; billing
               )}
               {method === "bank" && (
                 <div className="grid gap-2 rounded-lg border border-[#41bf63]/20 bg-[#41bf63]/10 p-4 text-sm font-semibold text-[#41bf63]">
-                  <p>Account: TeleRoot AI Billing</p>
+                  <p>Account: TeleSec AI Billing</p>
                   <p>IFSC: TELR0001024</p>
                   <p>Reference: {plan.name.replace(/\s+/g, "-").toUpperCase()}</p>
                 </div>
@@ -348,3 +393,4 @@ export function PaymentCheckout({ plan, billing }: { plan: CheckoutPlan; billing
     </main>
   );
 }
+

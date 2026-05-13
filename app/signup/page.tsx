@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -123,14 +123,14 @@ function SignupContent() {
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELEROOT</span>
+              <span className="text-xl font-bold tracking-[0.1em] uppercase leading-none">TELESEC</span>
               <span className="text-[6px] font-bold text-[#41bf63] uppercase tracking-[0.2em] mt-1">THE NETWORK AI INFRASTRUCTURE PLATFORM</span>
             </div>
           </Link>
 
           <div className="mb-6">
             <h1 className="text-2xl lg:text-3xl font-bold mb-1">Create an Account</h1>
-            <p className="text-slate-400 text-xs">Start your journey with TeleRoot today</p>
+            <p className="text-slate-400 text-xs">Start your journey with TeleSec today</p>
           </div>
 
           {/* Social Logins */}
@@ -251,7 +251,7 @@ function SignupContent() {
                   value={formData.companyName}
                   onChange={handleInputChange}
                   required
-                  placeholder="TeleRoot Inc."
+                  placeholder="TeleSec Inc."
                   className="pl-11 h-10 border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-[#41bf63]/50 focus:ring-0 rounded-xl text-sm"
                 />
               </div>
@@ -304,7 +304,7 @@ function SignupContent() {
              <div className="flex items-center gap-2 text-slate-600">
                 <Lock className="h-2.5 w-2.5" />
                 <p className="text-[9px] leading-relaxed text-center">
-                  By joining, you agree to Teleroot's<br />
+                  By joining, you agree to Telesec's<br />
                   <Link href="#" className="text-[#41bf63] hover:underline">Terms of Service</Link>, <Link href="#" className="text-[#41bf63] hover:underline">Privacy Policy</Link> and <Link href="#" className="text-[#41bf63] hover:underline">Cookie Policy</Link>.
                 </p>
              </div>
@@ -328,7 +328,7 @@ function SignupContent() {
             <h2 className="text-3xl lg:text-[40px] font-bold leading-tight mb-4">
               Join the <br />
               <span className="text-[#41bf63]">Future of Networking</span> <br />
-              with TeleRoot AI
+              with TeleSec AI
             </h2>
             
             <div className="h-0.5 w-10 bg-[#41bf63] mb-6" />
@@ -364,7 +364,7 @@ function SignupContent() {
       {/* Footer copyright */}
       <div className="fixed bottom-4 left-0 right-0 text-center z-20 pointer-events-none">
         <p className="text-[10px] text-slate-700 font-medium tracking-wider">
-          © 2026 Teleroot. All rights reserved.
+          Â© 2026 Telesec. All rights reserved.
         </p>
       </div>
       <GoogleLoginModal 
@@ -383,3 +383,4 @@ export default function SignupPage() {
     </Suspense>
   );
 }
+

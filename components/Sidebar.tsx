@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -88,7 +88,7 @@ export function Sidebar() {
             <Activity className="h-6 w-6" />
           </span>
           <div className={collapsed ? "hidden" : "block"}>
-            <span className="block text-lg font-bold tracking-tight text-white uppercase">TeleRoot</span>
+            <span className="block text-lg font-bold tracking-tight text-white uppercase">TeleSec</span>
             <span className="block text-[8px] font-black text-slate-500 uppercase tracking-widest leading-none mt-0.5">Network Ops</span>
           </div>
         </Link>
@@ -190,3 +190,4 @@ export function Sidebar() {
     </aside>
   );
 }
+

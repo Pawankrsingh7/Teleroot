@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -248,10 +248,10 @@ export function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 </div>
                 
                 <h2 className="text-2xl font-bold text-white mb-2 tracking-tight">
-                  See Teleroot AI in action
+                  See Telesec AI in action
                 </h2>
                 <p className="text-xs text-slate-400 mb-6 leading-relaxed max-w-md">
-                  Book a personalized demo with our experts and discover how Teleroot AI can help you detect, resolve, and prevent issues faster.
+                  Book a personalized demo with our experts and discover how Telesec AI can help you detect, resolve, and prevent issues faster.
                 </p>
 
                 {/* Form Fields */}
@@ -558,7 +558,7 @@ export function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 <h2 className="mb-4 text-2xl font-bold tracking-tight text-white">Request Submitted Successfully!</h2>
                 <div className="mb-7 rounded-2xl border border-white/8 bg-white/[0.03] px-6 py-5">
                   <p className="text-sm leading-7 text-slate-400">
-                    Thank you for your interest in Teleroot AI, <span className="font-semibold text-white">{formData.fullName}</span>. 
+                    Thank you for your interest in Telesec AI, <span className="font-semibold text-white">{formData.fullName}</span>. 
                     We've received your request for <span className="font-semibold text-white">{selectedSlotLabel}</span>. 
                     You will receive an email shortly at <span className="font-medium text-[#41bf63]">{formData.workEmail}</span> with the meeting details.
                   </p>
@@ -585,3 +585,4 @@ export function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
     </AnimatePresence>
   );
 }
+

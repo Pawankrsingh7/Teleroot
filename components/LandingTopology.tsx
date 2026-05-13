@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Share2 } from "lucide-react";
@@ -23,7 +23,7 @@ export function LandingTopology() {
                 In Every Dimension
               </h2>
               <p className="text-lg text-slate-400 mb-8 max-w-xl">
-                Teleroot's proprietary topology engine maps thousands of nodes in real-time, 
+                Telesec's proprietary topology engine maps thousands of nodes in real-time, 
                 giving you a 360-degree view of your fiber segments, router clusters, 
                 and edge devices.
               </p>
@@ -121,3 +121,4 @@ export function LandingTopology() {
     </section>
   );
 }
+

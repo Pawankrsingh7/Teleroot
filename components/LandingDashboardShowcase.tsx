@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
@@ -64,7 +64,7 @@ export function LandingDashboardShowcase() {
           {/* Dashboard Image */}
           <Image
             src="/Dashboard.png"
-            alt="TeleRoot Enterprise Dashboard"
+            alt="TeleSec Enterprise Dashboard"
             width={1920}
             height={1080}
             className="h-auto w-full object-contain"
@@ -77,3 +77,4 @@ export function LandingDashboardShowcase() {
     </section>
   );
 }
+

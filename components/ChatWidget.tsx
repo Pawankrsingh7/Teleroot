@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Bot } from "lucide-react";
@@ -6,7 +6,7 @@ import { MessageSquare, X, Send, Bot } from "lucide-react";
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: "bot", content: "Hi there! 👋 How can I help you with TeleRoot today?" }
+    { role: "bot", content: "Hi there! ðŸ‘‹ How can I help you with TeleSec today?" }
   ]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export function ChatWidget() {
               <Bot className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-bold">TeleRoot Assistant</p>
+              <p className="text-sm font-bold">TeleSec Assistant</p>
               <p className="text-[10px] text-slate-400">Online | AI Powered</p>
             </div>
           </div>
@@ -116,3 +116,4 @@ export function ChatWidget() {
     </div>
   );
 }
+

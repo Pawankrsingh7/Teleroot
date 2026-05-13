@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { Sidebar } from "@/components/Sidebar";
@@ -38,7 +38,7 @@ export default function HelpCenterPage() {
   const categories = [
     {
       title: "Getting Started",
-      desc: "Learn the basics of Teleroot and set up your network command center.",
+      desc: "Learn the basics of Telesec and set up your network command center.",
       icon: Zap,
       color: "text-[#41bf63]",
       bg: "bg-[#41bf63]/10",
@@ -62,7 +62,7 @@ export default function HelpCenterPage() {
     },
     {
       title: "API & SDK",
-      desc: "Integrate Teleroot with your existing stack using our robust API.",
+      desc: "Integrate Telesec with your existing stack using our robust API.",
       icon: Code2,
       color: "text-purple-400",
       bg: "bg-purple-400/10",
@@ -84,8 +84,8 @@ export default function HelpCenterPage() {
       a: "Navigate to the Reports page and use the 'Export All' button at the top right to download data in PDF or CSV format."
     },
     {
-      q: "Is Teleroot compliant with SOC2/GDPR?",
-      a: "Yes, Teleroot follows strict enterprise compliance standards. You can view our security posture in the Settings > Compliance tab."
+      q: "Is Telesec compliant with SOC2/GDPR?",
+      a: "Yes, Telesec follows strict enterprise compliance standards. You can view our security posture in the Settings > Compliance tab."
     }
   ];
 
@@ -111,7 +111,7 @@ export default function HelpCenterPage() {
             <div className="relative max-w-3xl mx-auto text-center space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#41bf63]/25 bg-[#41bf63]/10 px-4 py-2">
                 <HelpCircle className="h-4 w-4 text-[#41bf63]" />
-                <span className="text-[10px] font-black text-[#41bf63] uppercase tracking-[0.2em]">Teleroot Support Hub</span>
+                <span className="text-[10px] font-black text-[#41bf63] uppercase tracking-[0.2em]">Telesec Support Hub</span>
               </div>
               
               <h1 className="text-3xl lg:text-5xl font-black tracking-tight text-white uppercase leading-tight">
@@ -235,3 +235,4 @@ export default function HelpCenterPage() {
     </div>
   );
 }
+

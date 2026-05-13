@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -15,7 +15,7 @@ const resources = [
   {
     type: "Case Study",
     title: "MetroTel Operations: 40% Reduction in Mean-Time-To-Repair",
-    description: "A deep dive into how a Tier-1 operator automated their incident response using TeleRoot.",
+    description: "A deep dive into how a Tier-1 operator automated their incident response using TeleSec.",
     icon: BookOpen,
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop",
   },
@@ -91,3 +91,4 @@ export function LandingResources() {
     </section>
   );
 }
+

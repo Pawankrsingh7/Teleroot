@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, Suspense } from "react";
 import { Sidebar } from "@/components/Sidebar";
@@ -89,7 +89,7 @@ function ProfileContent() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Email Address</label>
-                        <input type="email" defaultValue="admin@teleroot.io" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#41bf63]/50 focus:ring-1 focus:ring-[#41bf63]/50 transition-all" />
+                        <input type="email" defaultValue="admin@telesec.io" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#41bf63]/50 focus:ring-1 focus:ring-[#41bf63]/50 transition-all" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">Role</label>
@@ -161,7 +161,7 @@ function ProfileContent() {
                               <HardDrive className="h-4 w-4 text-slate-400" />
                               <div>
                                 <p className="text-xs font-bold text-white">MacBook Pro - Chrome</p>
-                                <p className="text-[10px] text-slate-500">192.168.1.1 · Active now</p>
+                                <p className="text-[10px] text-slate-500">192.168.1.1 Â· Active now</p>
                               </div>
                             </div>
                             <span className="text-[10px] text-[#41bf63] font-bold">Current</span>
@@ -203,7 +203,7 @@ function ProfileContent() {
                                 </div>
                                 <div>
                                   <p className="font-bold text-white">Admin User</p>
-                                  <p className="text-[10px] text-slate-400">admin@teleroot.io</p>
+                                  <p className="text-[10px] text-slate-400">admin@telesec.io</p>
                                 </div>
                               </div>
                             </td>
@@ -223,7 +223,7 @@ function ProfileContent() {
                                 </div>
                                 <div>
                                   <p className="font-bold text-white">Sarah Jenkins</p>
-                                  <p className="text-[10px] text-slate-400">s.jenkins@teleroot.io</p>
+                                  <p className="text-[10px] text-slate-400">s.jenkins@telesec.io</p>
                                 </div>
                               </div>
                             </td>
@@ -258,3 +258,4 @@ export default function ProfilePage() {
     </Suspense>
   );
 }
+

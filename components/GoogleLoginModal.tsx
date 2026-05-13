@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, User } from "lucide-react";
@@ -12,7 +12,7 @@ interface GoogleLoginModalProps {
 export function GoogleLoginModal({ isOpen, onClose, onSelect }: GoogleLoginModalProps) {
   const accounts = [
     { name: "John Doe", email: "john.doe@gmail.com", avatar: "JD" },
-    { name: "Work Account", email: "j.doe@teleroot.io", avatar: "TR" }
+    { name: "Work Account", email: "j.doe@telesec.io", avatar: "TR" }
   ];
 
   return (
@@ -42,7 +42,7 @@ export function GoogleLoginModal({ isOpen, onClose, onSelect }: GoogleLoginModal
                 </svg>
               </div>
               <h2 className="text-center text-xl font-medium mb-1">Sign in</h2>
-              <p className="text-center text-sm text-slate-600 mb-6">to continue to TeleRoot</p>
+              <p className="text-center text-sm text-slate-600 mb-6">to continue to TeleSec</p>
 
               <div className="space-y-1">
                 {accounts.map((account) => (
@@ -84,3 +84,4 @@ export function GoogleLoginModal({ isOpen, onClose, onSelect }: GoogleLoginModal
     </AnimatePresence>
   );
 }
+

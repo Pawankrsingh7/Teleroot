@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Sidebar } from "@/components/Sidebar";
 import { Navbar } from "@/components/Navbar";
@@ -44,7 +44,7 @@ export default function SettingsPage() {
                     <div className="absolute inset-y-0 left-1/2 w-[135%] -translate-x-1/2">
                       <Image
                         src="/sidebanner.png"
-                        alt="Teleroot settings banner"
+                        alt="Telesec settings banner"
                         fill
                         priority
                         sizes="(min-width: 1280px) 34vw, 135vw"
@@ -62,10 +62,10 @@ export default function SettingsPage() {
                     <h3 className="text-lg font-bold text-slate-300 leading-tight">Proactive Operations.</h3>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    Teleroot combines observability and AI to help you detect issues, analyze root causes, and automate resolutions faster than ever.
+                    Telesec combines observability and AI to help you detect issues, analyze root causes, and automate resolutions faster than ever.
                   </p>
                   <Link href="/about" className="inline-flex items-center gap-2 text-xs font-bold text-[#41bf63] hover:text-[#bce628] transition-colors mt-2">
-                    Learn more about Teleroot
+                    Learn more about Telesec
                     <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
@@ -97,7 +97,7 @@ export default function SettingsPage() {
                       </div>
                       <div className="space-y-1 flex-1">
                         <p className="text-sm font-bold text-white">Admin</p>
-                        <p className="text-[11px] text-slate-400">admin@teleroot.com</p>
+                        <p className="text-[11px] text-slate-400">admin@telesec.com</p>
                         <span className="inline-flex mt-1 items-center rounded bg-[#41bf63]/10 px-2 py-0.5 text-[10px] font-bold text-[#41bf63] border border-[#41bf63]/20">
                           Organization Admin
                         </span>
@@ -262,3 +262,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+

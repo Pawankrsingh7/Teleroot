@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -110,7 +110,7 @@ function StepIndicator({ num, title }: { num: number; title: string }) {
 function DeployAgentView({ onBack }: { onBack: () => void }) {
   const [os, setOs] = useState('WINDOWS');
   const [arch, setArch] = useState('MSI 32/64 bits');
-  const [serverAddress, setServerAddress] = useState('recon.teleroot.net');
+  const [serverAddress, setServerAddress] = useState('recon.telesec.net');
   const [agentName, setAgentName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -187,7 +187,7 @@ function DeployAgentView({ onBack }: { onBack: () => void }) {
               value={serverAddress} 
               onChange={(e) => setServerAddress(e.target.value)}
               className="h-9 w-full max-w-md rounded-md border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-[#41bf63]"
-              placeholder="e.g. recon.teleroot.net"
+              placeholder="e.g. recon.telesec.net"
             />
           </div>
         </div>
@@ -230,7 +230,7 @@ function DeployAgentView({ onBack }: { onBack: () => void }) {
           <div className="ml-9 space-y-4">
             <div className="relative rounded-md bg-[#0B0C10] p-4 border border-white/5">
               <code className="text-xs font-mono text-slate-300 break-all leading-relaxed">
-                {os === 'WINDOWS' ? `Invoke-WebRequest -Uri https://packages.teleroot.net/agent/windows/teleroot-agent-latest.msi -OutFile $env:tmp\\teleroot-agent.msi; msiexec.exe /i $env:tmp\\teleroot-agent.msi /q TELERROOT_MANAGER='${serverAddress}' TELERROOT_REGISTRATION_PASSWORD='${showPassword ? 'secret_password_123' : '*******************'}'` : `curl -so teleroot-agent.deb https://packages.teleroot.net/agent/linux/teleroot-agent-latest.deb && sudo TELERROOT_MANAGER='${serverAddress}' TELERROOT_REGISTRATION_PASSWORD='${showPassword ? 'secret_password_123' : '*******************'}' dpkg -i teleroot-agent.deb`}
+                {os === 'WINDOWS' ? `Invoke-WebRequest -Uri https://packages.telesec.net/agent/windows/telesec-agent-latest.msi -OutFile $env:tmp\\telesec-agent.msi; msiexec.exe /i $env:tmp\\telesec-agent.msi /q TELERROOT_MANAGER='${serverAddress}' TELERROOT_REGISTRATION_PASSWORD='${showPassword ? 'secret_password_123' : '*******************'}'` : `curl -so telesec-agent.deb https://packages.telesec.net/agent/linux/telesec-agent-latest.deb && sudo TELERROOT_MANAGER='${serverAddress}' TELERROOT_REGISTRATION_PASSWORD='${showPassword ? 'secret_password_123' : '*******************'}' dpkg -i telesec-agent.deb`}
               </code>
             </div>
             <label className="flex items-center gap-2 cursor-pointer w-max">
@@ -260,7 +260,7 @@ function DeployAgentView({ onBack }: { onBack: () => void }) {
           <div className="ml-9">
             <div className="relative flex items-center justify-between gap-4 rounded-md bg-white/5 border border-white/5 p-3 max-w-lg">
               <code className="text-xs font-mono font-bold text-slate-300">
-                {os === 'WINDOWS' ? 'NET START Teleroot' : 'sudo systemctl start teleroot-agent'}
+                {os === 'WINDOWS' ? 'NET START Telesec' : 'sudo systemctl start telesec-agent'}
               </code>
               <button className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-white shrink-0">
                 <Copy className="h-3.5 w-3.5" /> Copy command
@@ -513,3 +513,4 @@ export default function AgentManagementPage() {
 function BrainIcon({ className }: { className?: string }) {
   return <Cpu className={className} />;
 }
+

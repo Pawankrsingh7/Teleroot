@@ -1,25 +1,25 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Activity, Twitter, Linkedin, Github } from "lucide-react";
 
 const footerSections = [
   {
     title: "Product",
     links: [
-      { label: "Dashboard Overview", href: "/dashboard" },
-      { label: "Network Topology", href: "/dashboard" },
-      { label: "AI Copilot", href: "/dashboard" },
-      { label: "Automation Playbooks", href: "/dashboard" },
-      { label: "Fraud Detection", href: "/dashboard" },
+      { label: "Dashboard Overview", href: "/resources/center" },
+      { label: "Network Topology", href: "/network-topology" },
+      { label: "AI Copilot", href: "/ai-copilot" },
+      { label: "Automation Playbooks", href: "/automation-playbooks" },
+      { label: "Fraud Detection", href: "/fraud-detection" },
     ],
   },
   {
     title: "Solutions",
     links: [
-      { label: "Fiber Monitoring", href: "/dashboard" },
-      { label: "Root Cause Analysis", href: "/dashboard" },
-      { label: "Agent Management", href: "/dashboard" },
-      { label: "Optimization", href: "/dashboard" },
-      { label: "Alerts & Incidents", href: "/dashboard" },
+      { label: "Fiber Monitoring", href: "/fiber-monitoring" },
+      { label: "Root Cause Analysis", href: "/root-cause" },
+      { label: "Agent Management", href: "/agent-management" },
+      { label: "Optimization", href: "/optimization" },
+      { label: "Alerts & Incidents", href: "/alerts" },
     ],
   },
   {
@@ -35,6 +35,8 @@ const footerSections = [
   {
     title: "Resources",
     links: [
+      { label: "Learning Guides", href: "/resources/learning-guides" },
+      { label: "Solution Sheets", href: "/resources/solution-sheets" },
       { label: "Documentation", href: "#" },
       { label: "API Reference", href: "#" },
       { label: "Security", href: "#" },
@@ -53,7 +55,7 @@ export function LandingFooter() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="text-xl font-bold text-white uppercase tracking-widest">TeleRoot</span>
+              <span className="text-xl font-bold text-white uppercase tracking-widest">TeleSec</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
               Autonomous AI-powered network intelligence for modern telecommunications.
@@ -96,7 +98,7 @@ export function LandingFooter() {
         {/* Bottom Row */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 md:flex-row">
           <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} TeleRoot AI. All rights reserved.
+            Â© {new Date().getFullYear()} TeleSec AI. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-slate-500">
             <Link href="#" className="transition-colors hover:text-white">Privacy Policy</Link>
@@ -108,3 +110,4 @@ export function LandingFooter() {
     </footer>
   );
 }
+
